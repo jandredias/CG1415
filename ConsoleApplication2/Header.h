@@ -1,15 +1,15 @@
-#include "stdafx.h"
 #include <iostream>
+#include <vector>
 #include "GL/glut.h"
 
+#include "Entity.h"
+#include "GameObject.h"
+#include "DynamicObject.h"
 #include "Bus.h"
 #include "Camera.h"
 #include "Car.h"
-#include "DynamicObject.h"
-#include "Entity.h"
 #include "Frog.h"
 #include "GameManager.h"
-#include "GameObject.h"
 #include "LightSource.h"
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"

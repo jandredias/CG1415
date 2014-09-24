@@ -1,6 +1,5 @@
 #pragma once
-class Bus : public DynamicObject
-{
+class Bus : public DynamicObject {
 public:
 	Bus();
 	~Bus();

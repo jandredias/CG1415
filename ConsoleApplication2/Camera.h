@@ -1,7 +1,7 @@
 #pragma once
+#include "Header.h"
 
-class Camera : public Entity
-{
+class Camera : public Entity {
 	Vector3 _up;
 	Vector3 _at;
 	double _near;

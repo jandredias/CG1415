@@ -5,8 +5,8 @@ class Entity
 public:
 	Entity();
 	~Entity();
-	Vector3* getPosition();
+	Vector3* getPosition(void);
 	Vector3* setPosition(double x, double y, double z);
-	Vector3* setPosition(const Vector3*);
+	Vector3* setPosition(Vector3*);
 };
 

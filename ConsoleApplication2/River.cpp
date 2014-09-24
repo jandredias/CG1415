@@ -2,11 +2,16 @@
 #include "River.h"
 
 
-River::River()
-{
+River::River(){
+	this->setPosition(0, 0, 0);
 }
 
 
-River::~River()
-{
+River::~River(){
+	delete this;
+}
+
+
+void River::draw(){
+
 }

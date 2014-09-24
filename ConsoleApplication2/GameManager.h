@@ -1,9 +1,9 @@
 #pragma once
 class GameManager
 {
-	GameObject *_game_objects;
+	std::vector<GameObject> _game_objects;
+	std::vector<Camera> *_cameras;
 	LightSource *_light_sources;
-	Camera *_cameras;
 public:
 	GameManager();
 	~GameManager();
