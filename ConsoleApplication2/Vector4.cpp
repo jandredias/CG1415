@@ -8,7 +8,7 @@ Vector4::Vector4(){
 }
 
 Vector4::Vector4(double x, double y, double z, double w){
-	Vector3::Vector3(x, y, z);
+	Vector3::set(x, y, z);
 	this->_w = w;
 }
 Vector4::~Vector4(){

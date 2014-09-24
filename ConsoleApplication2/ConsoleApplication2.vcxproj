@@ -88,6 +88,7 @@
     <ClInclude Include="Frog.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
