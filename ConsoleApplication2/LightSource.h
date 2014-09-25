@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector4.h"
 class LightSource
 {
 	Vector4 _ambient;
@@ -16,13 +17,13 @@ public:
 	bool getState();
 	bool setState(bool state);
 	unsigned long getNum();
-	void setPosition(const *Vector4 position);
-	void setDirection(const *Vector4 direction);
+	void setPosition(Vector4 *position);
+	void setDirection(Vector4 *direction);
 	void setCutOff(double cut_off);
 	void setExponent(double exponent);
-	void setAmbient(const Vector4 *ambient);
-	void setDiffuse(const Vector4 *diffuse);
-	void setSpecular(const Vector4 *specular);
+	void setAmbient(Vector4 *ambient);
+	void setDiffuse(Vector4 *diffuse);
+	void setSpecular(Vector4 *specular);
 	void draw();
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector3.h"
 class Vector4 : public Vector3{
 	double _w;
 public:
