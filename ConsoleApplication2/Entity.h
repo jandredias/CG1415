@@ -1,4 +1,9 @@
+
 #pragma once
+#include "Vector3.h"
+
+#ifndef __ENTITY__
+#define __ENTITY__
 class Entity
 {
 	Vector3 _position;
@@ -10,3 +15,4 @@ public:
 	Vector3* setPosition(Vector3*);
 };
 
+#endif

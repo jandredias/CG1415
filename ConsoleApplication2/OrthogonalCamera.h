@@ -1,5 +1,9 @@
 #pragma once
-class OrthogonalCamera : public Camera
+
+#ifndef __ORTHOGONALCAMERA__
+#define __ORTHOGONALCAMERA__
+#include "Camera.h"
+class Orthogonal : public Camera
 {
 	double _left;
 	double _right;
@@ -13,3 +17,5 @@ public:
 	void computeVisualizationMatrix();
 };
 
+
+#endif

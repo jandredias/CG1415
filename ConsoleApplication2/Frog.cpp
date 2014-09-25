@@ -12,5 +12,5 @@ Frog::~Frog(){
 }
 
 void Frog::draw(){
-s
+
 }

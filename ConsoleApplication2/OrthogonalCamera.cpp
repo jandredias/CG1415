@@ -9,12 +9,12 @@ OrthogonalCamera::OrthogonalCamera(double left, double right, double bottom, dou
 OrthogonalCamera::~OrthogonalCamera(){
 }
 
-void update(){
+void OrthogonalCamera::update(){
 
 }
-void computeProjectionMatrix(){
+void OrthogonalCamera::computeProjectionMatrix(){
 
 }
-void computeVisualizationMatrix(){
+void OrthogonalCamera::computeVisualizationMatrix(){
 
 }

@@ -1,5 +1,7 @@
-#pragma once
+ #pragma once
 #include "Vector4.h"
+#ifndef __LIGHTSOURCE__
+#define __LIGHTSOURCE__
 class LightSource
 {
 	Vector4 _ambient;
@@ -27,3 +29,5 @@ public:
 	void draw();
 };
 
+
+#endif

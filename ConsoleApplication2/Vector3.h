@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __BUS__
+#define __BUS__
 class Vector3
 {
 	double _x;
@@ -18,3 +20,5 @@ public:
 	Vector3 operator-(Vector3 *vec);
 };
 
+
+#endif

@@ -1,6 +1,9 @@
 #pragma once
-class PerspectiveCamera : public Camera
-{
+#ifndef __PERSPECTIVECAMERA__
+#define __PERSPECTIVECAMERA__
+
+#include "Camera.h"
+class PerspectiveCamera : public Camera {
 	double _fovy;
 	double _aspect;
 public:
@@ -12,3 +15,5 @@ public:
 	void computeVisualizationMatrix();
 };
 
+
+#endif

@@ -1,5 +1,9 @@
 #pragma once
-class GameObject :public Entity
+
+#include "Entity.h"
+#ifndef __GAMEOBJECT__
+#define __GAMEOBJECT__
+class GameObject : public Entity
 {
 public:
 	GameObject();
@@ -8,3 +12,5 @@ public:
 	void update(double delta_t);
 };
 
+
+#endif

@@ -1,9 +1,15 @@
 #pragma once
-#include "Header.h"
+#include "LightSource.h"
+#include <vector>
+#include "Camera.h"
+#include "GameObject.h"
+#ifndef __GAMEMANAGER__
+#define __GAMEMANAGER__
+class Camera;
 class GameManager
 {
-	std::vector<GameObject>* _game_objects;
-	std::vector<Camera> *_cameras;
+	std::vector<GameObject> _game_objects;
+	Camera *_cameras;
 	LightSource *_light_sources;
 public:
 	GameManager();
@@ -14,12 +20,13 @@ public:
 	GameObject* setgame_objects(GameObject*);
 	Camera* setcameras(Camera*);
 	LightSource* setlight_sources(LightSource*);
-	void display();
-	void reshape(GLsizei w, GLsizei h);
+	static void display();
+	static void reshape(GLsizei w, GLsizei h);
 	void keyPressed();
 	void onTimer();
 	void idle();
 	void update();
 	void init();
 };
+#endif
 
