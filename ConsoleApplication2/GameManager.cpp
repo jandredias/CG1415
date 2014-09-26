@@ -45,9 +45,9 @@ LightSource* GameManager::setlight_sources(LightSource*){
 void GameManager::display(){
 	glClearColor(1, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	for (GameObject go : gm->_game_objects){
+	/*for (GameObject go : gm->_game_objects){
 		go.draw();
-	}
+	}*/
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
