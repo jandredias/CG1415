@@ -1,7 +1,8 @@
 #pragma once
-#include "DynamicObject.h"
 #ifndef __TIMBERLOG__
 #define __TIMBERLOG__
+
+#include "DynamicObject.h"
 class TimberLog : public DynamicObject
 {
 public:

@@ -1,17 +1,20 @@
 #include "stdafx.h"
 #include "Header.h"
 
-GameManager *gamemanager = new GameManager();
+GameManager *gm;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	
+	gm = new GameManager();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(800, 800);
+	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
-	glutDisplayFunc(gamemanager->display);
-	glutReshapeFunc(gamemanager->reshape);
+	glutDisplayFunc(gm->display);
+	glutReshapeFunc(gm->reshape);
+	
 	glutMainLoop();
 	return 0;
 }

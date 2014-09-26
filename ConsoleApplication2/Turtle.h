@@ -1,7 +1,8 @@
 #pragma once
-#include "DynamicObject.h"
 #ifndef __TURTLE__
 #define __TURTLE__
+
+#include "DynamicObject.h"
 class Turtle : public DynamicObject
 {
 public:

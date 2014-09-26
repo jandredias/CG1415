@@ -1,7 +1,8 @@
 #pragma once
-#include "StaticObject.h"
 #ifndef __RIVERSIDE__
 #define __RIVERSIDE__
+
+#include "StaticObject.h"
 class Riverside : public StaticObject
 {
 public:

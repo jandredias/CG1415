@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GameManager.h"
-#include "Camera.h"
 GameManager::GameManager(){
 	/* Ao iniciar o jogo e necessario criar os elementos:
 		River
@@ -24,34 +23,35 @@ GameManager::~GameManager(){
 	/*_game_objects->erase(_game_objects->begin(), _game_objects->end());*/
 }
 
-GameObject* GameManager::getgame_objects(void){
-
+/*std::vector<GameObject> GameManager::getgame_objects(void){
+	return _game_objects;
 }
 Camera* GameManager::getcameras(void){
 
 }
-LightSource* GameManager::getlight_sources(void){
 
+LightSource* GameManager::getlight_sources(void){
+	return _light_sources;
 }
 GameObject* GameManager::setgame_objects(GameObject*){
-
+	return GameManager();
 }
 Camera* GameManager::setcameras(Camera*){
 
 }
 LightSource* GameManager::setlight_sources(LightSource*){
-
-}
+	return _light_sources;
+}*/
 void GameManager::display(){
-	/*glClearColor(0, 0, 0, 0);
+	glClearColor(1, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	for (GameObject go : *_game_objects){
+	for (GameObject go : gm->_game_objects){
 		go.draw();
 	}
-	glFlush();*/
+	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
-	/*float xmin = -100.0;
+	float xmin = -100.0;
 	float xmax = 100;
 	float ymin = -100;
 	float ymax = 100;
@@ -72,10 +72,10 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	{
 		float aux = ((xmax - xmin) / aspect - (ymax - ymin)) / 2;
 		glOrtho(xmin, xmax, ymin - aux, ymax + aux, -4, 4);
-	}*/
+	}
 }
 void GameManager::keyPressed(){
-	int key;
+	/*int key;
 	switch (key){
 	case 111: //o
 		break;
@@ -85,7 +85,7 @@ void GameManager::keyPressed(){
 		break;
 	case 97: //a
 		break;
-	}
+	}*/
 }
 void GameManager::onTimer(){
 

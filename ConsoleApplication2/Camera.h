@@ -1,9 +1,11 @@
 #pragma once
-#include "Header.h"
-#include "Vector3.h"
 
 #ifndef __CAMERA__
 #define __CAMERA__
+
+#include "Vector3.h"
+#include "Entity.h"
+
 class Camera : public Entity {
 	Vector3 _up;
 	Vector3 _at;

@@ -1,9 +1,8 @@
-
 #pragma once
-#include "Vector3.h"
-
 #ifndef __ENTITY__
 #define __ENTITY__
+
+#include "Vector3.h"
 class Entity
 {
 	Vector3 _position;

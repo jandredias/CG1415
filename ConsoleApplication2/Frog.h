@@ -1,9 +1,8 @@
-
 #pragma once
-
-#include "Header.h"
 #ifndef __FROG__
 #define __FROG__
+
+#include "DynamicObject.h"
 class Frog : public DynamicObject
 {
 public:

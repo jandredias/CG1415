@@ -1,7 +1,10 @@
  #pragma once
-#include "Vector4.h"
 #ifndef __LIGHTSOURCE__
 #define __LIGHTSOURCE__
+
+#include "Vector4.h"
+#include "Vector3.h"
+
 class LightSource
 {
 	Vector4 _ambient;

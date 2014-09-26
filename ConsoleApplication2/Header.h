@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+
 #include "GL/glut.h"
 #include "Entity.h"
 #include "GameObject.h"

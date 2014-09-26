@@ -3,7 +3,7 @@
 #ifndef __ORTHOGONALCAMERA__
 #define __ORTHOGONALCAMERA__
 #include "Camera.h"
-class Orthogonal : public Camera
+class OrthogonalCamera : public Camera
 {
 	double _left;
 	double _right;

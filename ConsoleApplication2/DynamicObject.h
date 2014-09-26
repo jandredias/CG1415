@@ -1,9 +1,10 @@
 #pragma once
-#include "GameObject.h"
-#include "Vector3.h"
 
 #ifndef __DYNAMICOBJECT__
 #define __DYNAMICOBJECT__
+
+#include "GameObject.h"
+#include "Vector3.h"
 class DynamicObject : public GameObject
 {
 	Vector3 _speed;

@@ -1,7 +1,8 @@
 #pragma once
-#include "Vector3.h"
 #ifndef __VECTOR4__
 #define __VECTOR4__
+
+#include "Vector3.h"
 class Vector4 : public Vector3{
 	double _w;
 public:

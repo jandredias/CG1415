@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Entity.h"
-#include "Vector3.h"
 
 Entity::Entity(){}
 Entity::~Entity(){}
