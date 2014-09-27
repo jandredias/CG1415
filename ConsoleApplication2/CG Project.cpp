@@ -3,6 +3,12 @@
 
 GameManager *gm;
 
+void display(void){
+	gm->display();
+}
+void reshape(int width, int height){
+	gm->reshape(width, height);
+}
 int _tmain(int argc, _TCHAR* argv[])
 {
 	
@@ -12,8 +18,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
-	glutDisplayFunc(gm->display);
-	glutReshapeFunc(gm->reshape);
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
 	
 	glutMainLoop();
 	return 0;

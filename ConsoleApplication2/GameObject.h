@@ -9,7 +9,7 @@ class GameObject : public Entity
 	public:
 		GameObject();
 		~GameObject();
-		void draw();
+		virtual void draw() = 0;
 		void update(double delta_t);
 };
 

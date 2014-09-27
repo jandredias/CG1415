@@ -10,3 +10,5 @@ Riverside::Riverside()
 Riverside::~Riverside()
 {
 }
+
+void Riverside::draw(){}

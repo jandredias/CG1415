@@ -1,53 +1,26 @@
 #include "stdafx.h"
 #include "GameManager.h"
+extern GameManager *gm;
 GameManager::GameManager(){
-	/* Ao iniciar o jogo e necessario criar os elementos:
-		River
-		Riverside
-		Road
-		Roadside
-		TimberLog
-		
-	Os elementos dinamicos (carros, troncos, etc) sao criados
-	no decorrer do jogo
-	*/
-	/*_game_objects->push_back(new River());
-	_game_objects->push_back(new Riverside());
-	_game_objects->push_back(new Road());
-	_game_objects->push_back(new Roadside());
-	_game_objects->push_back(new TimberLog());
-	_cameras->push_back(new OrthogonalCamera());*/
+	
 }
 
 GameManager::~GameManager(){
-	/*_game_objects->erase(_game_objects->begin(), _game_objects->end());*/
+	
 }
 
-/*std::vector<GameObject> GameManager::getgame_objects(void){
-	return _game_objects;
-}
-Camera* GameManager::getcameras(void){
-
-}
-
-LightSource* GameManager::getlight_sources(void){
-	return _light_sources;
-}
-GameObject* GameManager::setgame_objects(GameObject*){
-	return GameManager();
-}
-Camera* GameManager::setcameras(Camera*){
-
-}
-LightSource* GameManager::setlight_sources(LightSource*){
-	return _light_sources;
-}*/
 void GameManager::display(){
+	int i;
+	GameObject *aux;
 	glClearColor(1, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	/*for (GameObject go : gm->_game_objects){
-		go.draw();
-	}*/
+	for (i = 0; i < _game_objects.size(); i++)
+	{
+		aux = _game_objects.top();
+		aux->draw();
+		_game_objects.pop();
+		_game_objects.push(aux);
+	}
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
@@ -97,5 +70,5 @@ void GameManager::update(){
 
 }
 void GameManager::init(){
-
+	_game_objects.push(new River());
 }

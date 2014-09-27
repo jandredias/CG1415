@@ -10,3 +10,5 @@ Car::Car()
 Car::~Car()
 {
 }
+
+void Car::draw(){}
