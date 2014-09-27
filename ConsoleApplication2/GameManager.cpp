@@ -1,30 +1,26 @@
 #include "stdafx.h"
 #include "GameManager.h"
 extern GameManager *gm;
-GameManager::GameManager(){
-	
-}
-
-GameManager::~GameManager(){
-	
-}
-
+GameManager::GameManager(){}
+GameManager::~GameManager(){}
 void GameManager::display(){
 	int i;
 	GameObject *aux;
-	glClearColor(1, 0, 0, 0);
+	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
+	
+
 	for (i = 0; i < _game_objects.size(); i++)
 	{
-		aux = _game_objects.top();
-		aux->draw();
+		//std::cout << 0;
+		_game_objects.front()->draw();
+		_game_objects.push(_game_objects.front());
 		_game_objects.pop();
-		_game_objects.push(aux);
 	}
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
-	float xmin = -100.0;
+	float xmin = -100;
 	float xmax = 100;
 	float ymin = -100;
 	float ymax = 100;
@@ -32,9 +28,9 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	float ratio = (xmax - xmin) / (ymax - ymin);
 	float aspect = (float)w / h;
 
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
+	glViewport(0, 0, w, h); glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	if (ratio < aspect){
@@ -70,5 +66,26 @@ void GameManager::update(){
 
 }
 void GameManager::init(){
-	_game_objects.push(new River());
+
+	GameObject *aux = new River();
+	aux->setPosition(0,50,0);
+	_game_objects.push(aux);
+
+	aux = new Riverside();
+	aux->setPosition(0, 90, 0);
+	_game_objects.push(aux);
+
+	aux = new Riverside();
+	aux->setPosition(0, 10, 0);
+	_game_objects.push(aux);
+
+	aux = new Road();
+	aux->setPosition(0, -50, 0);
+	_game_objects.push(aux);
+	aux = new Roadside();
+	aux->setPosition(0, -10, 0);
+	_game_objects.push(aux);
+	aux = new Roadside();
+	aux->setPosition(0, -90, 0);
+	_game_objects.push(aux);
 }

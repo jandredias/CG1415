@@ -2,7 +2,7 @@
 #ifndef __GAMEMANAGER__
 #define __GAMEMANAGER__
 
-#include <stack>
+#include <queue>
 #include "Header.h"
 #include "Camera.h"
 #include "LightSource.h"
@@ -13,11 +13,11 @@ class GameManager
 {
 	Camera *_cameras;
 	LightSource *_light_sources;
-	std::stack<GameObject *> _game_objects;
+	std::queue<GameObject *> _game_objects;
 	public:
 		GameManager();
 		~GameManager();
-		std::stack<GameObject *> getgame_objects(void);
+		std::queue<GameObject *> getgame_objects(void);
 		Camera* getcameras(void);
 		LightSource* getlight_sources(void);
 		GameObject* setgame_objects(GameObject*);
