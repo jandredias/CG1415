@@ -16,7 +16,7 @@ void OrthogonalCamera::update(GLsizei w, GLsizei h){
 	else
 	{
 		float aux = ((_right - _left) / aspect - (_top - _bottom)) / 2;
-		glOrtho(_left, _right, _bottom - aux, _right + aux, getNear(), getFar());
+		glOrtho(_left, _right, _bottom - aux, _top + aux, getNear(), getFar());
 	}
 }
 void OrthogonalCamera::computeProjectionMatrix(){

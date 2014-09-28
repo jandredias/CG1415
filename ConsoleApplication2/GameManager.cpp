@@ -20,14 +20,10 @@ void GameManager::display(){
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
-
-	
-	Camera *aux = _cameras.front();
-	
 	glViewport(0, 0, w, h);
-	aux->computeProjectionMatrix();
-	aux->computeVisualizationMatrix();
-	aux->update(w, h);
+	_cameras.front()->computeProjectionMatrix();
+	_cameras.front()->computeVisualizationMatrix();
+	_cameras.front()->update(w, h);
 }
 void GameManager::keyPressed(){
 	/*int key;
@@ -47,28 +43,34 @@ void GameManager::idle(){}
 void GameManager::update(){}
 void GameManager::init(){
 	//INIT CAMERA
-	Camera *camera = new OrthogonalCamera(-100,100,-100,100,-100,100);
-	_cameras.push(camera);
+	//Camera *camera = new OrthogonalCamera(-100,100,-100,100,-100,100);
+	//_cameras.push(camera);
+	_cameras.push(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+
 
 	GameObject *aux = new River();
-	aux->setPosition(0,50,0);
+	aux->setPosition(0,150,0);
 	_game_objects.push(aux);
 
 	aux = new Riverside();
-	aux->setPosition(0, 90, 0);
+	aux->setPosition(0, 190, 0);
 	_game_objects.push(aux);
 
 	aux = new Riverside();
-	aux->setPosition(0, 10, 0);
+	aux->setPosition(0, 110, 0);
 	_game_objects.push(aux);
 
 	aux = new Road();
-	aux->setPosition(0, -50, 0);
+	aux->setPosition(0, 50, 0);
 	_game_objects.push(aux);
 	aux = new Roadside();
-	aux->setPosition(0, -10, 0);
+	aux->setPosition(0, 90, 0);
 	_game_objects.push(aux);
 	aux = new Roadside();
-	aux->setPosition(0, -90, 0);
+	aux->setPosition(0, 10, 0);
+	_game_objects.push(aux);
+
+	aux = new Frog();
+	aux->setPosition(0, 13, 0);
 	_game_objects.push(aux);
 }

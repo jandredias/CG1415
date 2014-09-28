@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	gm = new GameManager();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(500, 500);
+	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
 	//glEnable(GL_DEPTH_TEST);
