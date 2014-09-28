@@ -12,7 +12,7 @@ class OrthogonalCamera : public Camera
 public:
 	OrthogonalCamera(double left, double right, double bottom, double top, double near, double far);
 	~OrthogonalCamera();
-	void update();
+	void update(GLsizei w, GLsizei h);
 	void computeProjectionMatrix();
 	void computeVisualizationMatrix();
 };

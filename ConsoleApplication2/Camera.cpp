@@ -4,14 +4,5 @@
 
 Camera::Camera(double near, double far){ _near = near; _far = far; }
 Camera::~Camera(){}
-void update(){
-
-}
-
-void computeProjectionMatrix(){
-
-}
-
-void computeVisualizationMatrix(){
-
-}
+double Camera::getNear(){ return _near; }
+double Camera::getFar(){ return _far; }

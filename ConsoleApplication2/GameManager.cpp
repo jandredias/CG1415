@@ -20,28 +20,14 @@ void GameManager::display(){
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
-	float xmin = -100;
-	float xmax = 100;
-	float ymin = -100;
-	float ymax = 100;
 
-	float ratio = (xmax - xmin) / (ymax - ymin);
-	float aspect = (float)w / h;
-
-	glViewport(0, 0, w, h); glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	if (ratio < aspect){
-		float aux = ((ymax - ymin) * aspect - (xmax - xmin)) / 2;
-		glOrtho(xmin - aux, xmax + aux, ymin, ymax, -4, 4);
-	}
-	else
-	{
-		float aux = ((xmax - xmin) / aspect - (ymax - ymin)) / 2;
-		glOrtho(xmin, xmax, ymin - aux, ymax + aux, -4, 4);
-	}
+	
+	Camera *aux = _cameras.front();
+	
+	glViewport(0, 0, w, h);
+	aux->computeProjectionMatrix();
+	aux->computeVisualizationMatrix();
+	aux->update(w, h);
 }
 void GameManager::keyPressed(){
 	/*int key;
@@ -56,16 +42,13 @@ void GameManager::keyPressed(){
 		break;
 	}*/
 }
-void GameManager::onTimer(){
-
-}
-void GameManager::idle(){
-
-}
-void GameManager::update(){
-
-}
+void GameManager::onTimer(){}
+void GameManager::idle(){}
+void GameManager::update(){}
 void GameManager::init(){
+	//INIT CAMERA
+	Camera *camera = new OrthogonalCamera(-100,100,-100,100,-100,100);
+	_cameras.push(camera);
 
 	GameObject *aux = new River();
 	aux->setPosition(0,50,0);

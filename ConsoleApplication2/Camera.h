@@ -5,6 +5,7 @@
 
 #include "Vector3.h"
 #include "Entity.h"
+#include "GL/glut.h"
 
 class Camera : public Entity {
 	Vector3 _up;
@@ -14,8 +15,10 @@ class Camera : public Entity {
 public:
 	Camera(double near, double far);
 	~Camera();
-	void update();
-	void computeProjectionMatrix();
-	void computeVisualizationMatrix();
+	double getNear();
+	double getFar();
+	virtual void update(GLsizei w, GLsizei h) = 0;
+	virtual void computeProjectionMatrix() = 0;
+	virtual void computeVisualizationMatrix() = 0;
 };
 #endif
