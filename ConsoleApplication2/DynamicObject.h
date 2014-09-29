@@ -12,9 +12,10 @@ public:
 	DynamicObject();
 	~DynamicObject();
 	void update(double delta_t);
-	void setSpeed(Vector3* speed);
-	void setSpeed(double x, double y, double z);
-	Vector3 getSpeed();
+	Vector3* setSpeed(Vector3* speed);
+	Vector3* setSpeed(double x, double y, double z);
+	Vector3* getSpeed();
+
 };
 
 #endif

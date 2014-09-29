@@ -28,10 +28,10 @@ class GameManager
 		LightSource* setlight_sources(LightSource*);
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);
-		void keyPressed();
+		void keyPressed(unsigned char key, int i);
 		void onTimer();
 		void idle();
-		void update();
+		void update(unsigned long delta);
 		void init();
 };
 

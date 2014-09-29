@@ -1,12 +1,17 @@
 #include "stdafx.h"
 #include "TimberLog.h"
 #include "GL/GLUT.h"
-
+#include <iostream>
 TimberLog::TimberLog()
 {
 }
 TimberLog::TimberLog(double x, double y, double z){
 	setPosition(x, y, z);
+	setSpeed(0.5, 0, 0);
+}
+TimberLog::TimberLog(double x, double y, double z,double w){
+	setPosition(x, y, z);
+	setSpeed(w, 0, 0);
 }
 
 TimberLog::~TimberLog()

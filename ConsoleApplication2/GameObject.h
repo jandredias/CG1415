@@ -11,6 +11,7 @@ class GameObject : public Entity
 		~GameObject();
 		virtual void draw() = 0;
 		void update(double delta_t);
+		bool OutOfScene();
 };
 
 
