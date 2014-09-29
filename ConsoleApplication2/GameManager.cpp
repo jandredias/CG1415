@@ -8,11 +8,10 @@ void GameManager::display(){
 	GameObject *aux;
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	
-
 	for (i = 0; i < _game_objects.size(); i++)
 	{
 		//std::cout << 0;
+
 		_game_objects.front()->draw();
 		_game_objects.push(_game_objects.front());
 		_game_objects.pop();
