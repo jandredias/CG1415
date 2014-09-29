@@ -12,10 +12,11 @@ Car::~Car()
 }
 
 void Car::draw(){
-	glPushMatrix();
-		glColor3f(0.7, 0.7, 0.7);
-		glTranslated(0, getPosition()->getY(), 1);
-		glScalef(40, 2, 1);
-		glutSolidCube(10);
-	glPopMatrix();
+		glPushMatrix();
+	glTranslated(90, getPosition()->getY(), 1);
+	glColor3f(1, 0, 0);
+	glScalef(4, 1.5, 1);
+	glutSolidCube(6);
+		glPopMatrix();
+
 }
