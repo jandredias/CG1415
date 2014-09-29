@@ -7,6 +7,7 @@ class Turtle : public DynamicObject
 {
 public:
 	Turtle();
+	Turtle(double x, double y, double z);
 	~Turtle();
 	void draw();
 };

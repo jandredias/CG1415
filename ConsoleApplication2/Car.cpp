@@ -11,6 +11,10 @@ Car::~Car()
 {
 }
 
+Car::Car(double x, double y, double z){
+	setPosition(x, y, z);
+}
+
 void Car::draw(){
 		glPushMatrix();
 	glTranslated(90, getPosition()->getY(), 1);

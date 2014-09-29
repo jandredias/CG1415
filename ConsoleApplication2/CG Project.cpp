@@ -9,6 +9,9 @@ void display(void){
 void reshape(int width, int height){
 	gm->reshape(width, height);
 }
+void update(int i){
+	gm->update();
+}
 int _tmain(int argc, _TCHAR* argv[])
 {
 	
@@ -22,6 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glEnable(GL_COLOR_MATERIAL);
+	glutTimerFunc(200, update, 1);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	gm->init();

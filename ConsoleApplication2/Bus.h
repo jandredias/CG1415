@@ -7,6 +7,7 @@
 class Bus : public DynamicObject {
 public:
 	Bus();
+	Bus(double x, double y, double z);
 	~Bus();
 	void draw();
 };

@@ -11,10 +11,12 @@ void GameManager::display(){
 	for (i = 0; i < _game_objects.size(); i++)
 	{
 		//std::cout << 0;
-
-		_game_objects.front()->draw();
-		_game_objects.push(_game_objects.front());
-		_game_objects.pop();
+		glPushMatrix();
+			glTranslated(_game_objects.front()->getPosition()->getX(), _game_objects.front()->getPosition()->getY(), _game_objects.front()->getPosition()->getZ());
+			_game_objects.front()->draw();
+			_game_objects.push(_game_objects.front());
+			_game_objects.pop();
+		glPopMatrix();
 	}
 	glFlush();
 }
@@ -41,35 +43,29 @@ void GameManager::onTimer(){}
 void GameManager::idle(){}
 void GameManager::update(){}
 void GameManager::init(){
-	//INIT CAMERA
-	//Camera *camera = new OrthogonalCamera(-100,100,-100,100,-100,100);
-	//_cameras.push(camera);
 	_cameras.push(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	_game_objects.push(new River(0,150,0));
+	_game_objects.push(new Riverside(0, 190, 0));
+	_game_objects.push(new Riverside(0,110,0));
+	_game_objects.push(new Road(0, 50, 0));
+	_game_objects.push(new Roadside(0, 90, 0));
+	_game_objects.push(new Roadside(0, 10, 0));
 
 
-	GameObject *aux = new River();
-	aux->setPosition(0,150,0);
-	_game_objects.push(aux);
+	_game_objects.push(new Frog(0, 13, 0));
+	
 
-	aux = new Riverside();
-	aux->setPosition(0, 190, 0);
-	_game_objects.push(aux);
+	//TimberLog
+	_game_objects.push(new TimberLog(-100, 126, 0));
+	_game_objects.push(new TimberLog(-100, 138, 0));
+	_game_objects.push(new TimberLog(-100, 150, 0));
+	_game_objects.push(new TimberLog(-100, 162, 0));
+	_game_objects.push(new TimberLog(-100, 174, 0));
 
-	aux = new Riverside();
-	aux->setPosition(0, 110, 0);
-	_game_objects.push(aux);
-
-	aux = new Road();
-	aux->setPosition(0, 50, 0);
-	_game_objects.push(aux);
-	aux = new Roadside();
-	aux->setPosition(0, 90, 0);
-	_game_objects.push(aux);
-	aux = new Roadside();
-	aux->setPosition(0, 10, 0);
-	_game_objects.push(aux);
-
-	aux = new Frog();
-	aux->setPosition(0, 13, 0);
-	_game_objects.push(aux);
+	//Turtle
+	_game_objects.push(new Turtle(-50, 126, 0));
+	_game_objects.push(new Turtle(-50, 138, 0));
+	_game_objects.push(new Turtle(-50, 150, 0));
+	_game_objects.push(new Turtle(-50, 162, 0));
+	_game_objects.push(new Turtle(-50, 174, 0));
 }
