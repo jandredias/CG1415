@@ -12,9 +12,3 @@ void GameObject::update(double delta_t){
 	}
 
 }
-
-bool GameObject::OutOfScene(){
-	DynamicObject* v = dynamic_cast<DynamicObject*>(this);
-	if (v != 0 && v->getPosition()->getX() > 220) return true;
-	return false;
-}

@@ -9,7 +9,7 @@ Frog::Frog(double x, double y, double z){
 }
 Frog::~Frog(){}
 void Frog::draw(){
-	printf("%d\n", getSpeed()->getY());
+	//printf("%d\n", getSpeed()->getY());
 		glPushMatrix();
 			glColor3f(0, 1, 0);
 			glutSolidCube(4);

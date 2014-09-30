@@ -8,6 +8,8 @@
 class DynamicObject : public GameObject
 {
 	Vector3 _speed;
+
+	int _size = 20;
 public:
 	DynamicObject();
 	~DynamicObject();
@@ -15,6 +17,9 @@ public:
 	Vector3* setSpeed(Vector3* speed);
 	Vector3* setSpeed(double x, double y, double z);
 	Vector3* getSpeed();
+	bool OutOfScene();
+	int setSize(int a);
+	int getSize();
 
 };
 

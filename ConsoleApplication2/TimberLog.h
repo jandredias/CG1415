@@ -12,6 +12,7 @@ public:
 	TimberLog();
 	TimberLog(double x, double y, double z);
 	TimberLog(double x, double y, double z, double w);
+	TimberLog(double x, double y, double z, double w, int size);
 	~TimberLog();
 	void draw();
 };

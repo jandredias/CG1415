@@ -39,7 +39,7 @@ void GameManager::keyPressed(unsigned char key, int i){
 		_game_objects.pop();
 	}
 #define SPEED_FROG 0.5
-	printf("%c %d\n", key);
+	//printf("%c %d\n", key);
 	if (v != 0){
 		if (i == -1){ //Down
 			switch (key){
@@ -64,15 +64,17 @@ void GameManager::idle(){}
 void GameManager::update(unsigned long delta){
 	int i;
 	GameObject *aux;
-	for (i = 0; i < _game_objects.size(); i++)
-	{
+	for (i = 0; i < _game_objects.size(); i++){
 		//std::cout << 0;
 		_game_objects.front()->update(delta);
 		if (_game_objects.front()->OutOfScene()){
-			_game_objects.push(new TimberLog(-100, _game_objects.front()->getPosition()->getY(), 0));
+			printf("FORA DO ECRA\n");
+			DynamicObject* v = dynamic_cast<DynamicObject*>(_game_objects.front());
+			if (v->getSpeed()->getX() > 0)
+				_game_objects.push(new TimberLog(-150, v->getPosition()->getY(), 0, v->getSpeed()->getX()));
 			_game_objects.pop();
-		}
-		else{
+		}else{
+
 			_game_objects.push(_game_objects.front());
 			_game_objects.pop();
 		}
@@ -89,14 +91,14 @@ void GameManager::init(){
 	_game_objects.push(new Roadside(0, 90, 0));
 	_game_objects.push(new Roadside(0, 10, 0));
 
-	_game_objects.push(new Frog(0, 13, 0));
 	//TimberLog	/* Speed in [0.5;1] */
-	_game_objects.push(new TimberLog(-100, 126, 0, 0.6));
-	_game_objects.push(new TimberLog(-100, 138, 0, 0.7));
-	_game_objects.push(new TimberLog(-100, 150, 0, 1));
-	_game_objects.push(new TimberLog(-100, 162, 0, 0.8));
-	_game_objects.push(new TimberLog(-100, 174, 0, 0.75));
+	_game_objects.push(new TimberLog(-150, 126, 0, 0.6));
+	_game_objects.push(new TimberLog(150, 138, 0, -0.7));
+	_game_objects.push(new TimberLog(-150, 150, 0, 1));
+	_game_objects.push(new TimberLog(150, 162, 0, -0.8));
+	_game_objects.push(new TimberLog(-150, 174, 0, 0.75));
 
 	//Turtle
-	
+
+	_game_objects.push(new Frog(0, 13, 0));
 }
