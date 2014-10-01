@@ -8,21 +8,28 @@
 #include "LightSource.h"
 #include "GameObject.h"
 #include "GL/glut.h"
-
+#include <list>
 class GameManager
 {
-	std::queue<Camera *> _cameras;
+	std::list<GameObject *> _dynamic_game_objects;
+	std::list<GameObject *> _static_game_objects;
+
+	std::list<Camera *> _cameras;
+	
 	LightSource *_light_sources;
-	std::queue<GameObject *> _game_objects;
+
 	public:
 		GameManager();
 		~GameManager();
+		
+		std::list<GameObject *> getDynamicObjects();
+		void setDynamicObject(GameObject * aux);
 
-		std::queue<GameObject *> getgame_objects(void);
-		GameObject* setgame_objects(GameObject*);
-
-		std::queue<Camera *> getcameras(void);
-		std::queue<Camera *> setcameras(Camera*);
+		std::list<GameObject *> getStaticObjects();
+		void setStaticObject(GameObject* aux);
+		
+		std::list<Camera *> getcameras(void);
+		std::list<Camera *> setcameras(Camera*aux);
 
 		LightSource* getlight_sources(void);
 		LightSource* setlight_sources(LightSource*);

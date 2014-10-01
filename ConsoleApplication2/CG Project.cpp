@@ -27,3 +27,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutMainLoop();
 	return 0;
 }
+
+void addTimber(int a){
+
+}

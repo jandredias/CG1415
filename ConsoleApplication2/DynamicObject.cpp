@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "DynamicObject.h"
+#include "GameManager.h"
 #include "Frog.h"
 #include <iostream>
+extern GameManager *gm;
 DynamicObject::DynamicObject()
 {
 }
