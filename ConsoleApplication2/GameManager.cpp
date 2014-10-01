@@ -59,7 +59,7 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	_cameras.front()->update(w, h);
 }
 void GameManager::keyPressed(unsigned char key, int i){
-
+	/*
 	int k = _dynamic_game_objects.size();
 	Frog* v = dynamic_cast<Frog*>(_dynamic_game_objects.front());
 	while (v == 0){
@@ -91,7 +91,7 @@ void GameManager::keyPressed(unsigned char key, int i){
 			case 'a': v->setSpeed(v->getSpeed()->getX(), 0, v->getSpeed()->getZ()); break;
 			}
 		}
-	}
+	}*/
 }
 void GameManager::onTimer(){}
 void GameManager::idle(){}
