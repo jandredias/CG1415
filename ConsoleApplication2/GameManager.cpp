@@ -142,4 +142,6 @@ void GameManager::init(){
 	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 4, 0, SPEED4));
 
 	setDynamicObject(new Frog(0, 13, 0));
+
+	setDynamicObject(new Car(0, 50, 0));
 }
