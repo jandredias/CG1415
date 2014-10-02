@@ -9,6 +9,7 @@ void GameObject::update(double delta_t){
 	if (v != 0) {
 		// old was safely casted to NewType
 		v->update(delta_t);
+		v->OutOfScene();
 	}
 
 }
