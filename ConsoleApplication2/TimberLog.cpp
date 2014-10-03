@@ -8,8 +8,12 @@ TimberLog::TimberLog(double x, double y, double z, double w){ setPosition(x, y, 
 TimberLog::~TimberLog(){}
 void TimberLog::draw(){
 	glPushMatrix();
+	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+
+	glPushMatrix();
 		glColor3f(0.5, 0.35, 0.05);
 		glScalef(getSize(), 3, 1);
 		glutSolidCube(3);
-	glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
 }

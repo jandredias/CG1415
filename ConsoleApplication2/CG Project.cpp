@@ -12,6 +12,7 @@ void keyboardfunc_up(unsigned char key, int x, int y){ gm->keyPressed(key, 1); }
 void keyboardfunc_down(unsigned char key, int x, int y){ gm->keyPressed(key, -1); }
 int _tmain(int argc, _TCHAR* argv[])
 {
+	srand(time(0));
 	gm = new GameManager();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);

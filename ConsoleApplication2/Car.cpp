@@ -16,6 +16,9 @@ Car::Car(double x, double y, double z){
 }
 
 void Car::draw(){
+	glPushMatrix();
+	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+
 	/*Cubo principal do corpo do carro*/
 	glPushMatrix();
 		glColor3f(0, 0, 0);
@@ -93,5 +96,7 @@ void Car::draw(){
 		glColor3f(1, 1, 1);
 		glScalef(3, 4, 3);
 		glutSolidCube(1);
+		glPopMatrix();
+
 	glPopMatrix();
 }

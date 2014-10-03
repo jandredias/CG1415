@@ -37,21 +37,15 @@ void GameManager::display(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw Static Objects
 	for (int i = 0; i < _static_game_objects.size(); i++){
-		glPushMatrix();
-			glTranslated(_static_game_objects.front()->getPosition()->getX(), _static_game_objects.front()->getPosition()->getY(), _static_game_objects.front()->getPosition()->getZ());
 			_static_game_objects.front()->draw();
 			_static_game_objects.push_back(_static_game_objects.front());
 			_static_game_objects.pop_front();
-		glPopMatrix();
 	}
 	//Draw Dynamic Objects
 	for (int i = 0; i < _dynamic_game_objects.size(); i++){
-		glPushMatrix();
-			glTranslated(_dynamic_game_objects.front()->getPosition()->getX(), _dynamic_game_objects.front()->getPosition()->getY(), _dynamic_game_objects.front()->getPosition()->getZ());
-			_dynamic_game_objects.front()->draw();
-			_dynamic_game_objects.push_back(_dynamic_game_objects.front());
-			_dynamic_game_objects.pop_front();
-		glPopMatrix();
+		_dynamic_game_objects.front()->draw();
+		_dynamic_game_objects.push_back(_dynamic_game_objects.front());
+		_dynamic_game_objects.pop_front();
 	}
 	glFlush();
 }
@@ -63,25 +57,20 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 }
 void GameManager::keyPressed(unsigned char key, int i){
 	if (key == 'c' && i == 1){
-		//_cameras.push_back(_cameras.front());
-		//_cameras.pop_front();
-		std::cout << 5;
+		_cameras.push_back(_cameras.front());
+		_cameras.pop_front();
 		return;
 	}
 	Frog *v = dynamic_cast<Frog*>(_dynamic_game_objects.front());
-	std::cout << 1;
 
 	for (int i = _dynamic_game_objects.size(); i > 0; i--){
 		Frog *v = dynamic_cast<Frog*>(_dynamic_game_objects.front());
 		if (v != 0) break;
 		_dynamic_game_objects.push_back(_dynamic_game_objects.front());
 		_dynamic_game_objects.pop_front();
-		std::cout << 8;
 	}
-	if (v != 0) std::cout << 9;
 	if (v != 0){
 		if (i == -1){ //Down
-			std::cout << i;
 			switch (key){
 			case 'f':
 			case 'p': v->setSpeed(SPEED_FROG, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
@@ -97,7 +86,6 @@ void GameManager::keyPressed(unsigned char key, int i){
 			}
 		}
 		else{ //Up
-			std::cout << i;
 			switch (key){
 			case 'f':
 			case 'p': v->setSpeed(0, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
@@ -143,8 +131,8 @@ void GameManager::update(unsigned long delta){
 	for (int i = 0; i < _dynamic_game_objects.size(); i++){
 		if (_dynamic_game_objects.front()->OutOfScene())
 		{
-			std::cout << _dynamic_game_objects.front()->getPosition()->getY() << "\n";
-			std::cout << -150 << " " << _dynamic_game_objects.front()->getPosition()->getY() << " " << 0 <<" " <<SPEED0 << "\n";
+			//std::cout << _dynamic_game_objects.front()->getPosition()->getY() << "\n";
+			//std::cout << -150 << " " << _dynamic_game_objects.front()->getPosition()->getY() << " " << 0 <<" " <<SPEED0 << "\n";
 		}
 		//setDynamicObject(new TimberLog(-150, _dynamic_game_objects.front()->getPosition()->getY(), 0, SPEED0));
 	}
@@ -160,8 +148,8 @@ void GameManager::update(unsigned long delta){
 }
 
 void GameManager::init(){
-	_cameras.push_front(new PerspectiveCamera());
 	_cameras.push_front(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	_cameras.push_front(new PerspectiveCamera());
 	
 	setStaticObject(new River(0, 150, 0));
 	setStaticObject(new Riverside(0, 190, 0));
@@ -170,7 +158,7 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0));
 	setStaticObject(new Roadside(0, 10, 0));
 
-	setDynamicObject(new Frog(0, 13, 0));
+	setDynamicObject(new Frog(0, 13,3 ));
 	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, SPEED0));
 	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 1, 0, SPEED1));
 	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 2, 0, SPEED2));
