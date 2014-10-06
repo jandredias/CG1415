@@ -1,17 +1,23 @@
 #include "stdafx.h"
-#include "Frog.h"
-#include "gl/glut.h"
 
+#include "Frog.h"
+#include "Header.h"
+#include "gl/glut.h"
 Frog::Frog(){}
 Frog::Frog(double x, double y, double z){
+	//std::cout << "Posicao SAPO: " << x << " | " << y << " | " << z << "\n";
+
 	setPosition(x, y, z);
+	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
+
 	setSpeed(0, 0, 0);
 }
 Frog::~Frog(){}
 void Frog::draw(){
 	glPushMatrix();
-	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
 
+	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());//
 	//printf("%d\n", getSpeed()->getY());
 	/*Cubo da cabeça*/
 		glPushMatrix();

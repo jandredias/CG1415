@@ -12,13 +12,13 @@ class Camera : public Entity {
 	Vector3 _at;
 	double _near;
 	double _far;
-public:
-	Camera(double near, double far);
-	~Camera();
-	double getNear();
-	double getFar();
-	virtual void update(GLsizei w, GLsizei h) = 0;
-	virtual void computeProjectionMatrix() = 0;
-	virtual void computeVisualizationMatrix() = 0;
+	public:
+		Camera(double near, double far);
+		~Camera();
+		double getNear();
+		double getFar();
+		virtual void update(GLsizei w, GLsizei h) = 0;
+		virtual void computeProjectionMatrix() = 0;
+		virtual void computeVisualizationMatrix() = 0;
 };
 #endif

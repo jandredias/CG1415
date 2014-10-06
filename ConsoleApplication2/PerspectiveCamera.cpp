@@ -1,23 +1,23 @@
 #include "stdafx.h"
+#include "Header.h"
 #include "PerspectiveCamera.h"
 
+extern int y;
+extern int z;
 
 PerspectiveCamera::PerspectiveCamera():Camera(-100,100){}
-PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(-100, 100){}
+PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zFar, zNear){}
 
 void PerspectiveCamera::computeVisualizationMatrix(){
-
-
-	gluPerspective(	-20, 1.0,
-					100, -100);
+	gluPerspective(	_fovy, 1,
+					getNear(), getFar());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
 void PerspectiveCamera::update(GLsizei w, GLsizei h){
-	
-	gluLookAt(0.0, -250.0, 100.0,
-		0.0, 100.0, 0.0,
-		0.0,-1.0, 0.0);
+	gluLookAt(	0	,	y	,	z,	//eyePosition
+				0	,	100.0	,	0.0,	//Point Position
+				0	,	0		,	1);		// Up Vector
 	float xmin = -100;
 	float xmax = 100;
 	float ymin = 0;

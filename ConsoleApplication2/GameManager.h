@@ -2,18 +2,12 @@
 #ifndef __GAMEMANAGER__
 #define __GAMEMANAGER__
 
-#include <queue>
 #include "Header.h"
-#include "Camera.h"
-#include "LightSource.h"
-#include "GameObject.h"
-#include "GL/glut.h"
-#include <list>
 class GameManager
 {
 	std::list<GameObject *> _dynamic_game_objects;
 	std::list<GameObject *> _static_game_objects;
-
+	Frog *frog;
 	std::list<Camera *> _cameras;
 	
 	LightSource *_light_sources;
