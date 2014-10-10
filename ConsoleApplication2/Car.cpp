@@ -1,13 +1,11 @@
 #include "stdafx.h"
-#include <iostream>
 #include "Car.h"
-#include "GL/GLUT.h"
 Car::Car(){ setPosition(0, 0, 0);	setSpeed(0, 0, 0); }
 Car::Car(double x, double y, double z){ setPosition(x, y, z); setSpeed(0, 0, 0); }
 Car::Car(double x, double y, double z, double w){ setPosition(x, y, z); setSpeed(w, 0, 0); }
 Car::~Car(){}
 void Car::draw(){
-	std::cout << getPosition()->getX() << " " << getPosition()->getY() << " " << getPosition()->getZ() << "\n";
+	//std::cout << getPosition()->getX() << " " << getPosition()->getY() << " " << getPosition()->getZ() << "\n";
 	glPushMatrix();
 	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
 

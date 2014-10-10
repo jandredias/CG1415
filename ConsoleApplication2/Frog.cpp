@@ -15,6 +15,7 @@ Frog::Frog(double x, double y, double z){
 Frog::~Frog(){}
 void Frog::draw(){
 	glPushMatrix();
+	//glScalef(10, 10, 10);
 	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
 
 	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());//

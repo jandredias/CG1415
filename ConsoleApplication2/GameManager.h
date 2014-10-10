@@ -5,6 +5,8 @@
 #include "Header.h"
 class GameManager
 {
+	int tempo_atual;
+	int tempo_anterior;
 	std::list<GameObject *> _dynamic_game_objects;
 	std::list<GameObject *> _static_game_objects;
 	Frog *frog;
@@ -29,7 +31,8 @@ class GameManager
 		LightSource* setlight_sources(LightSource*);
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);
-		void keyPressed(unsigned char key, int i);
+		void keyPressed(unsigned char key);
+		void keyUp(unsigned char key);
 		void onTimer();
 		void idle();
 		void update(unsigned long delta);

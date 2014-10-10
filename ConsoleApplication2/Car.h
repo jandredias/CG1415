@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include "GL/GLUT.h"
+
 #ifndef __CAR__
 #define __CAR__
 

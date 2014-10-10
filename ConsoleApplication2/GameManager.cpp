@@ -18,6 +18,8 @@ extern int z;
 
 GameManager::GameManager(){
 	frog = 0;
+	tempo_anterior = glutGet(GLUT_ELAPSED_TIME);
+	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 }
 GameManager::~GameManager(){}
 std::list<GameObject *> GameManager::getDynamicObjects(void){
@@ -35,6 +37,7 @@ void GameManager::setStaticObject(GameObject* aux){
 std::list<Camera *> GameManager::getcameras(void){ return _cameras; }
 std::list<Camera *> GameManager::setcameras(Camera* aux){ _cameras.push_back(aux); return _cameras; }
 void GameManager::display(){
+	std::cout << 1;
 	GameObject *aux;
 	glClearColor(1,1,1, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -58,75 +61,41 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	_cameras.front()->computeVisualizationMatrix();
 	_cameras.front()->update(w, h);
 }
-void GameManager::keyPressed(unsigned char key, int i){
-	/*if (key == '+'){
-		std::cout << ++y << "\n";
-		gm->reshape(600, 600);
-		return;
-	}
-	if (key == '-'){
-		std::cout << --y << "\n";
-		gm->reshape(600, 600);
-		return;
-	}
-	if (key == '*'){
-		std::cout << ++z << "\n";
-		gm->reshape(600, 600);
-		return;
-	}
-	if (key == '/'){
-		std::cout << --z << "\n";
-		gm->reshape(600, 600);
-		return;
-	}*/
-	//Frog *v = dynamic_cast<Frog*>(_dynamic_game_objects.front());
+void GameManager::keyUp(unsigned char key){
+	switch (key){
+		case 'f':
+		case 'p': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-	/*for (int i = _dynamic_game_objects.size(); i > 0; i--){
-		Frog *v = dynamic_cast<Frog*>(_dynamic_game_objects.front());
-		if (v != 0) break;
-		_dynamic_game_objects.push_back(_dynamic_game_objects.front());
-		_dynamic_game_objects.pop_front();
-	}*/
-	Frog *v = frog;
-	if (v != 0){
-		if (i == -1){ //Down
-			switch (key){
-			case 'f':
-			case 'p': v->setSpeed(SPEED_FROG, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
-			
-			case 's':
-			case 'o': v->setSpeed(0 - SPEED_FROG, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
-			
-			case 'e':
-			case 'q': v->setSpeed(v->getSpeed()->getX(), SPEED_FROG, v->getSpeed()->getZ()); break;
-			
-			case 'd':
-			case 'a': v->setSpeed(v->getSpeed()->getX(), 0 - SPEED_FROG, v->getSpeed()->getZ()); break;
-			}
-		}
-		else{ //Up
-			switch (key){
-			case 'f':
-			case 'p': v->setSpeed(0, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
+		case 's':
+		case 'o': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-			case 's':
-			case 'o': v->setSpeed(0, v->getSpeed()->getY(), v->getSpeed()->getZ()); break;
-			
-			case 'e':
-			case 'q': v->setSpeed(v->getSpeed()->getX(), 0, v->getSpeed()->getZ()); break;
-			
-			case 'd':
-			case 'a': v->setSpeed(v->getSpeed()->getX(), 0, v->getSpeed()->getZ()); break;
-			}
-		}
+		case 'e':
+		case 'q': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 
-	}
-	for (; i > 0; i--){
-		_dynamic_game_objects.push_front(_dynamic_game_objects.front());
-		_dynamic_game_objects.pop_front();
+		case 'd':
+		case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 	}
 }
-void GameManager::onTimer(){}
+void GameManager::keyPressed(unsigned char key){
+	switch (key){
+		case 'f':
+		case 'p': frog->setSpeed(SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
+			
+		case 's':
+		case 'o': frog->setSpeed(0 - SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
+			
+		case 'e':
+		case 'q': frog->setSpeed(frog->getSpeed()->getX(), SPEED_FROG, frog->getSpeed()->getZ()); break;
+			
+		case 'd':
+		case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0 - SPEED_FROG, frog->getSpeed()->getZ()); break;
+	}
+}
+void GameManager::onTimer(){
+	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
+	gm->update(tempo_atual - tempo_anterior);
+	tempo_anterior = tempo_atual;
+}
 void GameManager::idle(){}
 void GameManager::update(unsigned long delta){
 	/*Steps:
@@ -140,21 +109,7 @@ void GameManager::update(unsigned long delta){
 		_dynamic_game_objects.push_back(_dynamic_game_objects.front());
 		_dynamic_game_objects.pop_front();
 	}
-	//Remove outside objects
-	/*for (i = 0; i < _dynamic_game_objects.size(); i++){
-		//if (_game_objects.front()->OutOfScene){
-			//_game_objects.pop();//shared_ptr make_shared
-		//}
-	}*/
-	//Gera novos objectos
-	/*for (int i = 0; i < _dynamic_game_objects.size(); i++){
-		if (_dynamic_game_objects.front()->OutOfScene())
-		{
-			//std::cout << _dynamic_game_objects.front()->getPosition()->getY() << "\n";
-			//std::cout << -150 << " " << _dynamic_game_objects.front()->getPosition()->getY() << " " << 0 <<" " <<SPEED0 << "\n";
-		}
-		//setDynamicObject(new TimberLog(-150, _dynamic_game_objects.front()->getPosition()->getY(), 0, SPEED0));
-	}*/
+	glutPostRedisplay();
 }
 void GameManager::init(){
 	_cameras.push_front(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
@@ -167,7 +122,7 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0));
 	setStaticObject(new Roadside(0, 10, 0));
 	
-	setDynamicObject(frog = new Frog(0, 13, 3 ));
+	setDynamicObject(frog = new Frog(0, 13, 3));
 
 	/*setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, SPEED0));
 	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 1, 0, SPEED1));
