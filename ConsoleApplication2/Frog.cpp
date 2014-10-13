@@ -18,7 +18,7 @@ void Frog::draw(){
 	//glScalef(10, 10, 10);
 	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
 
-	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());//
+	glTranslatef(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());//
 	//printf("%d\n", getSpeed()->getY());
 	/*Cubo da cabeça*/
 		glPushMatrix();
