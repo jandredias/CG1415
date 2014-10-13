@@ -8,7 +8,7 @@
 #define SPEED4	0.8
 
 
-#define SPEED_FROG 2
+#define SPEED_FROG 0.1
 #define SPEED_CAR -1
 #define TL_POS_BEGIN0	-150
 #define	TL_POS_BEGIN1	 150
@@ -37,8 +37,6 @@ void GameManager::setStaticObject(GameObject* aux){
 std::list<Camera *> GameManager::getcameras(void){ return _cameras; }
 std::list<Camera *> GameManager::setcameras(Camera* aux){ _cameras.push_back(aux); return _cameras; }
 void GameManager::display(){
-	std::cout << 1;
-	GameObject *aux;
 	glClearColor(1,1,1, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw Static Objects
@@ -63,30 +61,38 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 }
 void GameManager::keyUp(unsigned char key){
 	switch (key){
+		case '6':
 		case 'f':
 		case 'p': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
+		case '4':
 		case 's':
 		case 'o': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
+		case '8':
 		case 'e':
 		case 'q': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 
+		case '2':
 		case 'd':
 		case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 	}
 }
 void GameManager::keyPressed(unsigned char key){
 	switch (key){
+		case '6':
 		case 'f':
 		case 'p': frog->setSpeed(SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
-			
+
+		case '4':
 		case 's':
 		case 'o': frog->setSpeed(0 - SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
-			
+
+		case '8':
 		case 'e':
 		case 'q': frog->setSpeed(frog->getSpeed()->getX(), SPEED_FROG, frog->getSpeed()->getZ()); break;
-			
+
+		case '2':
 		case 'd':
 		case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0 - SPEED_FROG, frog->getSpeed()->getZ()); break;
 	}
@@ -94,6 +100,7 @@ void GameManager::keyPressed(unsigned char key){
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	gm->update(tempo_atual - tempo_anterior);
+	std::cout << tempo_atual - tempo_anterior << "\n";
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
@@ -112,8 +119,7 @@ void GameManager::update(unsigned long delta){
 	glutPostRedisplay();
 }
 void GameManager::init(){
-	_cameras.push_front(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
-	//_cameras.push_front(new PerspectiveCamera(90,5,0,200));
+	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	
 	setStaticObject(new River(0, 150, 0));
 	setStaticObject(new Riverside(0, 190, 0));
@@ -122,19 +128,22 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0));
 	setStaticObject(new Roadside(0, 10, 0));
 	
-	setDynamicObject(frog = new Frog(0, 13, 3));
+	setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, 0));
+	setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 4, 0));
 
+	setDynamicObject(new Car(0, 50, 0, 0));
+
+
+	setDynamicObject(frog = new Frog(0, 13, 3));
+	
+	//_cameras.push_front(new PerspectiveCamera(90,5,0,200));
 	/*setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, SPEED0));
 	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 1, 0, SPEED1));
 	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 2, 0, SPEED2));
-	//setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 2, 0, SPEED2));
+	setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 2, 0, SPEED2));
 	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 3, 0, SPEED3));
 	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 4, 0, SPEED4));
-	
 	setDynamicObject(new Car(200, 50, 0, SPEED_CAR));*/
 	
-	setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, 0));
-	setDynamicObject(new TimberLog(0, Y_PRIMEIRA_LINHA_RIO + 12 * 4, 0, 0));
 
-	setDynamicObject(new Car(0, 50, 0, 0));
 }

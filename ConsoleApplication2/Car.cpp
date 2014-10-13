@@ -9,6 +9,7 @@ void Car::draw(){
 	glPushMatrix();
 	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
 
+	glScaled(0.8, 0.8, 0.8);
 	/*Cubo principal do corpo do carro*/
 	glPushMatrix();
 		glColor3f(0, 0, 0);

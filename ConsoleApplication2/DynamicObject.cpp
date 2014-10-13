@@ -7,7 +7,23 @@ DynamicObject::DynamicObject(){}
 DynamicObject::~DynamicObject(){}
 
 void DynamicObject::update(double delta_t){
-	setPosition(getPosition()->getX() + getSpeed()->getX(), getPosition()->getY() + getSpeed()->getY(), getPosition()->getZ());
+	setPosition(getPosition()->getX() + getSpeed()->getX()*delta_t, getPosition()->getY() + getSpeed()->getY()*delta_t, getPosition()->getZ());
+	Frog* v = dynamic_cast<Frog*>(this);
+	
+	if (v != 0){
+		//Testa movimento do sapo fora do mapa X
+		if (getPosition()->getX() > 90)
+			setPosition(90, getPosition()->getY(), getPosition()->getZ());
+		else if (getPosition()->getX() < -90)
+			setPosition(-90, getPosition()->getY(), getPosition()->getZ());
+
+		//Testa movimento do sapo fora do mapa Y
+		if (getPosition()->getY() > 195)
+			setPosition(getPosition()->getX(), 195, getPosition()->getZ());
+		else if (getPosition()->getY() < 13)
+			setPosition(getPosition()->getX(), 13, getPosition()->getZ());
+	}
+	
 	/*
 	Frog* v = dynamic_cast<Frog*>(this);
 	if (v != 0) {

@@ -10,7 +10,7 @@ void Riverside::draw(){
 	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
 
 	glPushMatrix();
-		glColor3f(0,1,0);
+		glColor3f(0,0.8,0);
 		glScalef(400, 20, 1);
 		glutSolidCube(1);
 		glPopMatrix();

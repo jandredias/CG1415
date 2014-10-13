@@ -4,7 +4,7 @@
 #include <queue>
 
 
-#define UPDATE_TIME 30
+#define UPDATE_TIME 10
 
 #include "GL/glut.h"
 #include "Entity.h"
