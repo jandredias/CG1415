@@ -38,39 +38,42 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	camera_atual->update(w, h);
 }
 void GameManager::keyUp(unsigned char key){
+	unsigned char k = '0';
 	switch (key){
-	case '6':
+	case '1':
+	case '2':
+	case '3':
+		for (Camera* aux : getcameras()){
+			if (++k == key){
+				camera_atual = aux;
+				std::cout << k << "CAMERA MUDOU\n";
+			}
+		}
+		break;
 	case 'f':
 	case 'p': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-	case '4':
 	case 's':
 	case 'o': frog->setSpeed(0, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-	case '8':
 	case 'e':
 	case 'q': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 
-	case '2':
 	case 'd':
 	case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0, frog->getSpeed()->getZ()); break;
 	}
 }
 void GameManager::keyPressed(unsigned char key){
 	switch (key){
-	case '6':
 	case 'f':
 	case 'p': frog->setSpeed(SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-	case '4':
 	case 's':
 	case 'o': frog->setSpeed(0 - SPEED_FROG, frog->getSpeed()->getY(), frog->getSpeed()->getZ()); break;
 
-	case '8':
 	case 'e':
 	case 'q': frog->setSpeed(frog->getSpeed()->getX(), SPEED_FROG, frog->getSpeed()->getZ()); break;
 
-	case '2':
 	case 'd':
 	case 'a': frog->setSpeed(frog->getSpeed()->getX(), 0 - SPEED_FROG, frog->getSpeed()->getZ()); break;
 	}
@@ -78,7 +81,7 @@ void GameManager::keyPressed(unsigned char key){
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	gm->update(tempo_atual - tempo_anterior);
-	std::cout << tempo_atual - tempo_anterior << "\n";
+	//std::cout << tempo_atual - tempo_anterior << "\n";
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
@@ -99,6 +102,7 @@ void GameManager::update(unsigned long delta){
 void GameManager::init(){
 	setcameras(camera_atual = new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	setcameras(new PerspectiveCamera(90, 5, 0, 200));
+
 	setStaticObject(new River(0, 150, 0));
 	setStaticObject(new Riverside(0, 190, 0));
 	setStaticObject(new Riverside(0, 110, 0));
