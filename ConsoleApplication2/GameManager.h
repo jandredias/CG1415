@@ -9,6 +9,8 @@ class GameManager
 	int tempo_anterior;
 	int tempo_inicio = 0;
 	int velocidade = 1;
+	int _w = 0;
+	int _h = 0;
 	std::list<GameObject *> _dynamic_game_objects;
 	std::list<GameObject *> _static_game_objects;
 	Frog *frog;
