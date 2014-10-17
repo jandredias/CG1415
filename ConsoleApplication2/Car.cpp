@@ -14,7 +14,6 @@ void Car::draw(){
 		glScalef(16, 10, 5);
 		glutWireCube(1);
 		glPopMatrix();
-
 		if (getSpeed().getX() > 0) glRotatef(180, 0, 0, 1);
 		glTranslated(2, 0, 0);
 		

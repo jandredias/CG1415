@@ -142,13 +142,7 @@ void GameManager::update(unsigned long delta){
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
 		aux->update(delta);
-
 		if (abs(aux->getPosition().getX()) > 170){
-			if (aux->getSpeed().getX() > 0) initial = -1;
-			else initial = 1;
-			if (dynamic_cast<Car *> (aux)) setDynamicObject(new Car(169 * initial, aux->getPosition().getY(), 0, aux->getSpeed().getX()));
-			if (dynamic_cast<TimberLog *> (aux)) setDynamicObject(new TimberLog(169 * initial, aux->getPosition().getY() + 12 * 0, 0, aux->getSpeed().getX()));
-				
 			delete(aux);
 			_dynamic_game_objects.remove(aux);
 			continue;
