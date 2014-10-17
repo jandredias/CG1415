@@ -37,7 +37,6 @@ bool DynamicObject::HasColision(DynamicObject *a){
 		(getPosition().getZ() + getSize().getZ() / 2) > (a->getPosition().getZ() - a->getSize().getZ() / 2) &&
 		(getPosition().getZ() - getSize().getZ() / 2) < (a->getPosition().getZ() + a->getSize().getZ() / 2))
 	{
-		gm->changeStatus(1);
 		return 1;
 	}
 	return 0;

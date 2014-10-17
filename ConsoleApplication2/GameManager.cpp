@@ -149,7 +149,12 @@ void GameManager::update(unsigned long delta){
 			_dynamic_game_objects.remove(aux);
 			continue;
 		}
-		if (!dynamic_cast<Frog*> (aux)) frog->HasColision(aux);
+		if (!dynamic_cast<Frog*> (aux) && frog->HasColision(aux)){
+			gm->changeStatus(1);
+			
+			
+			frog->setSpeed(0, 0, 0);
+		}
 	}
 	factory();
 	glutPostRedisplay();
