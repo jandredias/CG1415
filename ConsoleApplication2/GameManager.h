@@ -42,7 +42,9 @@ class GameManager
 		LightSource* setlight_sources(LightSource*);
 		void changeStatus(bool a);
 		bool getStatus();
-		void GameManager::factory();
+		void TimberLogFactory();
+		void CarFactory();
+		void factory();
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);
 		void keyPressed(unsigned char key);

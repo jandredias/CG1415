@@ -111,7 +111,8 @@ void GameManager::onTimer(){
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
-void GameManager::factory(){
+void GameManager::TimberLogFactory(){}
+void GameManager::CarFactory(){
 	bool test = true;
 	int y = CAR_LANE_1;
 	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test = true){
@@ -123,10 +124,13 @@ void GameManager::factory(){
 		}
 		double const *vel = getSpeedCar();
 		if (test)
-			if(!(rand() % 500))
-			setDynamicObject(new Car(169 * pow(-1, i + 1), y, 0, vel[i]));
+			if (!(rand() % 500))
+				setDynamicObject(new Car(169 * pow(-1, i + 1), y, 0, vel[i]));
 
 	}
+}
+void GameManager::factory(){
+	CarFactory();
 }
 void GameManager::update(unsigned long delta){
 	/*Steps:
@@ -151,8 +155,6 @@ void GameManager::update(unsigned long delta){
 		}
 		if (!dynamic_cast<Frog*> (aux) && frog->HasColision(aux)){
 			gm->changeStatus(1);
-			
-			
 			frog->setSpeed(0, 0, 0);
 		}
 	}
