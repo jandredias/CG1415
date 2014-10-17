@@ -9,9 +9,9 @@ class Entity
 public:
 	Entity();
 	~Entity();
-	Vector3* getPosition(void);
-	Vector3* setPosition(double x, double y, double z);
-	Vector3* setPosition(Vector3*);
+	Vector3 getPosition(void);
+	void setPosition(double x, double y, double z);
+	void setPosition(Vector3*);
 };
 
 #endif

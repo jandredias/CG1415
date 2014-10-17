@@ -3,7 +3,7 @@
 
 
 GameManager *gm;
-int y = -200;
+int y = -400;
 int z = 50;
 void display(void){gm->display();}
 void reshape(int width, int height){gm->reshape(width, height);}

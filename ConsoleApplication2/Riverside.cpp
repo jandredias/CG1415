@@ -7,7 +7,7 @@ Riverside::Riverside(double x, double y, double z){setPosition(x, y, z);}
 Riverside::~Riverside(){}
 void Riverside::draw(){
 	glPushMatrix();
-	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 
 	glPushMatrix();
 		glColor3f(0,0.8,0);

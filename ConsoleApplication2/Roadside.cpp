@@ -7,7 +7,7 @@ Roadside::Roadside(double x, double y, double z){setPosition(x, y, z);}
 Roadside::~Roadside(){}
 void Roadside::draw(){
 	glPushMatrix();
-		glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 
 		glPushMatrix();
 			glColor3f(0.8, 0.8, 0.8);

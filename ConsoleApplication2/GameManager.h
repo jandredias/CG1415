@@ -1,7 +1,6 @@
 #pragma once
 #ifndef __GAMEMANAGER__
 #define __GAMEMANAGER__
-
 #include "Header.h"
 class GameManager
 {
@@ -11,7 +10,11 @@ class GameManager
 	int velocidade = 1;
 	int _w = 0;
 	int _h = 0;
-	std::list<GameObject *> _dynamic_game_objects;
+	double _speed_car[5];
+	double _speed_river[5];
+	bool _status = 0;
+
+	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<GameObject *> _static_game_objects;
 	Frog *frog;
 	Camera *camera_atual;
@@ -22,9 +25,12 @@ class GameManager
 	public:
 		GameManager();
 		~GameManager();
-		
-		std::list<GameObject *> getDynamicObjects();
-		void setDynamicObject(GameObject * aux);
+
+		const double* getSpeedCar();
+		const double* getSpeedRiver();
+
+		std::list<DynamicObject *> getDynamicObjects();
+		void setDynamicObject(DynamicObject * aux);
 
 		std::list<GameObject *> getStaticObjects();
 		void setStaticObject(GameObject* aux);
@@ -34,6 +40,9 @@ class GameManager
 
 		LightSource* getlight_sources(void);
 		LightSource* setlight_sources(LightSource*);
+		void changeStatus(bool a);
+		bool getStatus();
+		void GameManager::factory();
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);
 		void keyPressed(unsigned char key);

@@ -6,12 +6,14 @@
 #include "Entity.h"
 class GameObject : public Entity
 {
+	Vector3 _size;
 	public:
 		GameObject();
 		~GameObject();
 		virtual void draw() = 0;
-		void update(double delta_t);
-		virtual bool OutOfScene() = 0;
+		virtual void update(double delta_t);
+		void setSize(int x, int y, int z);
+		Vector3 getSize();
 };
 
 

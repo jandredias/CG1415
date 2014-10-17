@@ -7,7 +7,7 @@ River::River(double x, double y, double z){setPosition(x, y, z);}
 River::~River(){}
 void River::draw(){
 	glPushMatrix();
-	glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 
 	glPushMatrix();
 		glColor3f(0, 0, 1);

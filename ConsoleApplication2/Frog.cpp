@@ -8,7 +8,8 @@ Frog::Frog(double x, double y, double z){
 	//std::cout << "Posicao SAPO: " << x << " | " << y << " | " << z << "\n";
 
 	setPosition(x, y, z);
-	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
+	//std::cout << "Posicao SAPO: " << getPosition().getX() << " | " << getPosition().getY() << " | " << getPosition().getZ() << "\n";
+	setSize(10, 10, 10);
 
 	setSpeed(0, 0, 0);
 }
@@ -16,10 +17,10 @@ Frog::~Frog(){}
 void Frog::draw(){
 	glPushMatrix();
 	//glScalef(10, 10, 10);
-	//std::cout << "Posicao SAPO: " << getPosition()->getX() << " | " << getPosition()->getY() << " | " << getPosition()->getZ() << "\n";
+	//std::cout << "Posicao SAPO: " << getPosition().getX() << " | " << getPosition().getY() << " | " << getPosition().getZ() << "\n";
 
-	glTranslatef(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());//
-	//printf("%d\n", getSpeed()->getY());
+	glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());//
+	//printf("%d\n", getSpeed().getY());
 	/*Cubo da cabeça*/
 		glPushMatrix();
 			glTranslated(0, -1, 1);

@@ -4,12 +4,6 @@
 
 GameObject::GameObject(){}
 GameObject::~GameObject(){}
-void GameObject::update(double delta_t){
-	DynamicObject* v = dynamic_cast<DynamicObject*>(this);
-	if (v != 0) {
-		// old was safely casted to NewType
-		v->update(delta_t);
-		v->OutOfScene();
-	}
-
-}
+void GameObject::update(double delta_t){}
+void GameObject::setSize(int x, int y, int z){ _size.set(x, y, z); }
+Vector3 GameObject::getSize(){ return _size; }

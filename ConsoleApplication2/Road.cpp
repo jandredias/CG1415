@@ -6,7 +6,7 @@ Road::~Road(){}
 Road::Road(double x, double y, double z){setPosition(x, y, z);}
 void Road::draw(){
 	glPushMatrix();
-		glTranslated(getPosition()->getX(), getPosition()->getY(), getPosition()->getZ());
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 
 		glPushMatrix();
 			glColor3f(0.2, 0.2, 0.2);
