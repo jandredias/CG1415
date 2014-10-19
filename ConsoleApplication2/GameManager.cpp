@@ -113,20 +113,27 @@ void GameManager::onTimer(){
 void GameManager::idle(){}
 void GameManager::TimberLogFactory(){}
 void GameManager::CarFactory(){
-	bool test = true;
+	bool test_timberlog = true;
+	bool test_car = true;
 	int y = CAR_LANE_1;
-	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test = true){
+	Car *a;
+	TimberLog *b;
+	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test_timberlog = true, test_car = true){
+		a = new Car(169 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
+		b = new TimberLog(169 * pow(-1,i+1), y+100, 0, getSpeedRiver()[i]);
+		std::cout << "RIVER: " << getSpeedRiver()[i] << std::endl;
 		for (DynamicObject *aux : getDynamicObjects()){
-			if (dynamic_cast<Car*> (aux))
-				if (0 < aux->getPosition().getX() < -100) test = false;
-				else if (100 < aux->getSpeed().getX() < 0) test = false;
-
+			if (dynamic_cast<TimberLog*> (aux) && b->HasColision(aux)) test_timberlog = false;
+			if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test_car = false;
 		}
-		double const *vel = getSpeedCar();
-		if (test)
-			if (!(rand() % 500))
-				setDynamicObject(new Car(169 * pow(-1, i + 1), y, 0, vel[i]));
+		
+		if (test_car && !(rand() % 200))
+			setDynamicObject(a);
+		else delete(a);
 
+		if (test_timberlog && !(rand() % 125))
+			setDynamicObject(b);
+		else delete(b);
 	}
 }
 void GameManager::factory(){
@@ -147,7 +154,8 @@ void GameManager::update(unsigned long delta){
 			_dynamic_game_objects.remove(aux);
 			continue;
 		}
-		if (!dynamic_cast<Frog*> (aux) && frog->HasColision(aux)){
+		//Verifica colisao com Carro
+		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux)){
 			gm->changeStatus(1);
 			frog->setSpeed(0, 0, 0);
 		}
@@ -167,12 +175,6 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0));
 	setStaticObject(new Roadside(0, 10, 0));
 
-	/*setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 0, 0, SPEED0));
-	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 1, 0, SPEED1));		
-	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 2, 0, SPEED2));
-	setDynamicObject(new TimberLog(150, Y_PRIMEIRA_LINHA_RIO + 12 * 3, 0, SPEED3));
-	setDynamicObject(new TimberLog(-150, Y_PRIMEIRA_LINHA_RIO + 12 * 4, 0, SPEED4));*/
-	
 	setDynamicObject(frog = new Frog(0, 13, 0));
 
 }

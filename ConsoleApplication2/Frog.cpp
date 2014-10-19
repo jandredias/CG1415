@@ -20,6 +20,9 @@ void Frog::draw(){
 	//std::cout << "Posicao SAPO: " << getPosition().getX() << " | " << getPosition().getY() << " | " << getPosition().getZ() << "\n";
 
 	glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());//
+
+	glColor3f(1, 1, 1);
+	glutWireCube(16);
 	//printf("%d\n", getSpeed().getY());
 	/*Cubo da cabeça*/
 		glPushMatrix();

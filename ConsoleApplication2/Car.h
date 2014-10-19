@@ -8,6 +8,7 @@
 
 #include "DynamicObject.h"
 class Car : public DynamicObject{
+	Vector3 _color;
 public:
 	Car();
 	Car(double x, double y, double z);

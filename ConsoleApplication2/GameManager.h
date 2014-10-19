@@ -43,6 +43,8 @@ class GameManager
 		void changeStatus(bool a);
 		bool getStatus();
 		void TimberLogFactory();
+		void resetFrog();
+		void resetFrog2();
 		void CarFactory();
 		void factory();
 		void display(void);

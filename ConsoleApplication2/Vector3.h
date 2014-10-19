@@ -14,6 +14,7 @@ class Vector3
 		double getY();
 		double getZ();
 		void set(double x, double y, double z);
+		void set(Vector3 *a);
 		Vector3 operator=(Vector3 * vec);
 		Vector3 operator*(double num);
 		Vector3 operator+(Vector3 *vec);
