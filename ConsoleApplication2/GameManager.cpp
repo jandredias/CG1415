@@ -35,6 +35,7 @@ _speed_river[3] = -0.075;
 _speed_river[4] = 0.08;
 
 }
+
 GameManager::~GameManager(){}
 std::list<DynamicObject *> GameManager::getDynamicObjects(void){ return _dynamic_game_objects; }
 void GameManager::setDynamicObject(DynamicObject* aux){ _dynamic_game_objects.push_back(aux); }
@@ -51,8 +52,6 @@ void GameManager::display(){
 	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
 
 	camera_atual->computeProjectionMatrix();
 	camera_atual->computeVisualizationMatrix();
@@ -82,6 +81,7 @@ void GameManager::keyUp(unsigned char key){
 			if (++k == key){
 				camera_atual = aux;
 				reshape(_w, _h);
+				std::cout << "CAMERA HAS CHANGED" << std::endl;
 			}
 		break;
 	case 'f':
@@ -135,11 +135,11 @@ void GameManager::factory(){
 			if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test_car = false;
 		}
 
-		if (test_car && !(rand() % 200))
+		if (test_car && !(rand() % 500))
 			setDynamicObject(a);
 		else delete(a);
 
-		if (test_timberlog && !(rand() % 125))
+		if (test_timberlog && !(rand() % 50))
 			setDynamicObject(b);
 		else delete(b);
 	}
@@ -160,17 +160,16 @@ void GameManager::update(unsigned long delta){
 			continue;
 		}
 		//Verifica colisao com Carro
-		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux) && 0){
-			gm->changeStatus(1);
+		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux) ){
+			//gm->changeStatus(1);
 			frog->setSpeed(0, 0, 0);
+			frog->setPosition(0, 0, 5);
 		}
 	}
-	//factory();
+	factory();
 	glutPostRedisplay();
 }
 void GameManager::init(){
-	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
-	setcameras(camera_atual = new PerspectiveCamera(75, 5, 0, 200));
 
 	setStaticObject(new Riverside(-100, 180, 0));
 	setStaticObject(new River(-100, 120, 0));
@@ -180,6 +179,11 @@ void GameManager::init(){
 	setStaticObject(new Road(-100, 20, 0));
 	setStaticObject(new Roadside(-100, 0, 0));
 
-	//setDynamicObject(frog = new Frog(0, 0, 0));
+	setDynamicObject(frog = new Frog(0, 0, 5));
+
+
+	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	setcameras(camera_atual = new PerspectiveCamera(75, 5, 0, 200));
+	setcameras(new PerspectiveCamera(75, 5, 0, 200, frog));
 
 }

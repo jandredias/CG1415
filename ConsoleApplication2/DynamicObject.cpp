@@ -11,16 +11,16 @@ void DynamicObject::update(double delta_t){
 	Frog* v = dynamic_cast<Frog*>(this);
 	if (v != 0){
 		//Testa movimento do sapo fora do mapa X
-		if (getPosition().getX() > 90)
-			setPosition(90, getPosition().getY(), getPosition().getZ());
-		else if (getPosition().getX() < -90)
-			setPosition(-90, getPosition().getY(), getPosition().getZ());
+		if (getPosition().getX() > 100 - getSize().getX() / 2)
+			setPosition(100 - getSize().getX() / 2, getPosition().getY(), getPosition().getZ());
+		else if (getPosition().getX() < -100 + getSize().getX() / 2)
+			setPosition(-100 + getSize().getX() / 2, getPosition().getY(), getPosition().getZ());
 
 		//Testa movimento do sapo fora do mapa Y
-		if (getPosition().getY() > 195)
-			setPosition(getPosition().getX(), 195, getPosition().getZ());
-		else if (getPosition().getY() < 5)
-			setPosition(getPosition().getX(), 5, getPosition().getZ());
+		if (getPosition().getY() > 200 - getSize().getY() / 2)
+			setPosition(getPosition().getX(), 200 - getSize().getY() / 2, getPosition().getZ());
+		else if (getPosition().getY() < 0 + getSize().getY() / 2)
+			setPosition(getPosition().getX(), getSize().getY() / 2, getPosition().getZ());
 	}
 }
 void DynamicObject::setSpeed(Vector3* speed){ _speed.set(speed->getX(), speed->getY(),speed->getZ()); }

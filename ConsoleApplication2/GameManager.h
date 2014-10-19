@@ -4,7 +4,6 @@
 #include "Header.h"
 class GameManager
 {
-	
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -25,6 +24,7 @@ class GameManager
 
 	public:
 		bool _debug = true;
+		Frog* getFrog(){return frog;}
 		GameManager();
 		~GameManager();
 		const double* getSpeedCar();

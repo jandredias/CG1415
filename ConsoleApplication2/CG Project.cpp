@@ -16,9 +16,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	srand(time(0));
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+
+
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
+
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LEQUAL);
+
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

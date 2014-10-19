@@ -7,7 +7,7 @@
 class PerspectiveCamera : public Camera {
 	double _fovy;
 	double _aspect;
-	Frog* frog;
+	Frog* frog = NULL;
 public:
 	PerspectiveCamera();
 	PerspectiveCamera(double fovy,double aspect, double zNear, double zFar);

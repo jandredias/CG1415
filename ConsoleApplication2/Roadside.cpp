@@ -14,6 +14,7 @@ void Roadside::draw(){
 		glTranslated(	getPosition().getX() + getSize().getX() / 2,
 						getPosition().getY() + getSize().getY() / 2,
 						getPosition().getZ() - getSize().getZ() / 2 );
+		//std::cout << getSize().getX() << std::endl;
 			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glColor3f(0.7, 0.7, 0.7);
 			glutSolidCube(1);
