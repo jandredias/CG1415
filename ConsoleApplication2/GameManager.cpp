@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameManager.h"
+
 #define Y_PRIMEIRA_LINHA_RIO 126
 #define Y_PRIMEIRA_LINHA_CARRO 26
 
@@ -47,7 +48,17 @@ void GameManager::changeStatus(bool a){ _status = a; }
 bool GameManager::getStatus(){ return _status; }
 void GameManager::display(){
 	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearDepth(1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	camera_atual->computeProjectionMatrix();
+	camera_atual->computeVisualizationMatrix();
+	camera_atual->update(_w, _h);
+
+
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
 	glFlush();
@@ -56,13 +67,10 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 	glViewport(0, 0, w, h);
 	_w = w;
 	_h = h;
-	camera_atual->computeProjectionMatrix();
-	camera_atual->computeVisualizationMatrix();
-	camera_atual->update(w, h);
-	std::cout << "CAMARA MUDOU!!!!!" << std::endl;
 }
 void GameManager::keyUp(unsigned char key){
-	if (getStatus()){ 
+	if (getStatus()){
+		frog->setPosition(0, 0, 0);
 		frog->setSpeed(0, 0, 0); return;
 	}
 	unsigned char k = '0';
@@ -112,7 +120,7 @@ void GameManager::onTimer(){
 }
 void GameManager::idle(){}
 void GameManager::TimberLogFactory(){}
-void GameManager::CarFactory(){
+void GameManager::factory(){
 	bool test_timberlog = true;
 	bool test_car = true;
 	int y = CAR_LANE_1;
@@ -120,13 +128,13 @@ void GameManager::CarFactory(){
 	TimberLog *b;
 	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test_timberlog = true, test_car = true){
 		a = new Car(169 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
-		b = new TimberLog(169 * pow(-1,i+1), y+100, 0, getSpeedRiver()[i]);
-		std::cout << "RIVER: " << getSpeedRiver()[i] << std::endl;
+		b = new TimberLog(169 * pow(-1, i + 1), y + 100, 0, getSpeedRiver()[i]);
+
 		for (DynamicObject *aux : getDynamicObjects()){
 			if (dynamic_cast<TimberLog*> (aux) && b->HasColision(aux)) test_timberlog = false;
 			if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test_car = false;
 		}
-		
+
 		if (test_car && !(rand() % 200))
 			setDynamicObject(a);
 		else delete(a);
@@ -135,9 +143,6 @@ void GameManager::CarFactory(){
 			setDynamicObject(b);
 		else delete(b);
 	}
-}
-void GameManager::factory(){
-	CarFactory();
 }
 void GameManager::update(unsigned long delta){
 	/*Steps:
@@ -155,26 +160,26 @@ void GameManager::update(unsigned long delta){
 			continue;
 		}
 		//Verifica colisao com Carro
-		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux)){
+		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux) && 0){
 			gm->changeStatus(1);
 			frog->setSpeed(0, 0, 0);
 		}
 	}
-	factory();
+	//factory();
 	glutPostRedisplay();
 }
 void GameManager::init(){
-	setcameras(camera_atual = new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
-	setcameras(new PerspectiveCamera(90, 5, 0, 200));
-	//setcameras(new PerspectiveCamera(frog->getPosition().getX() + 90, frog->getPosition().getY() + 5, 0, 200));
+	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	setcameras(camera_atual = new PerspectiveCamera(75, 5, 0, 200));
 
-	setStaticObject(new River(0, 150, 0));
-	setStaticObject(new Riverside(0, 190, 0));
-	setStaticObject(new Riverside(0, 110, 0));
-	setStaticObject(new Road(0, 50, 0));
-	setStaticObject(new Roadside(0, 90, 0));
-	setStaticObject(new Roadside(0, 10, 0));
+	setStaticObject(new Riverside(-100, 180, 0));
+	setStaticObject(new River(-100, 120, 0));
+	setStaticObject(new Riverside(-100, 100, 0));
+	
+	setStaticObject(new Roadside(-100, 80, 0));
+	setStaticObject(new Road(-100, 20, 0));
+	setStaticObject(new Roadside(-100, 0, 0));
 
-	setDynamicObject(frog = new Frog(0, 13, 0));
+	//setDynamicObject(frog = new Frog(0, 0, 0));
 
 }

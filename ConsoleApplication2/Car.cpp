@@ -19,9 +19,7 @@ Car::Car(){
 	delete(a);
 }
 Car::Car(double x, double y, double z) : Car() {  setPosition(x, y, z); setSize(16, 10, 5); }
-Car::Car(double x, double y, double z, double w) : Car(x, y, z) { setSpeed(w, 0, 0);
-	std::cout << w << " " << getPosition().getX() << " " << getPosition().getY() << " " << 0 << " " << getSpeed().getX() << std::endl;
-}
+Car::Car(double x, double y, double z, double w) : Car(x, y, z) { setSpeed(w, 0, 0); }
 Car::~Car(){}
 void Car::draw(){
 	glPushMatrix();

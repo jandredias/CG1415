@@ -1,23 +1,19 @@
 #include "stdafx.h"
 #include "Road.h"
 #include "GL/GLUT.h"
-Road::Road(){}
+Road::Road(){ setSize(200,60,20); }
 Road::~Road(){}
-Road::Road(double x, double y, double z){setPosition(x, y, z);}
+Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}
 void Road::draw(){
 	glPushMatrix();
-		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+	glTranslated(getPosition().getX() + getSize().getX() / 2, getPosition().getY() + getSize().getY() / 2, getPosition().getZ() - getSize().getZ() / 2);
 
-		glPushMatrix();
 			glColor3f(0.2, 0.2, 0.2);
-			glScalef(400, 60, 1);
+			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glutSolidCube(1);
-			glColor3f(0.8, 0.8, 0.8);
-			glutWireCube(1);
-		glPopMatrix();
-		for (int i = -3; i < 4; i+= 2)
-			for (int j = -5; j < 6; j++)
-				desenha_traco(j*2, i*6, 1);
+		//for (int i = -3; i < 4; i+= 2)
+			//for (int j = -5; j < 6; j++)
+				//desenha_traco(j*2, i*6, 1);
 			
 	glPopMatrix();
 }

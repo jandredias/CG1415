@@ -4,6 +4,7 @@
 #include "Header.h"
 class GameManager
 {
+	
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -23,9 +24,9 @@ class GameManager
 	LightSource *_light_sources;
 
 	public:
+		bool _debug = true;
 		GameManager();
 		~GameManager();
-
 		const double* getSpeedCar();
 		const double* getSpeedRiver();
 
@@ -43,9 +44,6 @@ class GameManager
 		void changeStatus(bool a);
 		bool getStatus();
 		void TimberLogFactory();
-		void resetFrog();
-		void resetFrog2();
-		void CarFactory();
 		void factory();
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);

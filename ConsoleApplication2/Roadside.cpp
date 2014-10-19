@@ -1,20 +1,21 @@
 #include "stdafx.h"
 #include "Roadside.h"
-#include "GL/GLUT.h"
+#include "GameManager.h"
+#include <iostream>
 
-Roadside::Roadside(){}
-Roadside::Roadside(double x, double y, double z){setPosition(x, y, z);}
+#include "gl/glut.h"
+extern GameManager *gm;
+
+Roadside::Roadside(){ setSize(200, 20, 20); }
+Roadside::Roadside(double x, double y, double z) : Roadside() { setPosition(x, y, z); }
 Roadside::~Roadside(){}
 void Roadside::draw(){
 	glPushMatrix();
-		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-
-		glPushMatrix();
-			glColor3f(0.8, 0.8, 0.8);
-			glutWireCube(1);
+		glTranslated(	getPosition().getX() + getSize().getX() / 2,
+						getPosition().getY() + getSize().getY() / 2,
+						getPosition().getZ() - getSize().getZ() / 2 );
+			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glColor3f(0.7, 0.7, 0.7);
-			glScalef(400, 20, 1);
 			glutSolidCube(1);
-		glPopMatrix();
 	glPopMatrix();
 }

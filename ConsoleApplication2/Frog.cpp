@@ -1,30 +1,41 @@
 #include "stdafx.h"
-
 #include "Frog.h"
-#include "Header.h"
+#include "GameManager.h"
+#include <iostream>
+
 #include "gl/glut.h"
+extern GameManager *gm;
+
+extern GameManager *gm;
 Frog::Frog(){}
 Frog::Frog(double x, double y, double z){
-	//std::cout << "Posicao SAPO: " << x << " | " << y << " | " << z << "\n";
-
 	setPosition(x, y, z);
-	//std::cout << "Posicao SAPO: " << getPosition().getX() << " | " << getPosition().getY() << " | " << getPosition().getZ() << "\n";
 	setSize(10, 10, 10);
-
 	setSpeed(0, 0, 0);
 }
 Frog::~Frog(){}
 void Frog::draw(){
 	glPushMatrix();
-	//glScalef(10, 10, 10);
-	//std::cout << "Posicao SAPO: " << getPosition().getX() << " | " << getPosition().getY() << " | " << getPosition().getZ() << "\n";
+		std::cout << "SAPO: "	<< getPosition().getX() - getSize().getX() / 2 << " " 
+								<< getPosition().getY() - getSize().getY() / 2 << " " 
+								<< getPosition().getZ() - getSize().getZ() / 2 << std::endl;
+		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ()-getSize().getZ());
 
-	glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());//
-
+		if (gm->_debug){
+			glColor3f(0,1,0);
+			glutWireCube(10);
+		}
+		
+		glColor3f(0, 1, 0);
+		//glTranslated(0, -1, 1);
+		//glScalef(1, 0.8, 1);
+		glutSolidCube(5);
+	glPopMatrix();
+	/*
 	glColor3f(1, 1, 1);
 	glutWireCube(16);
 	//printf("%d\n", getSpeed().getY());
-	/*Cubo da cabeça*/
+	//Cubo da cabeça
 		glPushMatrix();
 			glTranslated(0, -1, 1);
 			glColor3f(0, 1, 0);
@@ -33,7 +44,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(5);
 		glPopMatrix();
-		/*Cubo do corpo*/
+		//Cubo do corpo
 		glPushMatrix();
 			glTranslated(0, -5, 1);
 			glColor3f(0, 1, 0);
@@ -42,7 +53,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(5);
 		glPopMatrix();
-		/*Cubo de parte da pata superior direita que está encostada ao corpo*/
+		//Cubo de parte da pata superior direita que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(3, -1, 0);
 			glColor3f(0, 1, 0);
@@ -50,7 +61,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo do resto da pata superior direita que está encostada ao corpo*/
+		//Cubo do resto da pata superior direita que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(4, 0, 1);
 			glColor3f(0, 1, 0);
@@ -59,7 +70,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo de parte da pata superior esquerda que está encostada ao corpo*/
+		//Cubo de parte da pata superior esquerda que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(-3, -1, 0);
 			glColor3f(0, 1, 0);
@@ -67,7 +78,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo do resto da pata superior esquerda que está encostada ao corpo*/
+		//Cubo do resto da pata superior esquerda que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(-4, 0, 1);
 			glColor3f(0, 1, 0);
@@ -76,7 +87,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo de parte da pata inferior direita que está encostada ao corpo*/
+		//Cubo de parte da pata inferior direita que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(3, -5, 0);
 			glColor3f(0, 1, 0);
@@ -84,7 +95,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo do resto da pata inferior direita que está encostada ao corpo*/
+		//Cubo do resto da pata inferior direita que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(4, -6.5, 1);
 			glColor3f(0, 1, 0);
@@ -93,7 +104,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo de parte da pata inferior esquerda que está encostada ao corpo*/
+		//Cubo de parte da pata inferior esquerda que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(-3, -5, 0);
 			glColor3f(0, 1, 0);
@@ -101,7 +112,7 @@ void Frog::draw(){
 			glColor3f(0, 0.9, 0);
 			//glutWireCube(1);
 		glPopMatrix();
-		/*Cubo do resto da pata inferior esquerda que está encostada ao corpo*/
+		//Cubo do resto da pata inferior esquerda que está encostada ao corpo
 		glPushMatrix();
 			glTranslated(-4, -6.5, 1);
 			glColor3f(0, 1, 0);
@@ -111,19 +122,19 @@ void Frog::draw(){
 			//glutWireCube(1);
 		glPopMatrix();
 
-		/*Olho esquerdo do sapo*/
+		//Olho esquerdo do sapo
 		glPushMatrix();
 			glTranslated(-2, 1, 0);
 			glColor3f(1, 0, 0);
 			glutSolidSphere(1, 8, 8);
 		glPopMatrix();
 
-		/*Olho direito do sapo*/
+		//Olho direito do sapo
 		glPushMatrix();
 			glTranslated(2, 1, 0);
 			glColor3f(1, 0, 0);
 			glutSolidSphere(1, 8, 8);
 		glPopMatrix();
 
-		glPopMatrix();
+		glPopMatrix();*/
 }

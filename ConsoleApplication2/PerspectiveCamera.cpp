@@ -5,8 +5,9 @@
 extern int y;
 extern int z;
 
-PerspectiveCamera::PerspectiveCamera():Camera(-100,100){}
-PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zFar, zNear){}
+PerspectiveCamera::PerspectiveCamera() :Camera(-100, 100){}
+PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zFar, zNear){ _fovy = fovy; _aspect = aspect; }
+PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, Frog *a) : PerspectiveCamera(fovy, aspect, zNear, zFar){}
 
 void PerspectiveCamera::computeVisualizationMatrix(){
 	gluPerspective(	_fovy, 1,
@@ -15,9 +16,12 @@ void PerspectiveCamera::computeVisualizationMatrix(){
 	glLoadIdentity();
 }
 void PerspectiveCamera::update(GLsizei w, GLsizei h){
-	gluLookAt(	0	,	y	,	z,	//eyePosition
+	
+	gluLookAt(	0	,	-50	,	75,	//eyePosition
 				0	,	100.0	,	0.0,	//Point Position
 				0	,	0		,	1);		// Up Vector
+
+
 	float xmin = -100;
 	float xmax = 100;
 	float ymin = 0;

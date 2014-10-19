@@ -3,7 +3,6 @@
 #include <list>
 #include <queue>
 
-
 #define UPDATE_TIME 10
 
 #include "GL/glut.h"
