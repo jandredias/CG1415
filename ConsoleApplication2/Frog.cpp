@@ -6,7 +6,7 @@
 Frog::Frog(){}
 Frog::Frog(double x, double y, double z){
 	setPosition(x, y, z);
-	setSize(10, 10, 10);
+	setSize(10, 10, 5);
 	setSpeed(0, 0, 0);
 }
 Frog::~Frog(){}
@@ -17,10 +17,11 @@ void Frog::draw(){
 								<< getPosition().getZ() << std::endl;*/
 
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		
-		//glColor3f(0, 1, 0);
-		//glutWireCube(10);
-		
+		glPushMatrix();
+			glColor3f(0, 1, 0);
+			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
+			glutWireCube(1);
+		glPopMatrix();
 		glTranslatef(0, 2.9, 0);
 		//Cubo da cabeça
 		glPushMatrix();

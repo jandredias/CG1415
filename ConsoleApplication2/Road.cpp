@@ -2,7 +2,7 @@
 #include "Road.h"
 #include <iostream>
 #include "GL/GLUT.h"
-Road::Road(){ setSize(200,60,20); }
+Road::Road(){ setSize(1000,60,20); }
 Road::~Road(){}
 Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}
 void Road::draw(){

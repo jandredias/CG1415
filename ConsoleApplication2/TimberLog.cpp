@@ -2,17 +2,17 @@
 #include "TimberLog.h"
 #include "GL/GLUT.h"
 #include <iostream>
-TimberLog::TimberLog(){}
-TimberLog::TimberLog(double x, double y, double z){ setPosition(x, y, z); setSpeed(0, 0, 0); setSize((rand() % 5 + 1) * 4,10,1); }
-TimberLog::TimberLog(double x, double y, double z, double w){ setPosition(x, y, z); setSpeed(w, 0, 0); setSize((rand() % 5 + 1) * 4,10,1); }
+TimberLog::TimberLog(){ setSpeed(0, 0, 0); }
+TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 10 + 1) * 20, 10, 2); }
+TimberLog::TimberLog(double x, double y, double z, double w) : TimberLog(x,y,z){ setSpeed(w, 0, 0); }
 TimberLog::~TimberLog(){}
 void TimberLog::draw(){
 	glPushMatrix();
-	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ()+10);
+	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 
 	
 		glColor3f(0.5, 0.35, 0.05);
-		glScalef(getSize().getX(), 3, 0);
-		glutSolidCube(3);
+		glScalef(getSize().getX(), getSize().getY(), 1);
+		glutSolidCube(1);
 		glPopMatrix();
 }

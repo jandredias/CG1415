@@ -23,7 +23,7 @@ Car::Car(double x, double y, double z, double w) : Car(x, y, z) { setSpeed(w, 0,
 Car::~Car(){}
 void Car::draw(){
 	glPushMatrix();
-		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 	
 		//glPushMatrix();
 		//glScalef(16, 10, 5);

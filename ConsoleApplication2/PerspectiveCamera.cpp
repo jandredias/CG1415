@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Header.h"
+#include <iostream>
 #include "PerspectiveCamera.h"
-
 extern int y;
 extern int z;
 
 PerspectiveCamera::PerspectiveCamera() : Camera(0, 200){}
-PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zFar, zNear){ _fovy = fovy; _aspect = aspect; }
+PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zNear, zFar){ _fovy = fovy; _aspect = aspect; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, Frog *a) : PerspectiveCamera(fovy, aspect, zNear, zFar){ frog = a; }
 
 void PerspectiveCamera::computeVisualizationMatrix(){
@@ -32,6 +32,5 @@ void PerspectiveCamera::update(GLsizei w, GLsizei h){
 void PerspectiveCamera::computeProjectionMatrix(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//gluPerspective(_fovy, 1, getNear(), getFar());
-	gluPerspective(90, 1, 1, 2000);
+	gluPerspective(_fovy, _aspect, getNear(), getFar());
 }

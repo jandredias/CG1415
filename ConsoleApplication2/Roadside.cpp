@@ -6,7 +6,7 @@
 #include "gl/glut.h"
 extern GameManager *gm;
 
-Roadside::Roadside(){ setSize(200, 20, 20); }
+Roadside::Roadside(){ setSize(1000, 20, 20); }
 Roadside::Roadside(double x, double y, double z) : Roadside() { setPosition(x, y, z); }
 Roadside::~Roadside(){}
 void Roadside::draw(){

@@ -2,7 +2,7 @@
 #include "River.h"
 #include "GL/GLUT.h"
 
-River::River(){ setSize(200, 60, 20); }
+River::River(){ setSize(1000, 60, 20); }
 River::River(double x, double y, double z): River(){setPosition(x, y, z);}
 River::~River(){}
 void River::draw(){

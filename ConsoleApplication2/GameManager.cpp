@@ -133,7 +133,7 @@ void GameManager::factory(){
 	TimberLog *b;
 	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test_timberlog = true, test_car = true){
 		a = new Car(169 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
-		b = new TimberLog(169 * pow(-1, i + 1), y + 100, 0, getSpeedRiver()[i]);
+		b = new TimberLog(250 * pow(-1, i + 1), y + 100, 0, getSpeedRiver()[i]);
 
 		for (DynamicObject *aux : getDynamicObjects()){
 			if (dynamic_cast<TimberLog*> (aux) && b->HasColision(aux)) test_timberlog = false;
@@ -159,7 +159,7 @@ void GameManager::update(unsigned long delta){
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
 		aux->update(delta);
-		if (abs(aux->getPosition().getX()) > 170){
+		if (abs(aux->getPosition().getX()) > 251){
 			delete(aux);
 			_dynamic_game_objects.remove(aux);
 			continue;
@@ -171,7 +171,7 @@ void GameManager::update(unsigned long delta){
 			frog->setPosition(0, 0, 5);
 		}
 	}
-	//factory();
+	factory();
 	glutPostRedisplay();
 }
 void GameManager::init(){
