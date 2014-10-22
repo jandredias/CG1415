@@ -3,8 +3,8 @@
 
 
 GameManager *gm;
-int y = -400;
-int z = 50;
+int y = 100;
+int z = 120;
 void display(void){gm->display();}
 void reshape(int width, int height){gm->reshape(width, height);}
 void update_game(int i){ gm->onTimer(); glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME); }
@@ -15,14 +15,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	gm = new GameManager();
 	srand(time(0));
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 
 
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LEQUAL);
 
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);

@@ -15,12 +15,12 @@ Bus::~Bus()
 
 void Bus::draw(){
 	glPushMatrix();
-	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-	glPushMatrix();
-		glTranslated(-100, getPosition().getY(), 1);
-		glColor3f(1, 1, 1);
-		glScalef(7, 4, 2);
-		glutSolidCube(3);
-	glPopMatrix();
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		glPushMatrix();
+			glTranslated(-100, getPosition().getY(), 1);
+			glColor3f(1, 1, 1);
+			glScalef(7, 4, 2);
+			glutSolidCube(3);
+		glPopMatrix();
 	glPopMatrix();
 }

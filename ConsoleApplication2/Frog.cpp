@@ -16,7 +16,7 @@ void Frog::draw(){
 								<< getPosition().getY() << " "
 								<< getPosition().getZ() << std::endl;*/
 
-		glTranslatef(getPosition().getX(), getPosition().getY(), getSize().getZ()/2);
+		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 		
 		//glColor3f(0, 1, 0);
 		//glutWireCube(10);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameManager.h"
-
+/* ERA INTERESSANTE SE OS MEUS COLEGAS COMECASSEM A TRABALHAR NO PROJETO TAMBEM!!!!!!!!!!!!!!!!!!!!!! */
 #define Y_PRIMEIRA_LINHA_RIO 126
 #define Y_PRIMEIRA_LINHA_CARRO 26
 
@@ -21,18 +21,19 @@ extern GameManager *gm;
 extern int y;
 extern int z;
 
-GameManager::GameManager(){	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
-_speed_car[0] = 0.06;
-_speed_car[1] = -0.07;
-_speed_car[2] = 0.05;
-_speed_car[3] = -0.075;
-_speed_car[4] = 0.08;
+GameManager::GameManager(){
+	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
+	_speed_car[0] = 0.06;
+	_speed_car[1] = -0.07;
+	_speed_car[2] = 0.05;
+	_speed_car[3] = -0.075;
+	_speed_car[4] = 0.08;
 
-_speed_river[0] = 0.06;
-_speed_river[1] = -0.07;
-_speed_river[2] = 0.05;
-_speed_river[3] = -0.075;
-_speed_river[4] = 0.08;
+	_speed_river[0] = 0.06;
+	_speed_river[1] = -0.07;
+	_speed_river[2] = 0.05;
+	_speed_river[3] = -0.075;
+	_speed_river[4] = 0.08;
 
 }
 
@@ -49,18 +50,17 @@ void GameManager::changeStatus(bool a){ _status = a; }
 bool GameManager::getStatus(){ return _status; }
 void GameManager::display(){
 	glClearColor(1, 1, 1, 1);
-	glClearDepth(1.0f);
+	//glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 	camera_atual->computeProjectionMatrix();
-	camera_atual->computeVisualizationMatrix();
 	camera_atual->update(_w, _h);
-
-
+	camera_atual->computeVisualizationMatrix();
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
 	glFlush();
+	//getchar();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
 	glViewport(0, 0, w, h);
@@ -79,9 +79,9 @@ void GameManager::keyUp(unsigned char key){
 	case '3':
 		for (Camera* aux : getcameras())
 			if (++k == key){
-				camera_atual = aux;
-				reshape(_w, _h);
-				std::cout << "CAMERA HAS CHANGED" << std::endl;
+			camera_atual = aux;
+			reshape(_w, _h);
+			std::cout << "CAMERA HAS CHANGED" << std::endl;
 			}
 		break;
 	case 'f':
@@ -100,6 +100,11 @@ void GameManager::keyUp(unsigned char key){
 void GameManager::keyPressed(unsigned char key){
 	if (getStatus()){ frog->setSpeed(0, 0, 0); return; }
 	switch (key){
+	/*case 'm': std::cout << --y << std::endl; break;
+	case 'j': std::cout << ++y << std::endl; break;
+
+	case 'n': std::cout << --z << std::endl; break;
+	case 'h': std::cout << ++z << std::endl; break;*/
 	case 'f':
 	case 'p': frog->setSpeed(SPEED_FROG, frog->getSpeed().getY(), frog->getSpeed().getZ()); break;
 
@@ -160,30 +165,30 @@ void GameManager::update(unsigned long delta){
 			continue;
 		}
 		//Verifica colisao com Carro
-		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux) ){
+		if (dynamic_cast<Car*> (aux) && frog->HasColision(aux)){
 			//gm->changeStatus(1);
 			frog->setSpeed(0, 0, 0);
 			frog->setPosition(0, 0, 5);
 		}
 	}
-	factory();
+	//factory();
 	glutPostRedisplay();
 }
 void GameManager::init(){
 
-	setStaticObject(new Riverside(-100, 180, 0));
-	setStaticObject(new River(-100, 120, 0));
-	setStaticObject(new Riverside(-100, 100, 0));
 	
-	setStaticObject(new Roadside(-100, 80, 0));
-	setStaticObject(new Road(-100, 20, 0));
-	setStaticObject(new Roadside(-100, 0, 0));
+	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Road(0, 50, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Riverside(0, 110, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
 
-	setDynamicObject(frog = new Frog(0, 0, 5));
+	setDynamicObject(frog = new Frog(0, 0, 0));
 
-
+	//setDynamicObject(new Car(0, 26, 0, 0));
 	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
-	setcameras(camera_atual = new PerspectiveCamera(75, 5, 0, 200));
-	setcameras(new PerspectiveCamera(75, 5, 0, 200, frog));
+	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
+	//setcameras(new PerspectiveCamera(75, 5, 0, 200, frog));
 
 }

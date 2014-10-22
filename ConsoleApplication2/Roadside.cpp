@@ -11,12 +11,12 @@ Roadside::Roadside(double x, double y, double z) : Roadside() { setPosition(x, y
 Roadside::~Roadside(){}
 void Roadside::draw(){
 	glPushMatrix();
-		glTranslated(	getPosition().getX() + getSize().getX() / 2,
-						getPosition().getY() + getSize().getY() / 2,
+		glTranslated(	getPosition().getX(),
+						getPosition().getY(),
 						getPosition().getZ() - getSize().getZ() / 2 );
-		//std::cout << getSize().getX() << std::endl;
-			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
-			glColor3f(0.7, 0.7, 0.7);
-			glutSolidCube(1);
+		
+		glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
+		glColor3f(0.7, 0.7, 0.7);
+		glutSolidCube(1);
 	glPopMatrix();
 }
