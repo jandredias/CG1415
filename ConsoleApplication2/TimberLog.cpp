@@ -3,7 +3,7 @@
 #include "GL/GLUT.h"
 #include <iostream>
 TimberLog::TimberLog(){ setSpeed(0, 0, 0); }
-TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 10 + 1) * 20, 10, 2); }
+TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 5 + 1) * 30, 10, 2); }
 TimberLog::TimberLog(double x, double y, double z, double w) : TimberLog(x,y,z){ setSpeed(w, 0, 0); }
 TimberLog::~TimberLog(){}
 void TimberLog::draw(){

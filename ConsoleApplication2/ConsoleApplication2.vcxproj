@@ -93,6 +93,7 @@
     <ClInclude Include="LimitMap.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="River.h" />
     <ClInclude Include="Riverside.h" />
     <ClInclude Include="Road.h" />

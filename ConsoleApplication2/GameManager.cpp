@@ -1,19 +1,11 @@
 #include "stdafx.h"
 #include "GameManager.h"
 /* ERA INTERESSANTE SE OS MEUS COLEGAS COMECASSEM A TRABALHAR NO PROJETO TAMBEM!!!!!!!!!!!!!!!!!!!!!! */
-#define Y_PRIMEIRA_LINHA_RIO 126
-#define Y_PRIMEIRA_LINHA_CARRO 26
-
-#define SPEED0	0.06
-#define SPEED1	-0.07
-#define SPEED2	0.05
-#define SPEED3	-0.075
-#define SPEED4	0.08
 
 #define CAR_LANE_1		26
 #define CAR_LANE_SIZE_Y	12
 #define CAR_LANE_NO		5
-#define SPEED_FROG 0.1
+#define SPEED_FROG 0.05
 #define SPEED_CAR -0.036
 #define TL_POS_BEGIN0	-150
 #define	TL_POS_BEGIN1	 150
@@ -21,21 +13,7 @@ extern GameManager *gm;
 extern int y;
 extern int z;
 
-GameManager::GameManager(){
-	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
-	_speed_car[0] = 0.06;
-	_speed_car[1] = -0.07;
-	_speed_car[2] = 0.05;
-	_speed_car[3] = -0.075;
-	_speed_car[4] = 0.08;
-
-	_speed_river[0] = 0.06;
-	_speed_river[1] = -0.07;
-	_speed_river[2] = 0.05;
-	_speed_river[3] = -0.075;
-	_speed_river[4] = 0.08;
-}
-
+GameManager::GameManager(){}
 GameManager::~GameManager(){}
 double GameManager::getGameSpeed(){ return _speed; }
 std::list<DynamicObject *> GameManager::getDynamicObjects(void){ return _dynamic_game_objects; }
@@ -50,7 +28,6 @@ void GameManager::changeStatus(bool a){ _status = a; }
 bool GameManager::getStatus(){ return _status; }
 void GameManager::display(){
 	glClearColor(1, 1, 1, 1);
-	//glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
@@ -70,9 +47,7 @@ void GameManager::keyUp(unsigned char key){
 		case '2':
 		case '3':
 			camera_atual_id = key - '1';
-			std::cout << camera_atual_id << std::endl;
 			camera_atual = getcameras()[camera_atual_id];
-			reshape(_w, _h);
 			break;
 		case 'f':
 		case 'p': frog->setSpeed(0, frog->getSpeed().getY(), frog->getSpeed().getZ()); break;
@@ -147,12 +122,25 @@ void GameManager::update(unsigned long delta){
 		}
 	}
 	if (camera_atual_id == 2){
-		camera_atual->setAt(frog->getPosition().getX(), frog->getPosition().getY() - 20, frog->getPosition().getY() + 20);
+		camera_atual->setAt(frog->getPosition().getX(), frog->getPosition().getY() - 20, frog->getPosition().getZ() + 20);
 	}
 	factory();
 	glutPostRedisplay();
 }
 void GameManager::init(){
+	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
+	_speed_car[0] = 0.06;
+	_speed_car[1] = -0.07;
+	_speed_car[2] = 0.05;
+	_speed_car[3] = -0.075;
+	_speed_car[4] = 0.08;
+
+	_speed_river[0] = 0.06;
+	_speed_river[1] = -0.07;
+	_speed_river[2] = 0.05;
+	_speed_river[3] = -0.075;
+	_speed_river[4] = 0.08;
+
 	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(-150, 100, 0))); //LimiteEsquerdo
 	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(150, 100, 0))); //LimiteDireito
 	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, 250, 0))); //Limite Top
@@ -163,8 +151,22 @@ void GameManager::init(){
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
+
 	setDynamicObject(frog = new Frog(0, 10, -1));
 	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
+
+
+	class Nivel{
+	public:
+		static void improve_level(int i){
+			gm->_speed *= 1.1;
+			glutTimerFunc(5000, improve_level, 1);
+		}
+	};
+	Nivel a;
+	glutTimerFunc(5000, a.improve_level, 1);
+
+
 }

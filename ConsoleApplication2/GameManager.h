@@ -7,13 +7,12 @@ class GameManager
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
-	int velocidade = 1;
 	int _w = 0;
 	int _h = 0;
 	double _speed_car[5];
 	double _speed_river[5];
 	bool _status = 0;
-	double _speed = 1;
+	double _speed = 0.5;
 
 	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<StaticObject *> _static_game_objects;
