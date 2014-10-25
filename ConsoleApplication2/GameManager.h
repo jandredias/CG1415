@@ -13,18 +13,21 @@ class GameManager
 	double _speed_car[5];
 	double _speed_river[5];
 	bool _status = 0;
+	double _speed = 1;
 
 	std::list<DynamicObject *> _dynamic_game_objects;
-	std::list<GameObject *> _static_game_objects;
+	std::list<StaticObject *> _static_game_objects;
 	Frog *frog;
 	Camera *camera_atual;
-	std::list<Camera *> _cameras;
+	int camera_atual_id = 1;
+	std::vector<Camera *> _cameras;
 	
 	LightSource *_light_sources;
 
 	public:
-		bool _debug = true;
+		double getGameSpeed();
 		Frog* getFrog(){return frog;}
+
 		GameManager();
 		~GameManager();
 		const double* getSpeedCar();
@@ -33,11 +36,11 @@ class GameManager
 		std::list<DynamicObject *> getDynamicObjects();
 		void setDynamicObject(DynamicObject * aux);
 
-		std::list<GameObject *> getStaticObjects();
-		void setStaticObject(GameObject* aux);
+		std::list<StaticObject *> getStaticObjects();
+		void setStaticObject(StaticObject* aux);
 		
-		std::list<Camera *> getcameras(void);
-		std::list<Camera *> setcameras(Camera*aux);
+		std::vector<Camera *> getcameras(void);
+		std::vector<Camera *> setcameras(Camera*aux);
 
 		LightSource* getlight_sources(void);
 		LightSource* setlight_sources(LightSource*);

@@ -3,19 +3,28 @@
 #include "Frog.h"
 #include "GameManager.h"
 #include "gl/glut.h"
-Frog::Frog(){}
-Frog::Frog(double x, double y, double z){
+Frog::Frog(){
+	setSpeed(0, 0, 0);
+	speed_log.set(0, 0, 0);
+}
+Frog::Frog(double x, double y, double z) : Frog(){
 	setPosition(x, y, z);
 	setSize(10, 10, 5);
-	setSpeed(0, 0, 0);
+}
+void Frog::setSpeedLog(double x, double y, double z){
+	speed_log.set(x, y, z);
+}
+Vector3 Frog::getSpeed(){
+	Vector3 a(DynamicObject::getSpeed() + speed_log);
+	//std::cout << "[SPEED FROG] X: " << a.getX() << " Y: " << a.getY() << " Z: " << a.getZ() << std::endl;
+	return a;
+}
+Vector3 Frog::getSpeedLog(){
+	return speed_log;
 }
 Frog::~Frog(){}
 void Frog::draw(){
 	glPushMatrix();
-		/*std::cout << "SAPO: "	<< getPosition().getX() << " " 
-								<< getPosition().getY() << " "
-								<< getPosition().getZ() << std::endl;*/
-
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 		glPushMatrix();
 			glColor3f(0, 1, 0);
@@ -23,6 +32,7 @@ void Frog::draw(){
 			glutWireCube(1);
 		glPopMatrix();
 		glTranslatef(0, 2.9, 0);
+		
 		//Cubo da cabeça
 		glPushMatrix();
 			glTranslated(0, -1, 1);

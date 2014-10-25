@@ -14,8 +14,8 @@ class DynamicObject : public GameObject
 		void update(double delta_t);
 		void setSpeed(Vector3* speed);
 		void setSpeed(double x, double y, double z);
-		Vector3 getSpeed();
-		bool HasColision(DynamicObject *);
+		virtual Vector3 getSpeed();
+		bool HasColision(GameObject *);
 
 };
 

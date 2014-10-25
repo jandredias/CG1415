@@ -17,7 +17,7 @@ class Vector3
 		void set(Vector3 *a);
 		Vector3 operator=(Vector3 * vec);
 		Vector3 operator*(double num);
-		Vector3 operator+(Vector3 *vec);
+		Vector3 operator+(Vector3 vec);
 		Vector3 operator-(Vector3 *vec);
 };
 

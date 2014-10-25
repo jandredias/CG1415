@@ -3,7 +3,7 @@
 #include <list>
 #include <queue>
 
-#define UPDATE_TIME 10
+#define UPDATE_TIME 20
 
 #include "GL/glut.h"
 #include "Entity.h"
@@ -26,3 +26,4 @@
 #include "Turtle.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "LimitMap.h"

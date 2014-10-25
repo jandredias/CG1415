@@ -2,31 +2,54 @@
 #include "DynamicObject.h"
 #include "GameManager.h"
 #include "Frog.h"
+#include "staticObject.h"
+
 extern GameManager *gm;
+
 DynamicObject::DynamicObject(){}
 DynamicObject::~DynamicObject(){}
 
 void DynamicObject::update(double delta_t){
-	setPosition(getPosition().getX() + getSpeed().getX()*delta_t, getPosition().getY() + getSpeed().getY()*delta_t, getPosition().getZ());
-	Frog* v = dynamic_cast<Frog*>(this);
-	if (v != 0){
-		//Testa movimento do sapo fora do mapa X
-		if (getPosition().getX() > 100 - getSize().getX() / 2)
-			setPosition(100 - getSize().getX() / 2, getPosition().getY(), getPosition().getZ());
-		else if (getPosition().getX() < -100 + getSize().getX() / 2)
-			setPosition(-100 + getSize().getX() / 2, getPosition().getY(), getPosition().getZ());
+	Vector3 oldPosition(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+	setPosition(getPosition().getX() + getSpeed().getX() * delta_t * gm->getGameSpeed(),
+				getPosition().getY() + getSpeed().getY() * delta_t * gm->getGameSpeed(),
+				getPosition().getZ());
 
-		//Testa movimento do sapo fora do mapa Y
-		if (getPosition().getY() > 200 - getSize().getY() / 2)
-			setPosition(getPosition().getX(), 200 - getSize().getY() / 2, getPosition().getZ());
-		else if (getPosition().getY() < 0 + getSize().getY() / 2)
-			setPosition(getPosition().getX(), getSize().getY() / 2, getPosition().getZ());
+	Frog *v = dynamic_cast<Frog*>(this);
+	if (v != 0){
+		bool ColisionLimit = false;
+		bool ColisionRiver = false;
+		bool ColisionRiverside = false;
+		bool ColisionTimberLog = false;
+		bool ColisionCar = false;
+		Vector3 speedLog;
+		//Verify Map Limit
+		for (DynamicObject *aux : gm->getDynamicObjects())
+			if (dynamic_cast<TimberLog *> (aux) && HasColision(aux)){
+				ColisionTimberLog = true;
+				speedLog.set(aux->getSpeed().getX(), 0, 0);
+			}
+			else if ((dynamic_cast<Car*> (aux) && HasColision(aux))) ColisionCar = true;
+
+		for (StaticObject *aux : gm->getStaticObjects())
+			if (dynamic_cast<LimitMap *> (aux) && HasColision(aux))
+				ColisionLimit = true;
+			else if (dynamic_cast<River *> (aux) && HasColision(aux)) ColisionRiver = true;
+			else if (dynamic_cast<Riverside *> (aux) && HasColision(aux)) ColisionRiverside = true;
+
+			if (ColisionLimit) setPosition(oldPosition.getX(), oldPosition.getY(), oldPosition.getZ());
+			else if (ColisionCar || (ColisionRiver && !(ColisionRiverside || ColisionTimberLog))){
+				setSpeed(0, 0, 0);
+				setPosition(0, 10, -1);
+			}
+			if (!ColisionTimberLog) v->setSpeedLog(0, 0, 0);
+			if (ColisionTimberLog && v->getSpeedLog().getX() == 0) v->setSpeedLog(speedLog.getX(), 0, 0);
 	}
 }
 void DynamicObject::setSpeed(Vector3* speed){ _speed.set(speed->getX(), speed->getY(),speed->getZ()); }
 void DynamicObject::setSpeed(double x, double y, double z){ _speed.set(x, y, z); }
 Vector3 DynamicObject::getSpeed(){	return _speed; }
-bool DynamicObject::HasColision(DynamicObject *a){
+bool DynamicObject::HasColision(GameObject *a){
 	if ((getPosition().getX() + getSize().getX() / 2) > (a->getPosition().getX() - a->getSize().getX() / 2) &&
 		(getPosition().getX() - getSize().getX() / 2) < (a->getPosition().getX() + a->getSize().getX() / 2) &&
 
