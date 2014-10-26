@@ -29,6 +29,7 @@ class GameManager
 		double getGameSpeed();
 		Frog* getFrog(){return frog;}
 		void output(int x, int y, float r, float g, float b, int font, char *string);
+		void write_info();
 		GameManager();
 		~GameManager();
 		const double* getSpeedCar();

@@ -22,6 +22,7 @@ GameManager::~GameManager(){
 	for (GameObject *aux : getFrogs()) delete(aux);
 	for (Camera *aux : getcameras()) delete(aux);
 }
+
 double GameManager::getGameSpeed(){ return _speed; }
 std::list<DynamicObject *> GameManager::getDynamicObjects(void){ return _dynamic_game_objects; }
 void GameManager::setDynamicObject(DynamicObject* aux){ _dynamic_game_objects.push_back(aux); }
@@ -96,6 +97,8 @@ void GameManager::init(){
 void GameManager::display(){
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	//write_info();
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
 	camera_atual->computeVisualizationMatrix();
@@ -176,6 +179,19 @@ void GameManager::factory(){
 			setDynamicObject(b);
 		else delete(b);
 	}
+}
+void GameManager::write_info(){
+	glPushMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	//glScalef(40, 40, 1);
+	glColor4f(0, 0, 0.8, 0.5);
+	glTranslatef(1 - 0.25 / 2, 1 - 0.25 / 2, 0);
+	glutSolidCube(0.25);
+	output(0, 0, 1, 0, 0, 1, "FROGGER INFO");
+	glPopMatrix();
 }
 void GameManager::output(int x, int y, float r, float g, float b, int font, char *string)
 {
