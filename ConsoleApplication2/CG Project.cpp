@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Header.h"
 
 
@@ -10,7 +10,7 @@ void reshape(int width, int height){gm->reshape(width, height);}
 void update_game(int i){ gm->onTimer(); glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME); }
 void keyboardfunc_up(unsigned char key, int x, int y){ gm->keyUp(key); }
 void keyboardfunc_down(unsigned char key, int x, int y){ gm->keyPressed(key); }
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char * argv[])
 {
 	gm = new GameManager();
 	srand(time(0));

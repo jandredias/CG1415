@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Riverside.h"
 #include "GL/GLUT.h"
 

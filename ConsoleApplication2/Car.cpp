@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Car.h"
 Car::Car(){
 	Vector3 *a = new Vector3();

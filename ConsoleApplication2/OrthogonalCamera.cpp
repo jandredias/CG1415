@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "GL/GLUT.h"
 #include "OrthogonalCamera.h"
 

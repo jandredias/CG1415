@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Header.h"
 #include <iostream>
 #include "PerspectiveCamera.h"

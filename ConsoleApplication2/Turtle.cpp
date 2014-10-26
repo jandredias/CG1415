@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Turtle.h"
 #include "GL/glut.h"
 

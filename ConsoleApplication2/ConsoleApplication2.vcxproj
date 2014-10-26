@@ -48,11 +48,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,6 +96,7 @@
     <ClInclude Include="LimitMap.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="River.h" />
     <ClInclude Include="Riverside.h" />
@@ -124,15 +126,12 @@
     <ClCompile Include="LimitMap.cpp" />
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="River.cpp" />
     <ClCompile Include="Riverside.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="Roadside.cpp" />
     <ClCompile Include="staticObject.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="TimberLog.cpp" />
     <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Vector3.cpp" />

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include <iostream>
 #include "Frog.h"
 #include "GameManager.h"
@@ -39,11 +39,19 @@ void Frog::update(double delta_t){
 			if (HasColision(aux))
 				if (dynamic_cast<FrogTarget*> (aux)){
 					gm->setNewFrog(Vector3(aux->getPosition().getX(), aux->getPosition().getY() - 2.5, aux->getPosition().getZ()));
-					setPosition(0, 10, -1);
+					gm->getPlayers()[0]->newRound();
 					return;
 				}
-				else if (dynamic_cast<LimitMap *> (aux)) setPosition(oldPosition.getX(), oldPosition.getY(), oldPosition.getZ());
-				
+
+				else if (dynamic_cast<LimitMap *> (aux)){ //Limit Map Case
+					/* The frog might be moving on x and y axis at the same time,
+					 * so we have to check if the colision is on X axis or/and Y axis
+					 */
+					if (aux->getPosition().getX() == 0)
+						setPosition(getPosition().getX(), oldPosition.getY(), getPosition().getZ());
+					if (aux->getPosition().getY() == 100)
+						setPosition(oldPosition.getX(), getPosition().getY(), getPosition().getZ());
+				}
 				else if (dynamic_cast<River *> (aux)) ColisionRiver = true;
 				else if (dynamic_cast<Riverside *> (aux)) ColisionRiverside = true;
 

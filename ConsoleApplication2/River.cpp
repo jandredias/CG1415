@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "River.h"
 #include "GL/GLUT.h"
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "LimitMap.h"
 
 LimitMap::LimitMap(Vector3 a, Vector3 b){

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "TimberLog.h"
 #include "GL/GLUT.h"
 #include <iostream>

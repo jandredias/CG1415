@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Roadside.h"
 #include "GameManager.h"
 #include <iostream>

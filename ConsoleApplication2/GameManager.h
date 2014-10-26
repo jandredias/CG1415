@@ -2,10 +2,15 @@
 #ifndef __GAMEMANAGER__
 #define __GAMEMANAGER__
 #include "Header.h"
+#include "Player.h"
 class GameManager
 {
 	Vector3 _size_map;
 	Vector3 _center_map;
+
+	int _no_players = 1;
+	std::vector<Player *> _players;
+
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -27,7 +32,9 @@ class GameManager
 
 	public:
 		double getGameSpeed();
-		Frog* getFrog(){return frog;}
+		Frog* getFrog();
+		void setPlayer(Player *a);
+		std::vector<Player *> getPlayers();
 		void output(int x, int y, float r, float g, float b, int font, char *string);
 		void write_info();
 		GameManager();

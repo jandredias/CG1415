@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Bus.h"
 #include "GL/GLUT.h"
 

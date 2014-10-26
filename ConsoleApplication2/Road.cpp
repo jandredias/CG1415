@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Road.h"
 #include <iostream>
 #include "GL/GLUT.h"
