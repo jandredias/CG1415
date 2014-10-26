@@ -27,3 +27,5 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "LimitMap.h"
+#include "Background.h"
+#include "FrogTarget.h"

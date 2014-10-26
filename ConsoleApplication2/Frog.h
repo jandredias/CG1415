@@ -13,9 +13,6 @@ public:
 	~Frog();
 	void draw();
 	void update(double delta);
-	Vector3 getSpeed();
-	void setSpeedLog(double x, double y, double z);
-	Vector3 Frog::getSpeedLog();
 };
 
 #endif

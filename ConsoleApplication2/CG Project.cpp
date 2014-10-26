@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	gm = new GameManager();
 	srand(time(0));
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
 
 
 	glutInitWindowSize(600, 600);

@@ -5,8 +5,8 @@
 Camera::Camera(double near, double far){
 	_near = near;
 	_far = far;
-	_at.set(0, 0, 100);
-	_up.set(0, 1, 1);
+	_at.set(0, 10, 120);
+	_up.set(0, 10, 4);
 }
 Camera::~Camera(){}
 double Camera::getNear(){ return _near; }

@@ -10,8 +10,8 @@ DynamicObject::DynamicObject(){}
 DynamicObject::~DynamicObject(){}
 
 void DynamicObject::update(double delta_t){
-	setPosition(getPosition().getX() + getSpeed().getX() * delta_t * gm->getGameSpeed(),
-				getPosition().getY() + getSpeed().getY() * delta_t * gm->getGameSpeed(),
+	setPosition(getPosition().getX() + getSpeed().getX() * delta_t * gm->getGameSpeed() / 1000,
+				getPosition().getY() + getSpeed().getY() * delta_t * gm->getGameSpeed() / 1000,
 				getPosition().getZ());
 }
 void DynamicObject::setSpeed(Vector3* speed){ _speed.set(speed->getX(), speed->getY(),speed->getZ()); }

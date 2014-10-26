@@ -1,20 +1,25 @@
 #include "stdafx.h"
 #include "GameManager.h"
-/* ERA INTERESSANTE SE OS MEUS COLEGAS COMECASSEM A TRABALHAR NO PROJETO TAMBEM!!!!!!!!!!!!!!!!!!!!!! */
+#include "Header.h"
+#define LEVEL_TIME_IN_SECONDS		10
+#define CAR_LANE_1					26
+#define CAR_LANE_SIZE_Y				12
+#define CAR_LANE_NO					5
+#define SPEED_FROG					40
+#define TL_POS_BEGIN0				-150
+#define	TL_POS_BEGIN1				150
 
-#define CAR_LANE_1		26
-#define CAR_LANE_SIZE_Y	12
-#define CAR_LANE_NO		5
-#define SPEED_FROG 0.05
-#define SPEED_CAR -0.036
-#define TL_POS_BEGIN0	-150
-#define	TL_POS_BEGIN1	 150
 extern GameManager *gm;
 extern int y;
 extern int z;
 
 GameManager::GameManager(){}
-GameManager::~GameManager(){}
+GameManager::~GameManager(){
+	for (GameObject *aux : getDynamicObjects()) delete(aux);
+	for (GameObject *aux : getStaticObjects()) delete(aux);
+	for (GameObject *aux : getFrogs()) delete(aux);
+	for (Camera *aux : getcameras()) delete(aux);
+}
 double GameManager::getGameSpeed(){ return _speed; }
 std::list<DynamicObject *> GameManager::getDynamicObjects(void){ return _dynamic_game_objects; }
 void GameManager::setDynamicObject(DynamicObject* aux){ _dynamic_game_objects.push_back(aux); }
@@ -26,6 +31,66 @@ const double* GameManager::getSpeedCar(){ return _speed_car; }
 const double* GameManager::getSpeedRiver(){ return _speed_river; }
 void GameManager::changeStatus(bool a){ _status = a; }
 bool GameManager::getStatus(){ return _status; }
+void GameManager::setNewFrog(Vector3 a){ list_frogs.push_back(new Frog(a.getX(), a.getY(), a.getZ())); }
+std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
+
+void GameManager::init(){
+	_size_map.set(200,200,0);
+	_center_map.set(0, 100, 0);
+	
+	delete(frog);
+
+	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
+
+	_speed_car[0] =    _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[1] = -  _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[2] =    _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[3] = -  _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[4] =    _size_map.getX() / (rand() % 5 + 3);
+
+	_speed_river[0] =  _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[1] =- _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[2] =  _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[3] =- _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[4] =  _size_map.getX() / (rand() % 5 + 3);
+	
+	setStaticObject(new Background(0, 100, 0));
+
+	setStaticObject(new FrogTarget(-80, 190, 0));
+	setStaticObject(new FrogTarget(-40, 190, 0));
+	setStaticObject(new FrogTarget(0, 190, 0));
+	setStaticObject(new FrogTarget(40, 190, 0));
+	setStaticObject(new FrogTarget(80, 190, 0));
+
+	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(-150, 100, 0))); //LimiteEsquerdo
+	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(150, 100, 0))); //LimiteDireito
+	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, 250, 0))); //Limite Top
+	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, -50, 0))); //Limite Bottom
+
+	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Road(0, 50, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Riverside(0, 110, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
+	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
+
+	setDynamicObject(frog = new Frog(0, 10, -1));
+	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
+	setcameras(new PerspectiveCamera(90, 1, 1, 400));
+
+	//Improve level every LEVEL_TIME seconds;
+	class Nivel{
+	public:
+		static void improve_level(int i){
+			gm->_speed *= 1.1;
+			glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, improve_level, 1);
+		}
+	};
+	Nivel a;
+	glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, a.improve_level, 1);
+}
+
 void GameManager::display(){
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -34,6 +99,7 @@ void GameManager::display(){
 	camera_atual->computeVisualizationMatrix();
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
+	for (GameObject *aux : getFrogs()) aux->draw();
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
@@ -123,50 +189,8 @@ void GameManager::update(unsigned long delta){
 	}
 	if (camera_atual_id == 2){
 		camera_atual->setAt(frog->getPosition().getX(), frog->getPosition().getY() - 20, frog->getPosition().getZ() + 20);
+		camera_atual->setUp(0, 2, 5);
 	}
 	factory();
 	glutPostRedisplay();
-}
-void GameManager::init(){
-	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
-	_speed_car[0] = 0.06;
-	_speed_car[1] = -0.07;
-	_speed_car[2] = 0.05;
-	_speed_car[3] = -0.075;
-	_speed_car[4] = 0.08;
-
-	_speed_river[0] = 0.06;
-	_speed_river[1] = -0.07;
-	_speed_river[2] = 0.05;
-	_speed_river[3] = -0.075;
-	_speed_river[4] = 0.08;
-
-	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(-150, 100, 0))); //LimiteEsquerdo
-	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(150, 100, 0))); //LimiteDireito
-	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, 250, 0))); //Limite Top
-	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, -50, 0))); //Limite Botoom
-	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
-	setStaticObject(new Road(0, 50, 0)); //Centro da face que esta em Z = 0
-	setStaticObject(new Riverside(0, 110, 0)); //Centro da face que esta em Z = 0
-	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
-	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
-	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
-
-	setDynamicObject(frog = new Frog(0, 10, -1));
-	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
-	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
-	setcameras(new PerspectiveCamera(90, 1, 1, 400));
-
-
-	class Nivel{
-	public:
-		static void improve_level(int i){
-			gm->_speed *= 1.1;
-			glutTimerFunc(5000, improve_level, 1);
-		}
-	};
-	Nivel a;
-	glutTimerFunc(5000, a.improve_level, 1);
-
-
 }

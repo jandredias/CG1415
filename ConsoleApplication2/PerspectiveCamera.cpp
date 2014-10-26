@@ -12,8 +12,9 @@ PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, d
 void PerspectiveCamera::computeVisualizationMatrix(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(	getAt().getX(), getAt().getY(),			getAt().getZ(),					//Camera position
-				getAt().getX(), getAt().getY() + 50,	getAt().getZ() - 100,			// Looking at
+	Vector3 To(getAt().getX() + getUp().getX(), getAt().getY() + getUp().getZ(), getAt().getZ() - getUp().getY());
+	gluLookAt(	getAt().getX(), getAt().getY(),	getAt().getZ(),					//Camera position
+				To.getX(), To.getY(), To.getZ(),			// Looking at
 				getUp().getX(), getUp().getY(),			getUp().getZ());				// Up Vector
 }
 void PerspectiveCamera::update(GLsizei w, GLsizei h){

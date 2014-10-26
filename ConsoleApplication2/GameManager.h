@@ -4,6 +4,8 @@
 #include "Header.h"
 class GameManager
 {
+	Vector3 _size_map;
+	Vector3 _center_map;
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -20,7 +22,7 @@ class GameManager
 	Camera *camera_atual;
 	int camera_atual_id = 1;
 	std::vector<Camera *> _cameras;
-	
+	std::list<Frog *> list_frogs;
 	LightSource *_light_sources;
 
 	public:
@@ -31,6 +33,9 @@ class GameManager
 		~GameManager();
 		const double* getSpeedCar();
 		const double* getSpeedRiver();
+
+		void setNewFrog(Vector3 a);
+		std::list<Frog*> getFrogs();
 
 		std::list<DynamicObject *> getDynamicObjects();
 		void setDynamicObject(DynamicObject * aux);
