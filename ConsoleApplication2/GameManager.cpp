@@ -8,6 +8,8 @@
 #define SPEED_FROG					40
 #define TL_POS_BEGIN0				-150
 #define	TL_POS_BEGIN1				150
+//blah blah blah wiskas saketas
+
 
 extern GameManager *gm;
 extern int y;
@@ -39,7 +41,7 @@ void GameManager::init(){
 	_center_map.set(0, 100, 0);
 	
 	delete(frog);
-
+//blah blah blah
 	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 
 	_speed_car[0] =    _size_map.getX() / (rand() % 5 + 3);
@@ -173,6 +175,16 @@ void GameManager::factory(){
 		if (test_timberlog && !(rand() % 100))
 			setDynamicObject(b);
 		else delete(b);
+	}
+}
+void GameManager::output(int x, int y, float r, float g, float b, int font, char *string)
+{
+	glColor3f(r, g, b);
+	glRasterPos2f(x, y);
+	int len, i;
+	len = (int)strlen(string);
+	for (i = 0; i < len; i++) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, string[i]);
 	}
 }
 void GameManager::update(unsigned long delta){
