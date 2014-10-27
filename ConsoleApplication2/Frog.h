@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __FROG__
 #define __FROG__
 

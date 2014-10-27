@@ -1,4 +1,3 @@
- #pragma once
 #ifndef __LIGHTSOURCE__
 #define __LIGHTSOURCE__
 

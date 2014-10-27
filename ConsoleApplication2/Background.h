@@ -1,7 +1,7 @@
-#pragma once
 #ifndef __BACKGROUND__
 #define __BACKGROUND__
-#include "Header.h"
+
+#include "StaticObject.h"
 class Background : public StaticObject {
 public:
 	Background();

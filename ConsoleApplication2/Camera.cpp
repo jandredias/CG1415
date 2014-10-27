@@ -1,6 +1,4 @@
-
 #include "Camera.h"
-
 
 Camera::Camera(double near, double far){
 	_near = near;

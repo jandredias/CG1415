@@ -1,6 +1,6 @@
 
 #include "Bus.h"
-#include "GL/GLUT.h"
+#include "GL/glut.h"
 
 Bus::Bus()
 {

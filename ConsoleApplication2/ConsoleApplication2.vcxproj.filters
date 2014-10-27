@@ -84,12 +84,6 @@
     <ClInclude Include="Vector4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StaticObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LimitMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -107,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="GL\glut.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

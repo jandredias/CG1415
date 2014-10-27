@@ -1,7 +1,7 @@
-#pragma once
 #ifndef __FROG_TARGET__
 #define __FROG_TARGET__
-#include "Header.h"
+#include "StaticObject.h"
+
 class FrogTarget : public StaticObject
 {
 public:

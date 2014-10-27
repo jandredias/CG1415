@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef __DYNAMICOBJECT__
 #define __DYNAMICOBJECT__
 

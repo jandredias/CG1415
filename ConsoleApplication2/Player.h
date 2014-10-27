@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __PLAYER__
 #define __PLAYER__
 #include "Frog.h"
@@ -13,21 +12,21 @@ class Player
 	std::map<char, Vector3> _keys;
 
 	Frog *_frog;
-public:
-	Player();
-	Player(char key1, char key2, char key3, char key4);
-	~Player();
-	std::map<char, Vector3> getKeys();
-	int getID();
-	void setID(int id);
-	void setLifes(int x);
-	int getLifes();
-	void setPoints(int points);
-	int getPoints();
-	Frog* getFrog();
-	void setFrog(Frog* a);
+	public:
+		Player();
+		Player(char key1, char key2, char key3, char key4);
+		~Player();
+		std::map<char, Vector3> getKeys();
+		int getID();
+		void setID(int id);
+		void setLifes(int x);
+		int getLifes();
+		void setPoints(int points);
+		int getPoints();
+		Frog* getFrog();
+		void setFrog(Frog* a);
 
-	void newRound();
+		void newRound();
 
 };
 

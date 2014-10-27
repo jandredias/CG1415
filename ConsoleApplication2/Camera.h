@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef __CAMERA__
 #define __CAMERA__
 

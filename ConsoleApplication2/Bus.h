@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __BUS__
 #define __BUS__
 

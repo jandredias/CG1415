@@ -3,7 +3,7 @@
 #include "GameManager.h"
 #include <iostream>
 
-#include "gl/glut.h"
+#include "GL/glut.h"
 extern GameManager *gm;
 
 Roadside::Roadside(){ setSize(1000, 20, 20); }

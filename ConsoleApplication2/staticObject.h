@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __STATICOBJECT__
 #define __STATICOBJECT__
 

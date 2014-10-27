@@ -1,6 +1,5 @@
-
 #include "FrogTarget.h"
-
+#include "GL/glut.h"
 
 FrogTarget::FrogTarget(){
 	setSize(15, 15, 1);

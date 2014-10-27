@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __TURTLE__
 #define __TURTLE__
 

@@ -1,4 +1,5 @@
-
+#include "GL/glut.h"
+#include <iostream>
 #include "Car.h"
 Car::Car(){
 	Vector3 *a = new Vector3();

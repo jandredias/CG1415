@@ -2,8 +2,14 @@
 #include <iostream>
 #include "Frog.h"
 #include "GameManager.h"
-#include "gl/glut.h"
-
+#include "GL/glut.h"
+#include "River.h"
+#include "TimberLog.h"
+#include "Car.h"
+#include "FrogTarget.h"
+#include "LimitMap.h"
+#include "Riverside.h"
+#include "Roadside.h"
 extern GameManager *gm;
 Frog::Frog(){
 	setSpeed(0, 0, 0);

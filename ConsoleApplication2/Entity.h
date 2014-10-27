@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __ENTITY__
 #define __ENTITY__
 

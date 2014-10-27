@@ -1,6 +1,9 @@
+#include "GL/glut.h"
 
-#include "Header.h"
+#include <time.h>
+#include "GameManager.h"
 
+#define UPDATE_TIME 20
 
 GameManager *gm;
 int y = 100;

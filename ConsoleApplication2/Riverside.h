@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __RIVERSIDE__
 #define __RIVERSIDE__
 

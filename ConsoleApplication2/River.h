@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __RIVER__
 #define __RIVER__
 

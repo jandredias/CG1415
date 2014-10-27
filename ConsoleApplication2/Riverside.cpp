@@ -1,6 +1,6 @@
 
 #include "Riverside.h"
-#include "GL/GLUT.h"
+#include "GL/glut.h"
 
 Riverside::Riverside(){ setSize(1000, 20, 20); }
 Riverside::Riverside(double x, double y, double z):Riverside(){setPosition(x, y, z);}

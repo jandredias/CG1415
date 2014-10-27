@@ -1,5 +1,5 @@
 
-#include "GL/GLUT.h"
+#include "GL/glut.h"
 #include "OrthogonalCamera.h"
 
 OrthogonalCamera::OrthogonalCamera(double left, double right, double bottom, double top, double near, double far):Camera(near, far)

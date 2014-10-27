@@ -1,6 +1,6 @@
 
 #include "Background.h"
-
+#include <GL/glut.h>
 
 Background::Background(){ setSize(10000, 10000, 1);}
 Background::~Background(){}
@@ -9,11 +9,6 @@ void Background::draw(){
 	glPushMatrix();
 		
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-		//glPushMatrix();
-		//glColor3f(0.1, 0.1, 0.1);
-		//glScalef(200, 200, 1);
-		//glutWireCube(1);
-		//glPopMatrix();
 		glPushMatrix();
 			glTranslatef(0, -getSize().getY() / 2, -getSize().getZ());
 			glColor3f(0.7, 0.7, 0.7);

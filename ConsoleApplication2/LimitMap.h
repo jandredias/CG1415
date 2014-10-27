@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __LIMIT_MAP__
 #define __LIMIT_MAP__
 
