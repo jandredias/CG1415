@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="GL\README-win32.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="FrogTarget.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GL\glut.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="LimitMap.h" />
@@ -136,6 +138,13 @@
     <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GL\glut.def" />
+    <None Include="GL\glut32.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="GL\glut32.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
