@@ -81,6 +81,7 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
 	
+	//IGNORA!!!!!!!!
 	switch (_no_players){
 		case 1:
 			setPlayer(new Player('a', 'q', 'o', 'p'));
@@ -133,6 +134,9 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual_id = key - '1';
 		camera_atual = getcameras()[camera_atual_id];
 		return;
+	case 27: // Escape key
+		exit(0);
+		break;
 	default:
 		for (Player *aux : getPlayers())
 			if (aux->getKeys().count(key))
@@ -163,7 +167,7 @@ void GameManager::factory(){
 	Car *a;
 	TimberLog *b;
 	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test_timberlog = true, test_car = true){
-		a = new Car(169 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
+		a = new Car(250 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
 		b = new TimberLog(250 * pow(-1, i + 1), y + 100, 0, getSpeedRiver()[i]);
 
 		for (DynamicObject *aux : getDynamicObjects()){
