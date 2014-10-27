@@ -1,3 +1,7 @@
+TO DO!!!!!!!!!!!!!
+.change getsize / 2 to gethalfsize
+
+
 ========================================================================
     CONSOLE APPLICATION : ConsoleApplication2 Project Overview
 ========================================================================
