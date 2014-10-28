@@ -27,7 +27,7 @@ class GameManager
 	double _speed_car[5];
 	double _speed_river[5];
 	bool _status = 0;
-	double _speed = 0.5;
+	double _speed = 1;
 
 	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<StaticObject *> _static_game_objects;
@@ -43,8 +43,6 @@ class GameManager
 		Frog* getFrog();
 		void setPlayer(Player *a);
 		std::vector<Player *> getPlayers();
-		void output(int x, int y, float r, float g, float b, int font, char *string);
-		void write_info();
 		GameManager();
 		~GameManager();
 		const double* getSpeedCar();
@@ -66,8 +64,6 @@ class GameManager
 		LightSource* setlight_sources(LightSource*);
 		void changeStatus(bool a);
 		bool getStatus();
-		void TimberLogFactory();
-		void factory();
 		void display(void);
 		void reshape(GLsizei w, GLsizei h);
 		void keyPressed(unsigned char key);

@@ -13,6 +13,8 @@
 #include "Car.h"
 #include "Tunnel.h"
 #include "StreetLamp.h"
+#include "Bus.h"
+#include <iostream>
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -54,6 +56,41 @@ std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
 
+class NewCar{
+	public: static void execute(int i) {
+		DynamicObject *a = NULL;
+
+		bool test_car = true;
+		do{
+			delete(a);
+			int i = rand() % 5;
+			a = new Car(0, i * CAR_LANE_SIZE_Y + CAR_LANE_1, 0, gm->getSpeedCar()[i]);
+			a->setPosition((200 + a->getSize().getX() / 2)* pow(-1, i + 1), i * CAR_LANE_SIZE_Y + CAR_LANE_1, 0);
+			for (DynamicObject *aux : gm->getDynamicObjects())
+				if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test_car = false;
+
+		} while (!test_car);
+		gm->setDynamicObject(a);
+		glutTimerFunc(rand() % 5000 + 500, NewCar::execute, 1);
+	}
+};
+class NewTimberLog{
+	public: static void execute(int i) {
+		DynamicObject *a = NULL;
+		bool test = true;
+		do{
+			delete(a);
+			int i = rand() % 5;
+			a = new TimberLog(0, i * CAR_LANE_SIZE_Y + 100 + CAR_LANE_1, 0, gm->getSpeedRiver()[i]);
+			a->setPosition((200 + a->getSize().getX()/2)* pow(-1, i + 1), i * CAR_LANE_SIZE_Y + 100 + CAR_LANE_1, 0);
+			for (DynamicObject *aux : gm->getDynamicObjects())
+				if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test = false;
+
+		} while (!test);
+		gm->setDynamicObject(a);
+		glutTimerFunc(rand() % 1000 + 200, NewTimberLog::execute, 1);
+	}
+};
 void GameManager::init(){
 	_size_map.set(200,200,0);
 	_center_map.set(0, 100, 0);
@@ -93,14 +130,17 @@ void GameManager::init(){
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
-	
+
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
+	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
 	for (int i = -2; i < 4; i++)
 		setStaticObject(new StreetLamp(Vector3(30* i - 15,98, 0), Vector3(1,1,1)));
 
 	for (int i = -2; i < 4; i++)
 		setStaticObject(new StreetLamp(Vector3(30 * i - 15, 2, 0), Vector3(1, -1, 1)));
+
+
 	//IGNORA!!!!!!!!
 	switch (_no_players){
 		case 1:
@@ -125,6 +165,8 @@ void GameManager::init(){
 		}
 	};
 	glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, Nivel::improve_level, 1);
+	glutTimerFunc(rand() % 5000 + 500, NewCar::execute, 1);
+	glutTimerFunc(rand() % 5000 + 500, NewTimberLog::execute, 1);
 }
 
 void GameManager::display(){
@@ -180,57 +222,6 @@ void GameManager::onTimer(){
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
-void GameManager::TimberLogFactory(){}
-void GameManager::factory(){
-	bool test_timberlog = true;
-	bool test_car = true;
-	int y = CAR_LANE_1;
-	Car *a;
-	TimberLog *b;
-	for (int i = 0; i < CAR_LANE_NO; i++, y += CAR_LANE_SIZE_Y, test_timberlog = true, test_car = true){
-		a = new Car(250 * pow(-1, i + 1), y, 0, getSpeedCar()[i]);
-		b = new TimberLog(250 * pow(-1, i + 1), y + 100, 0, getSpeedRiver()[i]);
-
-		for (DynamicObject *aux : getDynamicObjects()){
-			if (dynamic_cast<TimberLog*> (aux) && b->HasColision(aux)) test_timberlog = false;
-			if (dynamic_cast<Car*> (aux) && a->HasColision(aux)) test_car = false;
-		}
-
-		if (test_car && !(rand() % 500))
-			setDynamicObject(a);
-		else delete(a);
-
-		if (test_timberlog && !(rand() % 100))
-			setDynamicObject(b);
-		else delete(b);
-	}
-}
-void GameManager::write_info(){
-	glPushMatrix();
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	camera_atual->update(_w,_h);
-
-	glTranslatef(1 - 0.255 / 2, 1 - 0.255 / 2, -1);
-	glColor3f(0, 0, 0.8);
-	glutSolidCube(0.25);
-	output(-0.25, -0.25, 1, 0, 0, 1, "FROGGER INFO");
-	glPopMatrix();
-
-}
-void GameManager::output(int x, int y, float r, float g, float b, int font, char *string)
-{
-	glColor3f(r, g, b);
-	glRasterPos2f(x, y);
-	int len, i;
-	len = (int)strlen(string);
-	for (i = 0; i < len; i++) {
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, string[i]);
-	}
-}
 void GameManager::update(unsigned long delta){
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
@@ -246,6 +237,6 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setAt(getFrog()->getPosition().getX(), getFrog()->getPosition().getY() - 20, getFrog()->getPosition().getZ() + 20);
 		camera_atual->setUp(0, 2, 5);
 	}
-	factory();
 	glutPostRedisplay();
 }
+
