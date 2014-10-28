@@ -6,6 +6,7 @@ Background::Background(){ setSize(10000, 10000, 1);}
 Background::~Background(){}
 Background::Background(double x, double y, double z) : Background(){ setPosition(x, y, z); }
 void Background::draw(){
+	
 	glPushMatrix();
 		
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());

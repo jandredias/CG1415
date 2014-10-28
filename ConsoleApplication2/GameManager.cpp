@@ -1,5 +1,18 @@
 #include "GameManager.h"
-#include "Header.h"
+#include "LimitMap.h"
+#include "Frog.h"
+#include "FrogTarget.h"
+#include "Background.h"
+#include "Road.h"
+#include "Roadside.h"
+#include "River.h"
+#include "Riverside.h"
+#include "OrthogonalCamera.h"
+#include "PerspectiveCamera.h"
+#include "TimberLog.h"
+#include "Car.h"
+#include "Tunnel.h"
+#include "StreetLamp.h"
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -81,6 +94,13 @@ void GameManager::init(){
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
 	
+	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
+
+	for (int i = -2; i < 4; i++)
+		setStaticObject(new StreetLamp(Vector3(30* i - 15,98, 0), Vector3(1,1,1)));
+
+	for (int i = -2; i < 4; i++)
+		setStaticObject(new StreetLamp(Vector3(30 * i - 15, 2, 0), Vector3(1, -1, 1)));
 	//IGNORA!!!!!!!!
 	switch (_no_players){
 		case 1:
@@ -152,6 +172,7 @@ void GameManager::keyPressed(unsigned char key){
 			aux->getFrog()->setSpeed(	(aux->getKeys()[key].getX()) ? aux->getKeys()[key].getX() * SPEED_FROG : aux->getFrog()->getSpeed().getX(),
 										(aux->getKeys()[key].getY()) ? aux->getKeys()[key].getY() * SPEED_FROG : aux->getFrog()->getSpeed().getY(),
 										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : aux->getFrog()->getSpeed().getZ());
+
 }
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);

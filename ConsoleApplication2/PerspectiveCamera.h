@@ -3,11 +3,11 @@
 
 #include "Camera.h"
 #include "GL/glut.h"
-
+#include "Frog.h"
 class PerspectiveCamera : public Camera {
 	double _fovy;
 	double _aspect;
-	Frog* frog = NULL;
+	Frog* frog;
 public:
 	PerspectiveCamera();
 	PerspectiveCamera(double fovy,double aspect, double zNear, double zFar);

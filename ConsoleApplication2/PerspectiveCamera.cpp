@@ -1,11 +1,20 @@
-
-#include "Header.h"
+#include "Frog.h"
+#include "FrogTarget.h"
+#include "Background.h"
+#include "Road.h"
+#include "Roadside.h"
+#include "River.h"
+#include "Riverside.h"
+#include "OrthogonalCamera.h"
+#include "PerspectiveCamera.h"
+#include "TimberLog.h"
+#include "Car.h"
 #include <iostream>
 #include "PerspectiveCamera.h"
 extern int y;
 extern int z;
-
-PerspectiveCamera::PerspectiveCamera() : Camera(0, 200){}
+#define NULL 0
+PerspectiveCamera::PerspectiveCamera() : Camera(0, 200){ frog = NULL; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zNear, zFar){ _fovy = fovy; _aspect = aspect; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, Frog *a) : PerspectiveCamera(fovy, aspect, zNear, zFar){ frog = a; }
 

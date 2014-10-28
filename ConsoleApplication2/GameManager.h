@@ -16,7 +16,7 @@ class GameManager
 	Vector3 _size_map;
 	Vector3 _center_map;
 
-	int _no_players = 1;
+	int _no_players = 2;
 	std::vector<Player *> _players;
 
 	int tempo_atual;

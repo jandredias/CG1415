@@ -21,7 +21,7 @@ int main(int argc, char * argv[])
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
 
 
-	glutInitWindowSize(600, 600);
+	glutInitWindowSize(800, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
 
