@@ -1,5 +1,8 @@
 #include "StreetLamp.h"
-#include "GL\glut.h"
+#ifndef __GLUT__
+#define __GLUT__
+#include "GL/glut.h"
+#endif
 
 StreetLamp::StreetLamp(Vector3 pos, Vector3 dir){ setPosition(pos.getX(), pos.getY(), pos.getZ());
 direction.set(dir.getX(), dir.getY(), dir.getZ());

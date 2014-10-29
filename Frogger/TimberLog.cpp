@@ -1,5 +1,9 @@
-#include "GL/glut.h"
 #include <stdlib.h>
+#ifndef __GLUT__
+#define __GLUT__
+#include "GL/glut.h"
+#endif
+
 #include <iostream>
 #include <time.h>
 #include "TimberLog.h"

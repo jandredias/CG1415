@@ -199,7 +199,7 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual = getcameras()[camera_atual_id];
 		return;
 	case 27: // Escape key
-		exit(0);
+		//exit(0);
 		break;
 	case 'n':
 		//FIX ME

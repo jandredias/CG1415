@@ -11,6 +11,10 @@
 #include "Car.h"
 #include <iostream>
 #include "PerspectiveCamera.h"
+#ifndef __GLUT__
+#define __GLUT__
+#include "GL/glut.h"
+#endif
 extern int y;
 extern int z;
 #define NULL 0

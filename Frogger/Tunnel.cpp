@@ -1,5 +1,8 @@
 #include "Tunnel.h"
-#include "GL\glut.h"
+#ifndef __GLUT__
+#define __GLUT__
+#include "GL/glut.h"
+#endif
 #include <iostream>
 Tunnel::Tunnel(){ setSize(1000,60,20); }
 Tunnel::Tunnel(double x, double y, double z) :Tunnel(){ setPosition(x, y, z); }

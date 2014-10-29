@@ -1,6 +1,9 @@
 
 #include "Turtle.h"
+#ifndef __GLUT__
+#define __GLUT__
 #include "GL/glut.h"
+#endif
 
 Turtle::Turtle(){}
 Turtle::Turtle(double x, double y, double z){setPosition(x, y, z);}
