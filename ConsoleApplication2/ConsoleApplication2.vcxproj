@@ -105,9 +105,7 @@
     <ClInclude Include="Road.h" />
     <ClInclude Include="Roadside.h" />
     <ClInclude Include="StaticObject.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="StreetLamp.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TimberLog.h" />
     <ClInclude Include="Tunnel.h" />
     <ClInclude Include="Turtle.h" />
