@@ -134,6 +134,8 @@ void GameManager::init(){
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
+	
+
 	for (int i = -2; i < 4; i++)
 		setStaticObject(new StreetLamp(Vector3(30* i - 15,98, 0), Vector3(1,1,1)));
 
@@ -198,6 +200,15 @@ void GameManager::keyUp(unsigned char key){
 		return;
 	case 27: // Escape key
 		exit(0);
+		break;
+	case 'n':
+		//FIX ME
+		break;
+	case 'l':
+		//FIX ME
+		break;
+	case 'c':
+		//FIX ME
 		break;
 	default:
 		for (Player *aux : getPlayers())

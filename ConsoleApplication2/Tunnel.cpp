@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Tunnel.h"
 #include "GL\glut.h"
 #include <iostream>
@@ -28,8 +27,8 @@ void Tunnel::draw(){
 				glScalef(getSize().getX(), 2, getSize().getZ());
 				glutSolidCube(1); //Cubo baixo
 			glPopMatrix();
-		
 		glPopMatrix();
+
 		glScalef(-1, 1, 1);
 		glPushMatrix();
 			glTranslated(-getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
@@ -53,5 +52,6 @@ void Tunnel::draw(){
 			glPopMatrix();
 		
 		glPopMatrix();
+
 	glPopMatrix();
 }
