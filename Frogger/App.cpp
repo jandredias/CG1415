@@ -1,7 +1,7 @@
 #include <time.h>
 #include "GameManager.h"
 #include <stdlib.h>
-
+//ALTEREI O APP so para veres como se faz commit
 #ifndef __GLUT__
 #define __GLUT__
 #include "GL/glut.h"
