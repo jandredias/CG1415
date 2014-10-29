@@ -23,21 +23,23 @@ int main(int argc, char * argv[])
 	srand(time(0));
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-
-
+	
+	
 	glutInitWindowSize(800, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
-
+	
 	glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LEQUAL);
-
+	
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardUpFunc(keyboardfunc_up);
 	glutKeyboardFunc(keyboardfunc_down);
 	gm->init();
+	getchar();
 	glutMainLoop();
+	
 	return 0;
 }

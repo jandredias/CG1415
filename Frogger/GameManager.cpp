@@ -95,7 +95,7 @@ void GameManager::init(){
 	_size_map.set(200,200,0);
 	_center_map.set(0, 100, 0);
 	
-	delete(frog);
+	//delete(frog);
 	//blah blah blah
 	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 
@@ -130,11 +130,10 @@ void GameManager::init(){
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
-
+	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
-	
 
 	for (int i = -2; i < 4; i++)
 		setStaticObject(new StreetLamp(Vector3(30* i - 15,98, 0), Vector3(1,1,1)));
