@@ -37,7 +37,6 @@ int main(int argc, char * argv[])
 	glutKeyboardUpFunc(keyboardfunc_up);
 	glutKeyboardFunc(keyboardfunc_down);
 	gm->init();
-	getchar();
 	glutMainLoop();
 	
 	return 0;
