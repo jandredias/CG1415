@@ -1,7 +1,11 @@
-#include "GL/glut.h"
-
 #include <time.h>
 #include "GameManager.h"
+#include <stdlib.h>
+
+#ifndef __GLUT__
+#define __GLUT__
+#include "GL/glut.h"
+#endif
 
 #define UPDATE_TIME 20
 

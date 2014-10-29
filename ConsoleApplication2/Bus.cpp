@@ -1,6 +1,9 @@
 
 #include "Bus.h"
+#ifndef __GLUT__
+#define __GLUT__
 #include "GL/glut.h"
+#endif
 
 Bus::Bus(){	setPosition(0, 0, 0); setSpeed(0, 0, 0); }
 

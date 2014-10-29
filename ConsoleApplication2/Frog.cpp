@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Frog.h"
 #include "GameManager.h"
-#include "GL/glut.h"
 #include "River.h"
 #include "TimberLog.h"
 #include "Car.h"
@@ -12,6 +11,10 @@
 #include "Roadside.h"
 #include "StreetLamp.h"
 
+#ifndef __GLUT__
+#define __GLUT__
+#include "Gl/glut.h"
+#endif
 extern GameManager *gm;
 Frog::Frog(){
 	setSize(8,8,4);

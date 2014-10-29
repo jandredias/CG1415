@@ -1,4 +1,7 @@
+#ifndef __GLUT__
+#define __GLUT__
 #include "GL/glut.h"
+#endif
 #include <iostream>
 #include "Car.h"
 Car::Car(){

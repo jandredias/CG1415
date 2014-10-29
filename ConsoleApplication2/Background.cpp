@@ -1,7 +1,9 @@
 
 #include "Background.h"
+#ifndef __GLUT__
+#define __GLUT__
 #include <GL/glut.h>
-
+#endif
 Background::Background(){ setSize(10000, 10000, 1);}
 Background::~Background(){}
 Background::Background(double x, double y, double z) : Background(){ setPosition(x, y, z); }

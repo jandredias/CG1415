@@ -3,7 +3,12 @@
 
 #include "Vector3.h"
 #include "Entity.h"
+
+#ifndef __GLUT__
+#define __GLUT__
 #include "GL/glut.h"
+#endif
+
 
 class Camera : public Entity {
 	Vector3 _up;

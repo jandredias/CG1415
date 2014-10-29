@@ -2,7 +2,11 @@
 #define __PERSPECTIVECAMERA__
 
 #include "Camera.h"
+#ifndef __GLUT__
+#define __GLUT__
 #include "GL/glut.h"
+#endif
+
 #include "Frog.h"
 class PerspectiveCamera : public Camera {
 	double _fovy;
