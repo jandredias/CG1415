@@ -23,14 +23,14 @@ void LightSource::draw(){
 
 	
 
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 50.0 };
+//	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+//	GLfloat mat_shininess[] = { 50.0 };
 
-	//GLfloat ambientColor[] = { 0.2f, 0.2f, 0.2f, 1.0f }; //Color(0.2, 0.2, 0.2)
-	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+//	GLfloat ambientColor[] = { 0.2f, 0.2f, 0.2f, 1.0f }; //Color(0.2, 0.2, 0.2)
+//	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
 
-	glShadeModel(GL_SMOOTH);
+//	glShadeModel(GL_SMOOTH);
 
 //	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 //	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);

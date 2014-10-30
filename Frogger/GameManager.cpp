@@ -143,14 +143,11 @@ void GameManager::init(){
 
 	setlights(new LightSource(1)); //Cria fonte de luz nº 1
 	
-	for (int i = -2; i < 4; i++){
-	setStaticObject(new StreetLamp(Vector3(30 * i - 15, 98, 0), Vector3(1, 1, 1)));
-	}
-
+	for (int i = -1; i < 2; i++)
+	setStaticObject(new StreetLamp(Vector3(60 * i , 98, 0), Vector3(1, 1, 1)));
 	
-
-	for (int i = -2; i < 4; i++)
-		setStaticObject(new StreetLamp(Vector3(30 * i - 15, 2, 0), Vector3(1, -1, 1)));
+	for (int i = -1; i < 2; i++)
+		setStaticObject(new StreetLamp(Vector3(60 * i , 2, 0), Vector3(1, -1, 1)));
 
 
 	//IGNORA!!!!!!!!
