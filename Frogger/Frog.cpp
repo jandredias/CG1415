@@ -20,6 +20,7 @@ Frog::Frog(){
 	setSize(8,8,4);
 	setSpeed(0, 0, 0);
 	speed_log.set(0, 0, 0);
+	speeder = NULL;
 }
 Frog::Frog(double x, double y, double z) : Frog(){
 	setPosition(x, y, z);
@@ -125,16 +126,18 @@ void Frog::draw(){
 
 
 void Frog::update(double delta_t){
+	
 	Vector3 oldPosition(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 	if (speeder == NULL)
 		setPosition(getPosition().getX() + getSpeed().getX() * delta_t / 1000,
 					getPosition().getY() + getSpeed().getY() * delta_t / 1000,
 					getPosition().getZ());
+	
 	else
 		setPosition(getPosition().getX() + (getSpeed().getX() + speeder->getSpeed().getX() * gm->getGameSpeed()) * delta_t / 1000,
 					getPosition().getY() + (getSpeed().getY() + speeder->getSpeed().getY() * gm->getGameSpeed()) * delta_t / 1000,
 					getPosition().getZ() + (getSpeed().getZ() + speeder->getSpeed().getZ() * gm->getGameSpeed()) * delta_t / 1000);
-
+	
 	bool ColisionLimit = false;
 	bool ColisionRiver = false;
 	bool ColisionRiverside = false;
@@ -159,9 +162,7 @@ void Frog::update(double delta_t){
 				}
 
 				else if (dynamic_cast<LimitMap *> (aux)){ //Limit Map Case
-					/* The frog might be moving on x and y axis at the same time,
-					 * so we have to check if the colision is on X axis or/and Y axis
-					 */
+
 					if (aux->getPosition().getX() == 0)
 						setPosition(getPosition().getX(), oldPosition.getY(), getPosition().getZ());
 					if (aux->getPosition().getY() == 100)

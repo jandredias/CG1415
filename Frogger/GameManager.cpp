@@ -143,7 +143,7 @@ void GameManager::init(){
 
 
 	//IGNORA!!!!!!!!
-	switch (_no_players){
+	switch (2){
 		case 1:
 			setPlayer(new Player('a', 'q', 'o', 'p'));
 			break;
@@ -151,7 +151,7 @@ void GameManager::init(){
 			setPlayer(new Player('s', 'w', 'a', 'd'));
 			setPlayer(new Player('k', 'i', 'j', 'l'));
 	}
-	
+	std::cout << "NO OF PLAYERS: " << _no_players << std::endl;
 
 	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
@@ -220,7 +220,7 @@ void GameManager::keyUp(unsigned char key){
 }
 void GameManager::keyPressed(unsigned char key){
 	for (Player *aux : getPlayers())
-		if (aux->getKeys().count(key))
+		if (aux->getKeys().count(key)) 
 			aux->getFrog()->setSpeed(	(aux->getKeys()[key].getX()) ? aux->getKeys()[key].getX() * SPEED_FROG : aux->getFrog()->getSpeed().getX(),
 										(aux->getKeys()[key].getY()) ? aux->getKeys()[key].getY() * SPEED_FROG : aux->getFrog()->getSpeed().getY(),
 										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : aux->getFrog()->getSpeed().getZ());
