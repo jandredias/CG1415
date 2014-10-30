@@ -30,6 +30,7 @@ extern GameManager *gm;
 extern int y;
 extern int z;
 
+
 GameManager::GameManager(){}
 GameManager::~GameManager(){
 	for (GameObject *aux : getDynamicObjects()) delete(aux);
@@ -53,6 +54,11 @@ bool GameManager::getStatus(){ return _status; }
 Frog* GameManager::getFrog(){ return _players[0]->getFrog(); }
 void GameManager::setNewFrog(Vector3 a){ list_frogs.push_back(new Frog(a.getX(), a.getY(), a.getZ())); }
 std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
+
+
+std::vector<LightSource *> GameManager::getlights(void){ return _lights; }
+std::vector<LightSource *> GameManager::setlights(LightSource* aux){ _lights.push_back(aux); return _lights; }
+
 
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
@@ -93,25 +99,25 @@ class NewTimberLog{
 	}
 };
 void GameManager::init(){
-	_size_map.set(200,200,0);
+	_size_map.set(200, 200, 0);
 	_center_map.set(0, 100, 0);
-	
+
 	//delete(frog);
 	//blah blah blah
 	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 
-	_speed_car[0] =    _size_map.getX() / (rand() % 5 + 3);
-	_speed_car[1] = -  _size_map.getX() / (rand() % 5 + 3);
-	_speed_car[2] =    _size_map.getX() / (rand() % 5 + 3);
-	_speed_car[3] = -  _size_map.getX() / (rand() % 5 + 3);
-	_speed_car[4] =    _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[0] = _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[1] = -_size_map.getX() / (rand() % 5 + 3);
+	_speed_car[2] = _size_map.getX() / (rand() % 5 + 3);
+	_speed_car[3] = -_size_map.getX() / (rand() % 5 + 3);
+	_speed_car[4] = _size_map.getX() / (rand() % 5 + 3);
 
-	_speed_river[0] =  _size_map.getX() / (rand() % 5 + 3);
-	_speed_river[1] =- _size_map.getX() / (rand() % 5 + 3);
-	_speed_river[2] =  _size_map.getX() / (rand() % 5 + 3);
-	_speed_river[3] =- _size_map.getX() / (rand() % 5 + 3);
-	_speed_river[4] =  _size_map.getX() / (rand() % 5 + 3);
-	
+	_speed_river[0] = _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[1] = -_size_map.getX() / (rand() % 5 + 3);
+	_speed_river[2] = _size_map.getX() / (rand() % 5 + 3);
+	_speed_river[3] = -_size_map.getX() / (rand() % 5 + 3);
+	_speed_river[4] = _size_map.getX() / (rand() % 5 + 3);
+
 	setStaticObject(new Background(0, 100, 0));
 
 	setStaticObject(new FrogTarget(-80, 190, 0));
@@ -131,13 +137,17 @@ void GameManager::init(){
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
-	
+
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
+	setlights(new LightSource(1)); //Cria fonte de luz nº 1
+	
+	for (int i = -2; i < 4; i++){
+	setStaticObject(new StreetLamp(Vector3(30 * i - 15, 98, 0), Vector3(1, 1, 1)));
+	}
 
-	for (int i = -2; i < 4; i++)
-		setStaticObject(new StreetLamp(Vector3(30* i - 15,98, 0), Vector3(1,1,1)));
+	
 
 	for (int i = -2; i < 4; i++)
 		setStaticObject(new StreetLamp(Vector3(30 * i - 15, 2, 0), Vector3(1, -1, 1)));
@@ -202,10 +212,15 @@ void GameManager::keyUp(unsigned char key){
 		exit(0);
 		break;
 	case 'n':
-		//FIX ME
+		if (getlights()[0]->getState())
+			getlights()[0]->setState(false);
+		else 
+			getlights()[0]->setState(true);
 		break;
 	case 'l':
-		//FIX ME
+		l_times++;
+		if (l_times % 2 == 0) glDisable(GL_LIGHTING);
+		else glEnable(GL_LIGHTING);
 		break;
 	case 'c':
 		//FIX ME

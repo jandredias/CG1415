@@ -20,6 +20,8 @@ class GameManager
 	int _no_players = 2;
 	std::vector<Player *> _players;
 
+	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
+
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -37,7 +39,8 @@ class GameManager
 	int camera_atual_id = 1;
 	std::vector<Camera *> _cameras;
 	std::list<Frog *> list_frogs;
-	LightSource *_light_sources;
+	
+	std::vector<LightSource *> _lights;
 
 	public:
 		double getGameSpeed();
@@ -61,8 +64,9 @@ class GameManager
 		std::vector<Camera *> getcameras(void);
 		std::vector<Camera *> setcameras(Camera*aux);
 
-		LightSource* getlight_sources(void);
-		LightSource* setlight_sources(LightSource*);
+		std::vector<LightSource *> getlights(void);
+		std::vector<LightSource *> setlights(LightSource*aux);
+
 		void changeStatus(bool a);
 		bool getStatus();
 		void display(void);
