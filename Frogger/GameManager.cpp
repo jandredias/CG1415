@@ -141,10 +141,11 @@ void GameManager::init(){
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
-	setlights(new LightSource(1)); //Cria fonte de luz nº 1
+	for (int i = 0; i < 2; i++)
+		setlights(new LightSource(i)); //Cria fonte de luz geral e fonte de luz dos candeeiros
 	
 	for (int i = -1; i < 2; i++)
-	setStaticObject(new StreetLamp(Vector3(60 * i , 98, 0), Vector3(1, 1, 1)));
+		setStaticObject(new StreetLamp(Vector3(60 * i , 98, 0), Vector3(1, 1, 1)));
 	
 	for (int i = -1; i < 2; i++)
 		setStaticObject(new StreetLamp(Vector3(60 * i , 2, 0), Vector3(1, -1, 1)));
@@ -157,7 +158,7 @@ void GameManager::init(){
 			break;
 		case 2:
 			setPlayer(new Player('s', 'w', 'a', 'd'));
-			setPlayer(new Player('k', 'i', 'j', 'l'));
+			setPlayer(new Player('j', 'u', 'h', 'k'));
 	}
 	std::cout << "NO OF PLAYERS: " << _no_players << std::endl;
 
@@ -189,6 +190,7 @@ void GameManager::display(){
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
 	for (GameObject *aux : getFrogs()) aux->draw();
+	for (LightSource *aux : getlights()) aux->draw();
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
@@ -220,7 +222,10 @@ void GameManager::keyUp(unsigned char key){
 		else glEnable(GL_LIGHTING);
 		break;
 	case 'c':
-		//FIX ME
+		if (getlights()[1]->getState())
+			getlights()[1]->setState(false);
+		else
+			getlights()[1]->setState(true);		
 		break;
 	default:
 		for (Player *aux : getPlayers())

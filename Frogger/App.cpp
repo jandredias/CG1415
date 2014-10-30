@@ -30,8 +30,14 @@ int main(int argc, char * argv[])
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL); // Ter cor sem ter os materiais
+	
 	glEnable(GL_LIGHT0); //Ativar luz 0
-
+	glEnable(GL_LIGHT1); 
+	glEnable(GL_LIGHT2); 
+	glEnable(GL_LIGHT3); 
+	glEnable(GL_LIGHT4); 
+	glEnable(GL_LIGHT5); 
+	glEnable(GL_LIGHT6); 
 
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);
 	glutDisplayFunc(display);
