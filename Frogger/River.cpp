@@ -1,9 +1,6 @@
 
 #include "River.h"
-#ifndef __GLUT__
-#define __GLUT__
 #include "GL/glut.h"
-#endif
 
 River::River(){ setSize(1000, 60, 20); }
 River::River(double x, double y, double z): River(){setPosition(x, y, z);}

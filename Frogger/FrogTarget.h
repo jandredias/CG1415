@@ -1,5 +1,6 @@
 #ifndef __FROG_TARGET__
 #define __FROG_TARGET__
+
 #include "StaticObject.h"
 
 class FrogTarget : public StaticObject

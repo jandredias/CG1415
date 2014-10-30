@@ -3,6 +3,7 @@
 
 #include "StaticObject.h"
 #include "Vector3.h"
+
 class LimitMap : public StaticObject
 {
 public:

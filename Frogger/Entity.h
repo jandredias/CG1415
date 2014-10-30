@@ -2,6 +2,7 @@
 #define __ENTITY__
 
 #include "Vector3.h"
+
 class Entity
 {
 	Vector3 _position;

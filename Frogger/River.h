@@ -2,6 +2,7 @@
 #define __RIVER__
 
 #include "StaticObject.h"
+
 class River : public StaticObject
 {
 public:

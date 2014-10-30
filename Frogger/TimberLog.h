@@ -2,6 +2,7 @@
 #define __TIMBERLOG__
 
 #include "DynamicObject.h"
+
 class TimberLog : public DynamicObject
 {
 public:

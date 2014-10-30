@@ -1,10 +1,8 @@
 
 #include "Road.h"
 #include <iostream>
-#ifndef __GLUT__
-#define __GLUT__
 #include "GL/glut.h"
-#endif
+
 Road::Road(){ setSize(1000,60,20); }
 Road::~Road(){}
 Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}

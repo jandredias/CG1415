@@ -2,6 +2,7 @@
 #define __ROADSIDE__
 
 #include "StaticObject.h"
+
 class Roadside : public StaticObject
 {
 public:

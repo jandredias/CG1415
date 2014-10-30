@@ -1,6 +1,8 @@
 #ifndef __ORTHOGONALCAMERA__
 #define __ORTHOGONALCAMERA__
+
 #include "Camera.h"
+
 class OrthogonalCamera : public Camera
 {
 	double _left;

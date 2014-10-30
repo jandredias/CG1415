@@ -1,2 +1,2 @@
 all:
-	g++ -std=c++11 App.cpp -o App
+	clang++ -std=c++11 -Wall -Wextra -pedantic *.h *.cpp -lGL -lGLU -lglut

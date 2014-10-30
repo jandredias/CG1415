@@ -2,6 +2,7 @@
 #define __ROAD__
 
 #include "StaticObject.h"
+
 class Road : public StaticObject
 {
 public:

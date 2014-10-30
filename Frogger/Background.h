@@ -2,6 +2,7 @@
 #define __BACKGROUND__
 
 #include "StaticObject.h"
+
 class Background : public StaticObject {
 public:
 	Background();

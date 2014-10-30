@@ -15,6 +15,7 @@
 #include "StreetLamp.h"
 #include "Bus.h"
 #include <iostream>
+#include <cmath>
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -143,7 +144,7 @@ void GameManager::init(){
 
 
 	//IGNORA!!!!!!!!
-	switch (2){
+	switch (_no_players){
 		case 1:
 			setPlayer(new Player('a', 'q', 'o', 'p'));
 			break;
@@ -198,7 +199,7 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual = getcameras()[camera_atual_id];
 		return;
 	case 27: // Escape key
-		//exit(0);
+		exit(0);
 		break;
 	case 'n':
 		//FIX ME

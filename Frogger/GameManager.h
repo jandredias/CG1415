@@ -1,16 +1,16 @@
 #ifndef __GAMEMANAGER__
 #define __GAMEMANAGER__
-#include "Camera.h"
 
+#include "Camera.h"
 #include "Player.h"
 #include "Vector3.h"
-#include <vector>
-#include <map>
-#include <list>
 #include "LightSource.h"
 #include "StaticObject.h"
 #include "DynamicObject.h"
 #include "GameObject.h"
+#include <vector>
+#include <map>
+#include <list>
 
 class GameManager
 {

@@ -4,6 +4,7 @@
 #define __GAMEOBJECT__
 
 #include "Entity.h"
+
 class GameObject : public Entity
 {
 	Vector3 _size;

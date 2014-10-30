@@ -1,7 +1,9 @@
 #ifndef __PLAYER__
 #define __PLAYER__
+
 #include "Frog.h"
 #include <map>
+
 class Player
 {
 	int _id = 0;

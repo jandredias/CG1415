@@ -2,6 +2,7 @@
 #define __FROG__
 
 #include "DynamicObject.h"
+
 class Frog : public DynamicObject
 {
 	DynamicObject *speeder;

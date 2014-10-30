@@ -8,7 +8,7 @@ class Car : public DynamicObject{
 public:
 	Car();
 	Car(double x, double y, double z);
-	Car::Car(double x, double y, double z, double w);
+	Car(double x, double y, double z, double w);
 	~Car();
 	void draw();
 };

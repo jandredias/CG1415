@@ -2,6 +2,7 @@
 #define __TURTLE__
 
 #include "DynamicObject.h"
+
 class Turtle : public DynamicObject
 {
 public:

@@ -1,5 +1,6 @@
 #ifndef __VECTOR3__
 #define __VECTOR3__
+
 class Vector3
 {
 	double _x;

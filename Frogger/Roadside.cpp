@@ -2,10 +2,8 @@
 #include "Roadside.h"
 #include "GameManager.h"
 #include <iostream>
-#ifndef __GLUT__
-#define __GLUT__
 #include "GL/glut.h"
-#endif
+
 extern GameManager *gm;
 
 Roadside::Roadside(){ setSize(1000, 20, 20); }

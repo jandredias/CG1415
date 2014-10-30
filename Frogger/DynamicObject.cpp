@@ -2,7 +2,7 @@
 #include "DynamicObject.h"
 #include "GameManager.h"
 #include "Frog.h"
-#include "staticObject.h"
+#include "StaticObject.h"
 
 extern GameManager *gm;
 

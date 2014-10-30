@@ -11,13 +11,11 @@
 #include "Car.h"
 #include <iostream>
 #include "PerspectiveCamera.h"
-#ifndef __GLUT__
-#define __GLUT__
 #include "GL/glut.h"
-#endif
+
 extern int y;
 extern int z;
-#define NULL 0
+
 PerspectiveCamera::PerspectiveCamera() : Camera(0, 200){ frog = NULL; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zNear, zFar){ _fovy = fovy; _aspect = aspect; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, Frog *a) : PerspectiveCamera(fovy, aspect, zNear, zFar){ frog = a; }

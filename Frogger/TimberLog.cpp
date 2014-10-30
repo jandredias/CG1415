@@ -1,11 +1,9 @@
-#include <stdlib.h>
-#ifndef __GLUT__
-#define __GLUT__
 #include "GL/glut.h"
-#endif
+#include <cstdlib>
 
 #include <iostream>
-#include <time.h>
+#include <ctime>
+
 #include "TimberLog.h"
 TimberLog::TimberLog(){ setSpeed(0, 0, 0); }
 TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 5 + 1) * 30, 10, 2); }
