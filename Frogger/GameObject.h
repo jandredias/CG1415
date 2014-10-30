@@ -12,7 +12,6 @@ class GameObject : public Entity
 		GameObject();
 		~GameObject();
 		virtual void draw() = 0;
-		virtual void update(double delta_t);
 		void setSize(double x, double y, double z);
 		Vector3 getSize();
 };

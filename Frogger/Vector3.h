@@ -22,3 +22,4 @@ class Vector3
 };
 
 #endif
+

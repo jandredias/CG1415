@@ -158,7 +158,7 @@ void GameManager::init(){
 			break;
 		case 2:
 			setPlayer(new Player('s', 'w', 'a', 'd'));
-			setPlayer(new Player('j', 'u', 'h', 'k'));
+			setPlayer(new Player('g','t','f','h'));
 	}
 	std::cout << "NO OF PLAYERS: " << _no_players << std::endl;
 

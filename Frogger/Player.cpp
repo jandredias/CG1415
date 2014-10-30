@@ -39,3 +39,4 @@ void Player::newRound(){
 	_frog->setSpeed(0, 0, 0);
 	return;
 }
+
