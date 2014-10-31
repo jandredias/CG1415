@@ -3,7 +3,7 @@
 
 #include "Vector4.h"
 #include "Vector3.h"
-
+#include "GL/glut.h"
 class LightSource
 {
 	Vector4 _ambient;
@@ -21,13 +21,13 @@ public:
 	bool getState();
 	bool setState(bool state);
 	unsigned long getNum();
-	void setPosition(Vector4 *position);
-	void setDirection(Vector4 *direction);
+	void setPosition(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+	void setDirection(GLdouble x, GLdouble y, GLdouble z);
 	void setCutOff(double cut_off);
 	void setExponent(double exponent);
-	void setAmbient(Vector4 *ambient);
-	void setDiffuse(Vector4 *diffuse);
-	void setSpecular(Vector4 *specular);
+	void setAmbient(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+	void setDiffuse(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+	void setSpecular(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
 	void draw();
 };
 

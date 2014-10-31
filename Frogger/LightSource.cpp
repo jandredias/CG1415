@@ -19,13 +19,13 @@ bool LightSource::setState(bool state){
 	return _state; 
 }
 unsigned long LightSource::getNum(){ return _num; }
-void LightSource::setPosition(Vector4 * position){ _position = position; }
-void LightSource::setDirection(Vector4 *direction){ _direction = direction; }
+void LightSource::setPosition(GLdouble x, GLdouble y, GLdouble z, GLdouble w){ _position.set(x, y, z, w); }
+void LightSource::setDirection(GLdouble x, GLdouble y, GLdouble z){ _direction.set(x,y,z); }
 void LightSource::setCutOff(double cut_off){ _cut_off = cut_off; }
 void LightSource::setExponent(double exponent){ _exponent = exponent; }
-void LightSource::setAmbient(Vector4 *ambient){ _ambient = ambient; }
-void LightSource::setDiffuse(Vector4 *diffuse){ _diffuse = diffuse; }
-void LightSource::setSpecular(Vector4 *specular){ _specular = specular; }
+void LightSource::setAmbient(GLdouble x, GLdouble y, GLdouble z, GLdouble w){ _ambient.set(x, y, z, w); }
+void LightSource::setDiffuse(GLdouble x, GLdouble y, GLdouble z, GLdouble w){ _diffuse.set(x, y, z, w); }
+void LightSource::setSpecular(GLdouble x, GLdouble y, GLdouble z, GLdouble w){ _specular.set(x,y,z,w); }
 void LightSource::draw(){
 
 	
@@ -53,6 +53,7 @@ void LightSource::draw(){
 	//candeeiro 1
 	GLfloat lightIntensity1[] = { 1, 1, 1, 1 }; //Intesidade (0.5, 0.5, 0.5)
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightIntensity1);
+
 	GLfloat light_position1[] = { 0, 98, 0, 1 }; //Luz pontual, 4º parametro a 1
 	glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
 

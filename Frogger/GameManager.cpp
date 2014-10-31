@@ -99,11 +99,24 @@ class NewTimberLog{
 	}
 };
 void GameManager::init(){
+	std::string text;
+	text = "########### FROGGER###########\n";
+	text = "1 Jogador\n";
+	text += "\n\n\n CONTROLOS: \n";
+	text += "Cima: Q\n";
+	text += "Baixo: A\n";
+	text += "Esquerda: O\n";
+	text += "Direita: P\n";
+	text += "Cima: Q\n";
+
+	text += "Alterar Modo Dia e Noite: N\n";
+	text += "Ligar e Desligar Candeeiros de Rua: C\n";
+	text += "Cima: Q\n";
+	text += "Cima: Q\n";
+	//std::cout << text;
 	_size_map.set(200, 200, 0);
 	_center_map.set(0, 100, 0);
 
-	//delete(frog);
-	//blah blah blah
 	tempo_inicio = tempo_anterior = tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 
 	_speed_car[0] = _size_map.getX() / (rand() % 5 + 3);
@@ -141,14 +154,43 @@ void GameManager::init(){
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 
-	for (int i = 0; i < 2; i++)
+	//E NECESSARIO MUDAR ISTO!!!
+	/*
+	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
+	*/
+	
+	
+
+
+	LightSource *aux = new LightSource(0);
+	aux->setPosition(-200, -100, 100, 0);
+	aux->setDirection(1,1,-1);
+	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
+	aux->setAmbient(0.0, 0.0, 0.0, 0.0);
+	aux->setDiffuse(0.5, 0.5, 0.5, 1.0);
+	setlights(aux);
+
+
+
+	for (int i = 0; i <= 3; i++)
+		for (int j = 0; j < 2; j++){
+			LightSource *aux = new LightSource(i + j + 1);
+			aux->setPosition(-60 + i * 60, 2 + j * 96, 20, 1);
+			aux->setDirection(0, 0, -1);
+			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
+			aux->setAmbient(0.0, 0.0, 0.0, 0.0);
+			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+			setlights(aux);
+		}
+	for (int i = -1; i < 2; i++)
+		setStaticObject(new StreetLamp(Vector3(60 * i, 98, 0), Vector3(1, 1, 1)));
+
+	for (int i = -1; i < 2; i++)
+		setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
+	/*for (int i = 0; i < 2; i++)
 		setlights(new LightSource(i)); //Cria fonte de luz geral e fonte de luz dos candeeiros
+	*/
 	
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i , 98, 0), Vector3(1, 1, 1)));
-	
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i , 2, 0), Vector3(1, -1, 1)));
 
 
 	//IGNORA!!!!!!!!
@@ -180,7 +222,7 @@ void GameManager::init(){
 }
 
 void GameManager::display(){
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//write_info();
 	camera_atual->computeProjectionMatrix();
