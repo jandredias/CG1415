@@ -57,8 +57,9 @@ std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
 
 
 std::vector<LightSource *> GameManager::getlights(void){ return _lights; }
+LightSource* GameManager::getLight(int i){	return _lights[i]; }
 std::vector<LightSource *> GameManager::setlights(LightSource* aux){ _lights.push_back(aux); return _lights; }
-
+void GameManager::SetStreetLamps(bool state){ for (int i = 1; i < getlights().size(); i++) getlights()[i]->setState(state); }
 
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
@@ -101,7 +102,7 @@ class NewTimberLog{
 void GameManager::init(){
 	std::string text;
 	text = "########### FROGGER###########\n";
-	text = "1 Jogador\n";
+	text += "1 Jogador\n";
 	text += "\n\n\n CONTROLOS: \n";
 	text += "Cima: Q\n";
 	text += "Baixo: A\n";
@@ -111,9 +112,8 @@ void GameManager::init(){
 
 	text += "Alterar Modo Dia e Noite: N\n";
 	text += "Ligar e Desligar Candeeiros de Rua: C\n";
-	text += "Cima: Q\n";
-	text += "Cima: Q\n";
-	//std::cout << text;
+	text += "Ativar/Desativar Luzes: L\n";
+	std::cout << text.c_str() << std::endl;
 	_size_map.set(200, 200, 0);
 	_center_map.set(0, 100, 0);
 
@@ -131,7 +131,7 @@ void GameManager::init(){
 	_speed_river[3] = -_size_map.getX() / (rand() % 5 + 3);
 	_speed_river[4] = _size_map.getX() / (rand() % 5 + 3);
 
-	setStaticObject(new Background(0, 100, 0));
+	//setStaticObject(new Background(0, 100, 0));
 
 	setStaticObject(new FrogTarget(-80, 190, 0));
 	setStaticObject(new FrogTarget(-40, 190, 0));
@@ -153,22 +153,18 @@ void GameManager::init(){
 
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
-
-	//E NECESSARIO MUDAR ISTO!!!
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
 	*/
-	
-	
-
 
 	LightSource *aux = new LightSource(0);
-	aux->setPosition(-200, -100, 100, 0);
-	aux->setDirection(1,1,-1);
-	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
-	aux->setAmbient(0.0, 0.0, 0.0, 0.0);
-	aux->setDiffuse(0.5, 0.5, 0.5, 1.0);
-	setlights(aux);
+		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
+		aux->setDirection(0,0,0);
+		aux->setSpecular(1.0, 1.0, 1.0, 1.0);
+		aux->setDiffuse(1.0, 1.0, 1.0 , 1.0);
+		aux->setAmbient(0.0, 0.0, 0.0, 0.0);
+		aux->setState(true);
+		setlights(aux);
 
 
 
@@ -180,6 +176,7 @@ void GameManager::init(){
 			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.0, 0.0, 0.0, 0.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+			aux->setState(_lights_on);
 			setlights(aux);
 		}
 	for (int i = -1; i < 2; i++)
@@ -190,8 +187,8 @@ void GameManager::init(){
 	/*for (int i = 0; i < 2; i++)
 		setlights(new LightSource(i)); //Cria fonte de luz geral e fonte de luz dos candeeiros
 	*/
-	
-
+	if (_lights_active)	glEnable(GL_LIGHTING);
+	else glDisable(GL_LIGHTING);
 
 	//IGNORA!!!!!!!!
 	switch (_no_players){
@@ -202,8 +199,7 @@ void GameManager::init(){
 			setPlayer(new Player('s', 'w', 'a', 'd'));
 			setPlayer(new Player('g','t','f','h'));
 	}
-	std::cout << "NO OF PLAYERS: " << _no_players << std::endl;
-
+	
 	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
@@ -253,21 +249,16 @@ void GameManager::keyUp(unsigned char key){
 		exit(0);
 		break;
 	case 'n':
-		if (getlights()[0]->getState())
-			getlights()[0]->setState(false);
-		else 
-			getlights()[0]->setState(true);
+		getLight(0)->setState(_modo_dia = !_modo_dia);
+
+//		bool lights_on = false;
 		break;
 	case 'l':
-		l_times++;
-		if (l_times % 2 == 0) glDisable(GL_LIGHTING);
-		else glEnable(GL_LIGHTING);
+		if (_lights_active = !_lights_active) glEnable(GL_LIGHTING);
+		else glDisable(GL_LIGHTING);
 		break;
 	case 'c':
-		if (getlights()[1]->getState())
-			getlights()[1]->setState(false);
-		else
-			getlights()[1]->setState(true);		
+		SetStreetLamps(_lights_on = !_lights_on);
 		break;
 	default:
 		for (Player *aux : getPlayers())

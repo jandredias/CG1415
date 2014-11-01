@@ -17,8 +17,11 @@ class GameManager
 	Vector3 _size_map;
 	Vector3 _center_map;
 
-	int _no_players = 2;
+	int _no_players = 1;
 	std::vector<Player *> _players;
+	bool _modo_dia = true;
+	bool _lights_on = false;
+	bool _lights_active = true;
 
 	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
 
@@ -65,8 +68,9 @@ class GameManager
 		std::vector<Camera *> setcameras(Camera*aux);
 
 		std::vector<LightSource *> getlights(void);
+		LightSource* getLight(int i);
 		std::vector<LightSource *> setlights(LightSource*aux);
-
+		void SetStreetLamps(bool state);
 		void changeStatus(bool a);
 		bool getStatus();
 		void display(void);

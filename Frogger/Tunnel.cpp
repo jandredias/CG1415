@@ -12,7 +12,7 @@ void Tunnel::draw(){
 		glPushMatrix();
 			glTranslated(-getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 		
-			glColor3f(0, 0, 0);
+			glColor3f(0.9, 0.9, 0.9);
 
 			glPushMatrix();
 				glTranslatef(-getSize().getX()/2, -getSize().getY() / 2,0);
@@ -34,8 +34,6 @@ void Tunnel::draw(){
 		glScalef(-1, 1, 1);
 		glPushMatrix();
 			glTranslated(-getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		
-			glColor3f(0, 0, 0);
 
 			glPushMatrix();
 				glTranslatef(-getSize().getX()/2, -getSize().getY() / 2,0);

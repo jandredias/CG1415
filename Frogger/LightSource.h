@@ -21,6 +21,7 @@ public:
 	bool getState();
 	bool setState(bool state);
 	unsigned long getNum();
+	Vector4* getPosition();
 	void setPosition(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
 	void setDirection(GLdouble x, GLdouble y, GLdouble z);
 	void setCutOff(double cut_off);

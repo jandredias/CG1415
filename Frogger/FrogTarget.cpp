@@ -2,7 +2,7 @@
 #include "GL/glut.h"
 
 FrogTarget::FrogTarget(){
-	setSize(15, 15, 1);
+	setSize(15, 15, 0.01);
 }
 
 

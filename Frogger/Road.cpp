@@ -22,9 +22,9 @@ void Road::draw(){
 			glutSolidCube(1);
 		glPopMatrix();
 
-		for (int i = -3; i < 4; i+= 2)
-			for (int j = -5; j < 6; j++)
-				desenha_traco(j*2, i*6, getSize().getZ() / 2);
+		//for (int i = -3; i < 4; i+= 2)
+		//	for (int j = -5; j < 6; j++)
+		//		desenha_traco(j*2, i*6, getSize().getZ() / 2);
 			
 	glPopMatrix();
 }
