@@ -17,22 +17,31 @@ void Road::draw(){
 					getPosition().getZ() - getSize().getZ() / 2);
 
 		glPushMatrix();
+			defineMaterial(	0.20, 0.20, 0.20, 1.00,	//Ambient
+							0.20, 0.20, 0.20, 1.00,	//Diffuse
+							1.00, 1.00, 1.00, 1.00,	//Specular
+							0.00, 0.00, 0.00, 1.00,	//Emission
+							77);					//SHININESS
 			glColor3f(0.2, 0.2, 0.2);
 			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glutSolidCube(1);
 		glPopMatrix();
 
-		//for (int i = -3; i < 4; i+= 2)
-		//	for (int j = -5; j < 6; j++)
-		//		desenha_traco(j*2, i*6, getSize().getZ() / 2);
+		for (int i = -3; i < 4; i+= 2)
+			for (int j = -5; j < 6; j++){
+				glPushMatrix();
+					defineMaterial(	1.00, 1.00, 1.00, 1.00,	//Ambient
+									1.00, 1.00, 1.00, 1.00,	//Diffuse
+									1.00, 1.00, 1.00, 1.00,	//Specular
+									0.00, 0.00, 0.00, 1.00,	//Emission
+									77);					//SHININESS
+					glColor3f(1, 1, 1);
+					glScalef(20, 1, 1);
+					glTranslated(j * 2, i * 6, getSize().getZ() / 2);
+					glutSolidCube(1);
+				glPopMatrix();
+			}
+				
 			
-	glPopMatrix();
-}
-void Road::desenha_traco(int x, int y, int z){
-	glPushMatrix();
-		glColor3f(1, 1, 1);
-		glScalef(20, 1, 1);
-		glTranslated(x, y, z);
-		glutSolidCube(1);
 	glPopMatrix();
 }

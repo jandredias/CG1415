@@ -12,7 +12,12 @@ void Riverside::draw(){
 						getPosition().getZ() - getSize().getZ() / 2 );
 		
 		glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
-		glColor3f(0, 0.8, 0);
+		defineMaterial(	0.00, 1.00, 0.00, 1.00,	//Ambient
+						0.00, 1.00, 0.00, 1.00,	//Diffuse
+						1.00, 1.00, 1.00, 1.00,	//Specular
+						0.00, 0.00, 0.00, 1.00,	//Emission
+						77);					//SHININESS
+		glColor3f(0, 0.6, 0);
 		glutSolidCube(1);
 	glPopMatrix();
 }

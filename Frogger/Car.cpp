@@ -37,7 +37,11 @@ void Car::draw(){
 		glScaled(0.8, 0.8, 0.8);
 		/*Cubo principal do corpo do carro*/
 		glPushMatrix();
-
+			defineMaterial(	_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Ambient
+							_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Diffuse
+							1.00, 1.00, 1.00, 1.00,	//Specular
+							0.00, 0.00, 0.00, 1.00,	//Emission
+							77);					//SHININESS
 			glColor3f(_color.getX(), _color.getY(), _color.getZ());
 
 			glScalef(12, 8, 4);
@@ -47,7 +51,6 @@ void Car::draw(){
 		/*Cubo da frente, onde esta o motor*/
 		glPushMatrix();
 			glTranslated(-8.5, 0, 0);
-			glColor3f(0, 0, 0);
 			glScalef(5, 4, 2);
 			glutSolidCube(1);
 		glPopMatrix();
@@ -55,7 +58,6 @@ void Car::draw(){
 		/*Eixo da roda direita da frente*/
 		glPushMatrix();
 			glTranslated(-10, 2.5, 0);
-			glColor3f(0, 0, 0);
 			glScalef(2, 1, 0);
 			glutSolidCube(1);
 		glPopMatrix();
@@ -63,15 +65,19 @@ void Car::draw(){
 		/*Eixo da roda esquerda da frente*/
 		glPushMatrix();
 			glTranslated(-10, -2.5, 0);
-			glColor3f(0, 0, 0);
 			glScalef(2, 1, 0);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		/*Roda esquerda da frente*/
+		defineMaterial(	0.01, 0.01, 1.00, 1.00,	//Ambient
+						0.01, 0.01, 1.00, 1.00,	//Diffuse
+						1.00, 1.00, 1.00, 1.00,	//Specular
+						0.00, 0.00, 0.00, 1.00,	//Emission
+						77);					//SHININESS
+		glColor3f(0, 0, 1);
 		glPushMatrix();
 			glTranslated(-10, -4, 0);
-			glColor3f(0, 0, 1);
 			glRotated(90, 1, 0, 0);
 			glutSolidTorus(1, 2, 16, 16);
 		glPopMatrix();
@@ -79,7 +85,6 @@ void Car::draw(){
 		/*Roda direita da frente*/
 		glPushMatrix();
 			glTranslated(-10, 4, 0);
-			glColor3f(0, 0, 1);
 			glRotated(90, 1, 0, 0);
 			glutSolidTorus(1, 2, 16, 16);
 		glPopMatrix();
@@ -87,7 +92,6 @@ void Car::draw(){
 		/*Roda direita de tras*/
 		glPushMatrix();
 			glTranslated(1, -5, 0);
-			glColor3f(0, 0, 1);
 			glRotated(90, 1, 0, 0);
 			glutSolidTorus(1, 3, 16, 16);
 		glPopMatrix();
@@ -95,23 +99,32 @@ void Car::draw(){
 		/*Roda esquerda de tras*/
 		glPushMatrix();
 			glTranslated(1, 5, 0);
-			glColor3f(0, 0, 1);
 			glRotated(90, 1, 0, 0);
 			glutSolidTorus(1, 3, 16, 16);
 		glPopMatrix();
 
 		/*Spoiler*/
+		defineMaterial(	1.00, 0.10, 0.10, 1.00,	//Ambient
+						1.00, 0.10, 0.10, 1.00,	//Diffuse
+						1.00, 1.00, 1.00, 1.00,	//Specular
+						0.00, 0.00, 0.00, 1.00,	//Emission
+						77);					//SHININESS
+		glColor3f(1, 0, 0);
 		glPushMatrix();
 			glTranslated(5.5, 0, 0);
-			glColor3f(1, 0, 0);
 			glScalef(3, 6, 3);
 			glutSolidCube(1);
 		glPopMatrix();
 
-		/*Cockpit*/
+		/*Cockpit*/		
+		defineMaterial(	1.00, 1.00, 1.00, 1.00,	//Ambient
+						1.00, 1.00, 1.00, 1.00,	//Diffuse
+						1.00, 1.00, 1.00, 1.00,	//Specular
+						0.00, 0.00, 0.00, 1.00,	//Emission
+						77);					//SHININESS
+		glColor3f(1, 1, 1);
 		glPushMatrix();
 			glTranslated(-2.5, 0, 0);
-			glColor3f(1, 1, 1);
 			glScalef(3, 4, 3);
 			glutSolidCube(1);
 		glPopMatrix();

@@ -10,7 +10,6 @@ public:
 	Road(double x, double y, double z);
 	~Road();
 	void draw();
-	void desenha_traco(int x, int y, int z);
 };
 
 

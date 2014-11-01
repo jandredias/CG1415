@@ -138,73 +138,67 @@ void GameManager::init(){
 	setStaticObject(new FrogTarget(0, 190, 0));
 	setStaticObject(new FrogTarget(40, 190, 0));
 	setStaticObject(new FrogTarget(80, 190, 0));
-
+	
 	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(-150, 100, 0))); //LimiteEsquerdo
 	setStaticObject(new LimitMap(Vector3(100, 400, 100), Vector3(150, 100, 0))); //LimiteDireito
 	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, 250, 0))); //Limite Top
 	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, -50, 0))); //Limite Bottom
-
+	
 	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Road(0, 50, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Riverside(0, 110, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
+	
 	setStaticObject(new Roadside(0, 90, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Roadside(0, 10, 0)); //Centro da face que esta em Z = 0
-
+	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
+	for (int i = -1; i < 2; i++)
+		setStaticObject(new StreetLamp(Vector3(60 * i, 98, 0), Vector3(1, 1, 1)));
+	for (int i = -1; i < 2; i++)
+		setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
+	
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
 	*/
-
+	switch (_no_players){
+	case 1:
+		setPlayer(new Player('a', 'q', 'o', 'p'));
+		break;
+	case 2:
+		setPlayer(new Player('s', 'w', 'a', 'd'));
+		setPlayer(new Player('g', 't', 'f', 'h'));
+	}
+	
 	LightSource *aux = new LightSource(0);
 		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
-		aux->setDirection(0,0,0);
+		aux->setDirection(0, 0, 0);
 		aux->setSpecular(1.0, 1.0, 1.0, 1.0);
-		aux->setDiffuse(1.0, 1.0, 1.0 , 1.0);
-		aux->setAmbient(0.0, 0.0, 0.0, 0.0);
+		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 		aux->setState(true);
 		setlights(aux);
 
+	//for (int i = 0; i <= 3; i++)
+	//	for (int j = 0; j < 2; j++){
+	//		LightSource *aux = new LightSource(i + j + 1);
+	//		aux->setPosition(-60 + i * 60, 2 + j * 96, 20, 1);
+	//		aux->setDirection(0, 0, -1);
+	//		aux->setSpecular(0.2, 0.2, 0.2, 1.0);
+	//		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+	//		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+	//		aux->setState(_lights_on);
+	//		setlights(aux);
+	//	}
 
-
-	for (int i = 0; i <= 3; i++)
-		for (int j = 0; j < 2; j++){
-			LightSource *aux = new LightSource(i + j + 1);
-			aux->setPosition(-60 + i * 60, 2 + j * 96, 20, 1);
-			aux->setDirection(0, 0, -1);
-			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
-			aux->setAmbient(0.0, 0.0, 0.0, 0.0);
-			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-			aux->setState(_lights_on);
-			setlights(aux);
-		}
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i, 98, 0), Vector3(1, 1, 1)));
-
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
-	/*for (int i = 0; i < 2; i++)
-		setlights(new LightSource(i)); //Cria fonte de luz geral e fonte de luz dos candeeiros
-	*/
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
-
-	//IGNORA!!!!!!!!
-	switch (_no_players){
-		case 1:
-			setPlayer(new Player('a', 'q', 'o', 'p'));
-			break;
-		case 2:
-			setPlayer(new Player('s', 'w', 'a', 'd'));
-			setPlayer(new Player('g','t','f','h'));
-	}
 	
 	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
 
-	//Improve level every LEVEL_TIME seconds;
 	class Nivel{
 	public:
 		static void improve_level(int i){
@@ -212,9 +206,17 @@ void GameManager::init(){
 			glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, improve_level, 1);
 		}
 	};
-	glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, Nivel::improve_level, 1);
-	glutTimerFunc(rand() % 5000 + 500, NewCar::execute, 1);
-	glutTimerFunc(rand() % 5000 + 500, NewTimberLog::execute, 1);
+	//class Night{
+	//public:
+	//	static void execute(int i){
+	//		gm->getLight(0)->setState(gm->_modo_dia = !gm->_modo_dia);
+	//		glutTimerFunc(50000, Night::execute, 1);
+	//	}
+	//};
+	//Night::execute(1);
+	Nivel::improve_level(1);
+	NewCar::execute(1);
+	NewTimberLog::execute(1);
 }
 
 void GameManager::display(){

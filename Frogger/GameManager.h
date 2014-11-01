@@ -19,9 +19,6 @@ class GameManager
 
 	int _no_players = 1;
 	std::vector<Player *> _players;
-	bool _modo_dia = true;
-	bool _lights_on = false;
-	bool _lights_active = true;
 
 	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
 
@@ -46,6 +43,12 @@ class GameManager
 	std::vector<LightSource *> _lights;
 
 	public:
+
+		bool _modo_dia = true;
+		bool _lights_on = false;
+		bool _lights_active = true;
+
+
 		double getGameSpeed();
 		Frog* getFrog();
 		void setPlayer(Player *a);
