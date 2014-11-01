@@ -171,7 +171,7 @@ void GameManager::init(){
 		setPlayer(new Player('g', 't', 'f', 'h'));
 	}
 	
-	LightSource *aux = new LightSource(0);
+	LightSource *aux = new LightSource(getlights().size());
 		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
 		aux->setDirection(0, 0, 0);
 		aux->setSpecular(1.0, 1.0, 1.0, 1.0);
@@ -180,17 +180,17 @@ void GameManager::init(){
 		aux->setState(true);
 		setlights(aux);
 
-	//for (int i = 0; i <= 3; i++)
-	//	for (int j = 0; j < 2; j++){
-	//		LightSource *aux = new LightSource(i + j + 1);
-	//		aux->setPosition(-60 + i * 60, 2 + j * 96, 20, 1);
-	//		aux->setDirection(0, 0, -1);
-	//		aux->setSpecular(0.2, 0.2, 0.2, 1.0);
-	//		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-	//		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	//		aux->setState(_lights_on);
-	//		setlights(aux);
-	//	}
+	for (int i = 0; i < 3; i++)	//Paralelo a estrada
+		for (int j = 0; j < 2; j++){	//Perpendicular a estrada
+			aux = new LightSource(getlights().size());
+			aux->setPosition(-60 + i* 60, 2 + j * 96, 20, 1);
+			aux->setDirection(0, (j == 0) ? 0.5 : - 0.5, -1);
+			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
+			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+			aux->setState(_lights_on);
+			setlights(aux);
+		}
 
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);

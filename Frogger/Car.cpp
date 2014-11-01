@@ -24,6 +24,25 @@ Car::Car(double x, double y, double z) : Car() {  setPosition(x, y, z); setSize(
 Car::Car(double x, double y, double z, double w) : Car(x, y, z) { setSpeed(w, 0, 0); }
 Car::~Car(){}
 void Car::draw(){
+	bool malha = false;
+	if (malha){
+		glPushMatrix();
+			glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
+
+			glBegin(GL_QUADS);			// Face posterior
+				glNormal3f(0.0, 0.0, 1.0);	// Normal da face
+				glVertex3f(40.0, 40.0, 40.0);
+				glVertex3f(-40.0, 40.0, 40.0);
+				glVertex3f(-40.0, -40.0, 40.0);
+				glVertex3f(40.0, -40.0, 40.0);
+			glEnd();
+
+		glPopMatrix();
+		return;
+
+
+	}
+
 	glPushMatrix();
 		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 	
