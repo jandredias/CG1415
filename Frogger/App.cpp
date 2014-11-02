@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 	glutInitWindowSize(800, 600);
 	glutInitWindowPosition(-1, -1);
 	glutCreateWindow("Frogger V1");
-	
+	glEnable(GL_NORMALIZE);
 	glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LEQUAL);
 

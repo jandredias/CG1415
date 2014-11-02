@@ -217,8 +217,11 @@ void GameManager::init(){
 	Nivel::improve_level(1);
 	NewCar::execute(1);
 	NewTimberLog::execute(1);
+
+	
 }
 
+	
 void GameManager::display(){
 	glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -231,6 +234,7 @@ void GameManager::display(){
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
 	for (GameObject *aux : getFrogs()) aux->draw();
 	for (LightSource *aux : getlights()) aux->draw();
+	
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){
