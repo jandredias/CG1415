@@ -154,10 +154,10 @@ void GameManager::init(){
 	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i, 98, 0), Vector3(1, 1, 1)));
-	for (int i = -1; i < 2; i++)
-		setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
+	//~ for (int i = -1; i < 2; i++)
+		//~ 
+	//~ for (int i = -1; i < 2; i++)
+		//~ setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
 	
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
@@ -178,8 +178,14 @@ void GameManager::init(){
 		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 		aux->setState(true);
+		//aux->draw();
 		setlights(aux);
 
+	for(int y = 0; y <= 200; y+=100)
+		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
+			setStaticObject(new StreetLamp(Vector3(x, y, 0), Vector3((x > 0) ? 1 : -1,1,1)));
+			std::cout << "[STREETLAMP] X: " << x << " | Y: " << y << " " << 1 <<" " << ((y == 0) ? 1 : -1) << " " << 1 <<std::endl;
+		}
 	for (int i = 0; i < 3; i++)	//Paralelo a estrada
 		for (int j = 0; j < 2; j++){	//Perpendicular a estrada
 			aux = new LightSource(getlights().size());
@@ -189,6 +195,7 @@ void GameManager::init(){
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setState(_lights_on);
+			//aux->draw();
 			setlights(aux);
 		}
 
@@ -216,25 +223,23 @@ void GameManager::init(){
 	//Night::execute(1);
 	Nivel::improve_level(1);
 	NewCar::execute(1);
-	NewTimberLog::execute(1);
-
-	
+	NewTimberLog::execute(1);	
 }
 
 	
 void GameManager::display(){
 	glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//write_info();
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
 	camera_atual->computeVisualizationMatrix();
+	for (LightSource *aux : getlights()) aux->draw();
 	
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
 	for (GameObject *aux : getFrogs()) aux->draw();
-	for (LightSource *aux : getlights()) aux->draw();
 	
+	glutSwapBuffers();
 	glFlush();
 }
 void GameManager::reshape(GLsizei w, GLsizei h){

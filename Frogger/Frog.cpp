@@ -30,7 +30,7 @@ void Frog::draw(){
 
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 		glTranslatef(0, 2.9, 0);
-		defineMaterial(	0.10, 0.90, 0.10, 1.00,	//Ambient
+		defineMaterial(	0.02, 0.22, 0.02, 1.00,	//Ambient
 						0.10, 0.90, 0.10, 1.00,	//Diffuse
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission

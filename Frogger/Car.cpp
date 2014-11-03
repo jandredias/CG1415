@@ -1,5 +1,6 @@
 #include "GL/glut.h"
 #include <iostream>
+#include <cmath>
 #include "Car.h"
 
 Car::Car(){

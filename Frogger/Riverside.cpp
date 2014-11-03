@@ -12,7 +12,7 @@ void Riverside::draw(){
 						getPosition().getZ() - getSize().getZ() / 2 );
 		
 		glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
-		defineMaterial(	0.00, 1.00, 0.00, 1.00,	//Ambient
+		defineMaterial(	0.00, 0.10, 0.00, 1.00,	//Ambient
 						0.00, 1.00, 0.00, 1.00,	//Diffuse
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission

@@ -12,7 +12,7 @@ FrogTarget::FrogTarget(double x, double y, double z):FrogTarget(){
 	setPosition(x, y, z);
 }
 void FrogTarget::draw(){
-	defineMaterial(	0.20, 0.20, 1.00, 1.00,	//Ambient
+	defineMaterial(	0.05, 0.05, 0.25, 1.00,	//Ambient
 					0.20, 0.20, 1.00, 1.00,	//Diffuse
 					1.00, 1.00, 1.00, 1.00,	//Specular
 					0.00, 0.00, 0.00, 1.00,	//Emission

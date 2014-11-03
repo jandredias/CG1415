@@ -26,11 +26,8 @@ int main(int argc, char * argv[])
 	glutCreateWindow("Frogger V1");
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LEQUAL);
-
 	glEnable(GL_LIGHTING);
-	//glEnable(GL_COLOR_MATERIAL); // Ter cor sem ter os materiais
-
+	
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

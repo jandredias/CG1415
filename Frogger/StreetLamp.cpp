@@ -11,9 +11,9 @@ StreetLamp::~StreetLamp(){}
 
 void StreetLamp::draw(){
 	glPushMatrix();
+	glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 	glScalef(direction.getX(), direction.getY(), direction.getZ());
 
-		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 		glPushMatrix();
 		glColor3f(0.6, 0.6, 0.6);
 		defineMaterial(	0.66, 0.66, 0.66, 1.00,	//Ambient
@@ -27,13 +27,13 @@ void StreetLamp::draw(){
 		glPopMatrix();
 
 		glPushMatrix(),
-			glTranslatef(0, -2, getSize().getZ()+0.5);
-			glScalef(1, 5, 1);
+			glTranslatef(-2, 0, getSize().getZ()+0.5);
+			glScalef(5, 1, 1);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(0,-4,getSize().getZ());
+			glTranslatef(-4,0,getSize().getZ());
 			glColor3f(1.0, 1.0,0.0);
 			if (gm->_lights_on)
 				defineMaterial(	1.00, 1.00, 0.00, 1.00,	//Ambient
