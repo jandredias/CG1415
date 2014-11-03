@@ -114,6 +114,7 @@ void GameManager::init(){
 	text += "Ligar e Desligar Candeeiros de Rua: C\n";
 	text += "Ativar/Desativar Luzes: L\n";
 	std::cout << text.c_str() << std::endl;
+
 	_size_map.set(200, 200, 0);
 	_center_map.set(0, 100, 0);
 
@@ -184,20 +185,30 @@ void GameManager::init(){
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
 			setStaticObject(new StreetLamp(Vector3(x, y, 0), Vector3((x > 0) ? 1 : -1,1,1)));
-			std::cout << "[STREETLAMP] X: " << x << " | Y: " << y << " " << 1 <<" " << ((y == 0) ? 1 : -1) << " " << 1 <<std::endl;
-		}
-	for (int i = 0; i < 3; i++)	//Paralelo a estrada
-		for (int j = 0; j < 2; j++){	//Perpendicular a estrada
+
 			aux = new LightSource(getlights().size());
-			aux->setPosition(-60 + i* 60, 2 + j * 96, 20, 1);
-			aux->setDirection(0, (j == 0) ? 0.5 : - 0.5, -1);
+			aux->setPosition(x, y, 20, 1);
+			aux->setDirection((x < 0) ? 0.5 : -0.5, 0, -1);
 			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setState(_lights_on);
-			//aux->draw();
 			setlights(aux);
+
+
+			std::cout << "[STREETLAMP] X: " << x << " | Y: " << y << " " << 1 <<" " << ((y == 0) ? 1 : -1) << " " << 1 <<std::endl;
 		}
+	//for (int i = 0; i < 3; i++)	//Paralelo a estrada
+	//	for (int j = 0; j < 2; j++){	//Perpendicular a estrada
+	//		aux = new LightSource(getlights().size());
+	//		aux->setPosition(-60 + i* 60, 2 + j * 96, 20, 1);
+	//		aux->setDirection(0, (j == 0) ? 0.5 : - 0.5, -1);
+	//		aux->setSpecular(0.2, 0.2, 0.2, 1.0);
+	//		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+	//		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+	//		aux->setState(_lights_on);
+	//		setlights(aux);
+	//	}
 
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
@@ -237,8 +248,7 @@ void GameManager::display(){
 	
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
-	for (GameObject *aux : getFrogs()) aux->draw();
-	
+	for (GameObject *aux : getFrogs()) aux->draw();	
 	glutSwapBuffers();
 	glFlush();
 }
@@ -294,6 +304,9 @@ void GameManager::onTimer(){
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
+
+
+
 void GameManager::update(unsigned long delta){
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
@@ -310,5 +323,5 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setUp(0, 2, 5);
 	}
 	glutPostRedisplay();
-}
 
+}

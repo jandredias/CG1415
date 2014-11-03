@@ -13,17 +13,6 @@ bool LightSource::setState(bool state){
 	else{
 		glDisable(GL_LIGHT0 + _num);
 	}
-	/*
-	_state = state; 
-	if (_num == 0){
-
-		if (state) glEnable(GL_LIGHT0);
-		else glDisable(GL_LIGHT0);
-	}
-	else {
-		if (state){ glEnable(GL_LIGHT1); glEnable(GL_LIGHT2); glEnable(GL_LIGHT3); glEnable(GL_LIGHT4); glEnable(GL_LIGHT5); glEnable(GL_LIGHT6); }
-		else{ glDisable(GL_LIGHT1); glDisable(GL_LIGHT2); glDisable(GL_LIGHT3); glDisable(GL_LIGHT4); glDisable(GL_LIGHT5); glDisable(GL_LIGHT6); }
-	}*/
 	return _state; 
 }
 unsigned long LightSource::getNum(){ return _num; }
@@ -50,6 +39,6 @@ void LightSource::draw(){
 	if ( _direction.getX() != 0 || _direction.getY() != 0 || _direction.getZ() != 0){
 		GLfloat direction[] = { _direction.getX(), _direction.getY(), _direction.getZ() };
 		glLightfv(GL_LIGHT0 + _num, GL_SPOT_DIRECTION, direction);
-		glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, 45);
+		glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, 60);
 	}
 }
