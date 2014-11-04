@@ -194,21 +194,7 @@ void GameManager::init(){
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setState(_lights_on);
 			setlights(aux);
-
-
-			std::cout << "[STREETLAMP] X: " << x << " | Y: " << y << " " << 1 <<" " << ((y == 0) ? 1 : -1) << " " << 1 <<std::endl;
 		}
-	//for (int i = 0; i < 3; i++)	//Paralelo a estrada
-	//	for (int j = 0; j < 2; j++){	//Perpendicular a estrada
-	//		aux = new LightSource(getlights().size());
-	//		aux->setPosition(-60 + i* 60, 2 + j * 96, 20, 1);
-	//		aux->setDirection(0, (j == 0) ? 0.5 : - 0.5, -1);
-	//		aux->setSpecular(0.2, 0.2, 0.2, 1.0);
-	//		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-	//		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	//		aux->setState(_lights_on);
-	//		setlights(aux);
-	//	}
 
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);

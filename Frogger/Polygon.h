@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __POLYGON__
 #define __POLYGON__
 #include "GL/glut.h"

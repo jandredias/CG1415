@@ -10,15 +10,13 @@ void Road::draw(){
 		glTranslated(	getPosition().getX(),
 						getPosition().getY(),
 						0);
-		glPushMatrix();
-			defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
-							0.20, 0.20, 0.20, 1.00,	//Diffuse
-							1.00, 1.00, 1.00, 1.00,	//Specular
-							0.00, 0.00, 0.00, 1.00,	//Emission
-							77);					//SHININESS
-			glColor3f(1,1,1);
-			Polygon::execute(1000,60, 50);
-		glPopMatrix();
+				defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
+								0.20, 0.20, 0.20, 1.00,	//Diffuse
+								1.00, 1.00, 1.00, 1.00,	//Specular
+								0.00, 0.00, 0.00, 1.00,	//Emission
+								77);					//SHININESS
+				glColor3f(1,1,1);
+				Polygon::execute(400,60, 200);
 		for (int i = -3; i < 4; i+= 2)
 			for (int j = -5; j < 6; j++){
 				glPushMatrix();
