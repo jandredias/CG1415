@@ -227,7 +227,13 @@ void GameManager::display(){
 	
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
-	for (GameObject *aux : getFrogs()) aux->draw();	
+	for (GameObject *aux : getFrogs()) aux->draw();
+
+	/*glPushMatrix();
+		glColor3f(1,1,0);
+		glTranslatef(0, 200, 200);
+		glutSolidSphere(10, 8, 8);
+	glPopMatrix();*/
 	glutSwapBuffers();
 	glFlush();
 }

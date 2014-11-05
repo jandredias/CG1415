@@ -1,8 +1,10 @@
 #include "GL/glut.h"
 #include <iostream>
-#include <cmath>
+#include <math.h>
+#include "math.h"
 #include "Car.h"
-
+#define PI		3.14159265358979323846
+						
 Car::Car(){
 	Vector3 *a = new Vector3();
 	switch (rand() % 10){
@@ -27,6 +29,41 @@ Car::~Car(){}
 void Car::draw(){
 	class WHEELS{
 	public:
+		static void executeNew(GLdouble no_sides, GLdouble size){
+			float graus = 2 * PI / no_sides;
+			GLfloat cos_aux = cos(graus / 2);
+			GLfloat sin_aux = sin(graus / 2);
+			glPushMatrix();
+			for (int a = 0; a < no_sides; a++){
+				glBegin(GL_QUADS);
+					
+					glNormal3f(cos_aux, 0, sin_aux); glVertex3f(cos_aux*size, 1, sin_aux*size);		//1
+					glNormal3f(cos_aux, 0, -sin_aux); glVertex3f(cos_aux*size, 1, -sin_aux*size);		//1
+					glNormal3f(cos_aux, 0, -sin_aux); glVertex3f(cos_aux*size, -1, -sin_aux*size);	//1
+					glNormal3f(cos_aux, 0, sin_aux); glVertex3f(cos_aux*size, -1, sin_aux*size);		//1
+				glEnd();
+				glRotatef(360 / no_sides, 0, 1, 0);
+			}
+			glPopMatrix();
+			glPushMatrix();
+			glTranslatef(0, 1, 0);
+			glBegin(GL_POLYGON);
+			glNormal3f(0, 1, 0);
+			for (int a = 0; a < no_sides; a++)
+				glVertex3f(cos(graus * a + graus / 2)*size, 0, sin(graus * a + graus / 2)*size);
+			glEnd();
+
+			glPopMatrix();
+			glPushMatrix();
+			glTranslatef(0, -1, 0);
+			glBegin(GL_POLYGON);
+			glNormal3f(0, -1, 0);
+			for (int a = 0; a < no_sides; a++)
+				glVertex3f(cos(graus * a + graus / 2)*size, 0, sin(graus * a + graus / 2)*size);
+			glEnd();
+
+			glPopMatrix();
+		}
 		static void execute(GLdouble x, GLdouble y, GLdouble z, GLdouble radius, GLdouble t){
 			glPushMatrix();
 			glColor3f(0, 1, 0);
@@ -146,6 +183,14 @@ void Car::draw(){
 	};
 	bool malha = false;
 	if (malha){
+		glPushMatrix();
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
+		glTranslated(0, 0, 15);
+		WHEELS::executeNew(6,10);
+		glTranslatef(10, 10, 10);
+		glutSolidCube(1);
+		glPopMatrix();
+		return;
 		/*glPushMatrix();
 			glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 
@@ -192,7 +237,6 @@ void Car::draw(){
 
 	glPushMatrix();
 		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		
 		//glPushMatrix();
 		//glScalef(16, 10, 5);
 		//glutWireCube(1);
@@ -241,10 +285,26 @@ void Car::draw(){
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
 		glColor3f(0, 0, 1);
-		WHEELS::execute(-10, 4, 0, 3, 1.25);
-		WHEELS::execute(-10, -4, 0, 3, 1.25);
-		WHEELS::execute(1, -5, 0, 5, 1.25);
-		WHEELS::execute(1, 5, 0, 5, 1.25);
+		glPushMatrix();
+		glTranslatef(-10, 4, 0);
+		WHEELS::executeNew(8, 2);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(-10, -4, 0);
+		WHEELS::executeNew(8, 2);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(1, -5, 0);
+		WHEELS::executeNew(8, 2);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(1, 5, 0);
+		WHEELS::executeNew(8, 2);
+		glPopMatrix();
+		//WHEELS::execute(-10, 4, 0, 3, 1.25);
+		//WHEELS::execute(-10, -4, 0, 3, 1.25);
+		//WHEELS::execute(1, -5, 0, 5, 1.25);
+		//WHEELS::execute(1, 5, 0, 5, 1.25);
 		/*
 		//Roda direita da frente
 		glPushMatrix();
