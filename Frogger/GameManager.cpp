@@ -16,13 +16,6 @@
 #include "Bus.h"
 #include <iostream>
 #include <cmath>
-#define LEVEL_TIME_IN_SECONDS		10
-#define CAR_LANE_1					26
-#define CAR_LANE_SIZE_Y				12
-#define CAR_LANE_NO					5
-#define SPEED_FROG					40
-#define TL_POS_BEGIN0				-150
-#define	TL_POS_BEGIN1				150
 
 //blah blah blah wiskas saketas
 

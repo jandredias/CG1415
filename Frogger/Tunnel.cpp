@@ -26,7 +26,7 @@ void Tunnel::draw(){
 			glPushMatrix();
 				glTranslatef(-getSize().getX()/2,0, getSize().getZ() /2 );
 				glScalef(getSize().getX(), getSize().getY(), 2);
-				glutSolidCube(1); //Cubo baixo
+				glutSolidCube(1); //Cubo Cima
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(-getSize().getX()/2, getSize().getY() / 2, 0);

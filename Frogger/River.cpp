@@ -2,6 +2,7 @@
 #include "GL/glut.h"
 #include <iostream>
 #include "Polygon.h"
+#include "GameManager.h"
 River::River(){ setSize(1000, 60, 20); }
 River::River(double x, double y, double z): River(){setPosition(x, y, z);}
 River::~River(){}
@@ -16,6 +17,6 @@ void River::draw(){
 							0.00, 0.00, 0.00, 1.00,	//Emission
 							77);					//SHININESS
 			glColor3f(0, 0, 1);
-			Polygon::execute(300, 60, 30,6);
+			Polygon::execute(getSize().getX(), getSize().getY(), getSize().getX() / NR_POLYGONS, getSize().getY() / NR_POLYGONS);
 	glPopMatrix();
 }
