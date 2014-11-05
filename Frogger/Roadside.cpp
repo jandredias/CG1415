@@ -20,7 +20,7 @@ void Roadside::draw(){
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
 		glColor3f(0.7, 0.7, 0.7);
-		Polygon::execute(400,20,50);
+		Polygon::execute(300,20,30,2);
                 //glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 		//glutSolidCube(1);
 	glPopMatrix();

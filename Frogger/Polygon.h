@@ -6,6 +6,6 @@ class Polygon
 public:
 	Polygon();
 	~Polygon();
-	void static execute(GLfloat w, GLfloat h, GLfloat qt);
+	void static execute(GLfloat w, GLfloat h, GLfloat qt_w, GLfloat qt_h);
 };
 #endif

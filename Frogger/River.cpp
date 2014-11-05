@@ -16,6 +16,6 @@ void River::draw(){
 							0.00, 0.00, 0.00, 1.00,	//Emission
 							77);					//SHININESS
 			glColor3f(0, 0, 1);
-			Polygon::execute(400, 60, 200);
+			Polygon::execute(300, 60, 30,6);
 	glPopMatrix();
 }

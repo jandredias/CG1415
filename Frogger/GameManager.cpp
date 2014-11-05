@@ -287,6 +287,7 @@ void GameManager::keyPressed(unsigned char key){
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	gm->update(tempo_atual - tempo_anterior);
+	std::cout << tempo_atual - tempo_anterior << std::endl;
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}

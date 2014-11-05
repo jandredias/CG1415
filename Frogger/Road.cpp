@@ -16,7 +16,7 @@ void Road::draw(){
 								0.00, 0.00, 0.00, 1.00,	//Emission
 								77);					//SHININESS
 				glColor3f(1,1,1);
-				Polygon::execute(400,60, 200);
+				Polygon::execute(400, 60, 80, 10);
 		for (int i = -3; i < 4; i+= 2)
 			for (int j = -5; j < 6; j++){
 				glPushMatrix();
