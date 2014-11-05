@@ -11,8 +11,8 @@ class LightSource
 	Vector4 _specular;
 	Vector4 _position;
 	Vector3 _direction;
-	double	_cut_off;
-	double	_exponent;
+	GLfloat	_cut_off;
+	GLfloat	_exponent;
 	unsigned long _num;
 	bool	_state;
 public:

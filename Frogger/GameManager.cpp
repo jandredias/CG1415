@@ -171,6 +171,7 @@ void GameManager::init(){
 		aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+		aux->setExponent(2);
 		aux->setState(true);
 		//aux->draw();
 		setlights(aux);
@@ -185,6 +186,7 @@ void GameManager::init(){
 			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+			aux->setExponent(2);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
