@@ -46,20 +46,40 @@ void Car::draw(){
 	};
 
 	glPushMatrix();
-		//glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
+		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
 		glTranslatef(getSize().getX(),0,0);
-		if (getSpeed().getX() > 0) glRotatef(180, 0, 0, 1);
+		if (getSpeed().getX() < 0) glRotatef(180, 0, 0, 1);
 		glTranslated(2, 0, 0);
-			defineMaterial(	0.01, 0.01, 1.00, 1.00,	//Ambient
-							0.01, 0.01, 1.00, 1.00,	//Diffuse
-							1.00, 1.00, 1.00, 1.00,	//Specular
-							0.00, 0.00, 0.00, 1.00,	//Emission
-							77);					//SHININESS
-			glColor3f(0, 0, 1);
-			for(int i = 0; i < 2; i ++){
+			
+		//WHEELS
+		defineMaterial(0.00, 0.00, 0.00, 1.00,	//Ambient
+			0.01, 0.01, 0.01, 1.00,	//Diffuse
+			0.50, 0.50, 0.50, 1.00,	//Specular
+			0.00, 0.00, 0.00, 1.00,	//Emission
+			32);					//SHININESS
+		glColor3f(0.01, 0.01, 0.01);
+		for (int i = 0; i < 2; i++){
 			glPushMatrix();
-				glTranslatef(0.0,(i == 0) ? -getSize().getY() : getSize().getY(), 0.0); 
+				glTranslatef(0.0, (i == 0) ? -getSize().getY() : getSize().getY(), 0.0);
 				glPushMatrix();
+					glTranslatef(2, 0, 0);
+					WHEELS::executeNew(8, 2);
+				glPopMatrix();
+				glPushMatrix();
+					glTranslatef(2 * getSize().getX() - 2, 0, 0);
+					WHEELS::executeNew(8, 2);
+				glPopMatrix();
+			glPopMatrix();
+		}
+		defineMaterial(_color.getX()*0.1, _color.getY()*0.1, _color.getZ()*0.1, 1.00,	//Ambient
+			_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Diffuse
+			_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Specular
+			0.00, 0.00, 0.00, 1.00,	//Emission
+			77);					//SHININESS
+		glColor3f(_color.getX(), _color.getY(), _color.getZ());
+		for (int i = 0; i < 2; i++){
+			glPushMatrix();
+			glTranslatef(0.0, (i == 0) ? -getSize().getY() : getSize().getY(), 0.0);
 					glBegin(GL_QUADS);
 						glNormal3f(0,-1,0);
 						glVertex3f(0,0,0);
@@ -67,17 +87,9 @@ void Car::draw(){
 						glVertex3f(2*getSize().getX(),0,3);
 						glVertex3f(0,0,3);
 					glEnd();
-				glPopMatrix();
-				glPushMatrix();
-					glTranslatef(2, 0, 0);
-					WHEELS::executeNew(8, 2);
-				glPopMatrix();
-				glPushMatrix();
-					glTranslatef(2*getSize().getX()-2, 0, 0);
-					WHEELS::executeNew(8, 2);
-				glPopMatrix();
 			glPopMatrix();
-			}
+		}
+			
 			glBegin(GL_POLYGON);
 				glNormal3f(-1,0,0);
 				glVertex3f(0,getSize().getY(),0);
@@ -109,38 +121,59 @@ void Car::draw(){
 				glVertex3f(0,-getSize().getY(),3);
 			glEnd();
 			
-			defineMaterial(	0.05, 0.05, 0.05, 1.00,	//Ambient
-							0.70, 0.70, 0.70, 1.00,	//Diffuse
-							0.70, 0.70, 0.70, 1.00,	//Specular
+			//defineMaterial(	0.05, 0.05, 0.05, 1.00,	//Ambient
+			//				0.70, 0.70, 0.70, 1.00,	//Diffuse
+			//				0.70, 0.70, 0.70, 1.00,	//Specular
+			//				0.00, 0.00, 0.00, 1.00,	//Emission
+			//				77);					//SHININESS
+			//glColor3f(0.7,0.7,0.7);
+			
+			
+			glBegin(GL_POLYGON); // Topo
+				glNormal3f(0,0,1);
+				glVertex3f(2*getSize().getX() - 6,-getSize().getY(),5);
+				glVertex3f(3,-getSize().getY(),5);
+				glVertex3f(3,getSize().getY(),5);
+				glVertex3f(2*getSize().getX() - 6,getSize().getY(),5);
+			glEnd();
+			
+
+			defineMaterial(	0.05,0.05,0.07, 1.00,	//Ambient
+							0.18, 0.17, 0.23, 1.00,	//Diffuse
+							0.33, 0.33, 0.35, 1.00,	//Specular
 							0.00, 0.00, 0.00, 1.00,	//Emission
 							77);					//SHININESS
-			glColor3f(0.7,0.7,0.7);
+			glColor3f(0.25,0.25,0.25);
 			glBegin(GL_POLYGON); // Trapezio frente
 				glNormal3f(0,-1,0);
 				glVertex3f(2,-getSize().getY(),3);
 				glVertex3f(2*getSize().getX() - 2,-getSize().getY(),3);
-				glVertex3f(2*getSize().getX() - 3,-getSize().getY(),5);
+				glVertex3f(2*getSize().getX() - 6,-getSize().getY(),5);
 				glVertex3f(3,-getSize().getY(),5);
 			glEnd();
 			
+
 			glBegin(GL_POLYGON); // Trapezio traz
 				glNormal3f(0,1,0);
 				glVertex3f(2,getSize().getY(),3);
 				glVertex3f(2*getSize().getX() - 2,getSize().getY(),3);
-				glVertex3f(2*getSize().getX() - 4,getSize().getY(),5);
+				glVertex3f(2*getSize().getX() - 6,getSize().getY(),5);
 				glVertex3f(3,getSize().getY(),5);
 			glEnd();
-			
-			glBegin(GL_POLYGON); // Topo
-				glNormal3f(0,0,1);
-				glVertex3f(2*getSize().getX() - 3,-getSize().getY(),5);
-				glVertex3f(3,-getSize().getY(),5);
-				glVertex3f(3,getSize().getY(),5);
-				glVertex3f(2*getSize().getX() - 4,getSize().getY(),5);
+			glBegin(GL_POLYGON);
+				glNormal3f(-2, 0, 1);
+				glVertex3f(2, getSize().getY(), 3);
+				glVertex3f(3, getSize().getY(), 5);
+				glVertex3f(3, -getSize().getY(), 5);
+				glVertex3f(2, -getSize().getY(), 3);
 			glEnd();
-			
-			
-			
+			glBegin(GL_POLYGON);
+				glNormal3f(2, 0, 4);
+				glVertex3f(2 * getSize().getX() - 2, getSize().getY(), 3);
+				glVertex3f(2 * getSize().getX() - 6, getSize().getY(), 5);
+				glVertex3f(2 * getSize().getX() - 6, -getSize().getY(), 5);
+				glVertex3f(2 * getSize().getX() - 2, -getSize().getY(), 3);
+			glEnd();
 		glPopMatrix();
 		return;
 		
