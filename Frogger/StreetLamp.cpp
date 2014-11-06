@@ -5,7 +5,7 @@
 extern GameManager *gm;
 StreetLamp::StreetLamp(Vector3 pos, Vector3 dir){ setPosition(pos.getX(), pos.getY(), pos.getZ());
 direction.set(dir.getX(), dir.getY(), dir.getZ());
-setSize(1,1,20);
+setSize(0.5,0.5,10);
 }
 StreetLamp::~StreetLamp(){}
 
@@ -21,19 +21,19 @@ void StreetLamp::draw(){
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
-			glTranslatef(0, 0, getSize().getZ()/2);
-			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
+			glTranslatef(0, 0, 2*getSize().getZ()/2);
+			glScalef(2*getSize().getX(), 2*getSize().getY(),2* getSize().getZ());
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix(),
-			glTranslatef(-2, 0, getSize().getZ()+0.5);
+			glTranslatef(-2, 0, 2*getSize().getZ()+0.5);
 			glScalef(5, 1, 1);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(-4,0,getSize().getZ());
+			glTranslatef(-4,0,2*getSize().getZ());
 			glColor3f(1.0, 1.0,0.0);
 			if (gm->_lights_on)
 				defineMaterial(	1.00, 1.00, 0.00, 1.00,	//Ambient

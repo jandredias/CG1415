@@ -3,7 +3,7 @@
 #include "Polygon.h"
 #include "GameManager.h"
 FrogTarget::FrogTarget(){
-	setSize(15, 15, 10);
+	setSize(7.5,7.5,5);
 }
 
 
@@ -23,6 +23,6 @@ void FrogTarget::draw(){
 		glTranslatef(getPosition().getX(), getPosition().getY() - 2.5, getPosition().getZ()+0.001);
 		//glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 		//glutSolidCube(1);
-		Polygon::execute(getSize().getX(), getSize().getY(), getSize().getX() / NR_POLYGONS, getSize().getY() / NR_POLYGONS);
+		Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
 	glPopMatrix();
 }

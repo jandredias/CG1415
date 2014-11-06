@@ -3,8 +3,9 @@
 #include <math.h>
 #include "math.h"
 #include "Car.h"
+#include "GameManager.h"
 #define PI		3.14159265358979323846
-						
+extern GameManager *gm;
 Car::Car(){
 	setPosition(0, 0, 0);
 	setSpeed(0, 0, 0);
@@ -47,9 +48,14 @@ void Car::draw(){
 
 	glPushMatrix();
 		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		glTranslatef(getSize().getX(),0,0);
+		if (gm->getDebug()){
+			glPushMatrix();
+			glScalef(getSize().getX() * 2, getSize().getY() * 2, getSize().getZ() * 2);
+			glutWireCube(1);
+			glPopMatrix();
+		}
 		if (getSpeed().getX() < 0) glRotatef(180, 0, 0, 1);
-		glTranslated(2, 0, 0);
+		glTranslated(-getSize().getX(), 0, 0);
 			
 		//WHEELS
 		defineMaterial(0.00, 0.00, 0.00, 1.00,	//Ambient

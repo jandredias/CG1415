@@ -6,7 +6,7 @@
 #include "Polygon.h"
 #include "TimberLog.h"
 TimberLog::TimberLog(){ setSpeed(0, 0, 0); }
-TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 5 + 1) * 30, 10, 2); }
+TimberLog::TimberLog(double x, double y, double z) : TimberLog(){ setPosition(x, y, z);  setSize((rand() % 5 + 1) * 15, 5, 1); }
 TimberLog::TimberLog(double x, double y, double z, double w) : TimberLog(x,y,z){ setSpeed(w, 0, 0); }
 TimberLog::~TimberLog(){}
 void TimberLog::draw(){
@@ -21,6 +21,6 @@ void TimberLog::draw(){
 		glColor3f(0.5, 0.35, 0.05);
 		//glScalef(getSize().getX(), getSize().getY(), 1);
 		//glutSolidCube(1);
-		Polygon::execute(getSize().getX(), 10, 10, 4);
+		Polygon::execute(2*getSize().getX(), 10, 10, 4);
 		glPopMatrix();
 }

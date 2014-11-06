@@ -37,13 +37,12 @@ void LightSource::draw(){
 	GLfloat specular[] = { (GLfloat)_specular.getX(), (GLfloat)_specular.getY(), (GLfloat)_specular.getZ(),(GLfloat) _specular.getW() };
 	glLightfv(GL_LIGHT0 + _num, GL_SPECULAR, specular);
 	glLightfv(GL_LIGHT0 + _num, GL_EXP, &_exponent);
-	if ( _direction.getX() != 0 || _direction.getY() != 0 || _direction.getZ() != 0){
-		GLfloat direction[] = { (GLfloat)_direction.getX(),(GLfloat) _direction.getY(),(GLfloat) _direction.getZ() };
-		glLightfv(GL_LIGHT0 + _num, GL_SPOT_DIRECTION, direction);
-		glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, 60);
+	GLfloat direction[] = { (GLfloat)_direction.getX(),(GLfloat) _direction.getY(),(GLfloat) _direction.getZ() };
+	glLightfv(GL_LIGHT0 + _num, GL_SPOT_DIRECTION, direction);
+	glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, _cut_off);
+	glLightfv(GL_LIGHT0 + _num, GL_CONSTANT_ATTENUATION, &_exponent);
 		/*GLfloat a = 0.009, b = 0.0015, c = 0.001;
-		glLightfv(GL_LIGHT0 + _num, GL_CONSTANT_ATTENUATION, &a);
+		
 		glLightfv(GL_LIGHT0 + _num, GL_LINEAR_ATTENUATION, &b);
 		glLightfv(GL_LIGHT0 + _num, GL_QUADRATIC_ATTENUATION, &c);*/
-	}
 }

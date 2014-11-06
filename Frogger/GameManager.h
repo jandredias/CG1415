@@ -23,6 +23,7 @@
 
 class GameManager
 {
+	bool _debug = true;
 	Vector3 _size_map;
 	Vector3 _center_map;
 
@@ -40,7 +41,6 @@ class GameManager
 	double _speed_river[5];
 	bool _status = 0;
 	double _speed = 1;
-
 	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<StaticObject *> _static_game_objects;
 	Frog *frog;
@@ -58,6 +58,7 @@ class GameManager
 		bool _lights_active = true;
 
 
+		bool getDebug(){ return _debug; }
 		double getGameSpeed();
 		Frog* getFrog();
 		void setPlayer(Player *a);

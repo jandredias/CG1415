@@ -164,7 +164,9 @@ void GameManager::init(){
 		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 		aux->setExponent(2);
+		aux->setCutOff(360);
 		aux->setState(true);
+		aux->setExponent(0);
 		//aux->draw();
 		setlights(aux);
 
@@ -179,6 +181,8 @@ void GameManager::init(){
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setExponent(2);
+			aux->setCutOff(60);
+			aux->setExponent(0.9);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
@@ -211,8 +215,8 @@ void GameManager::init(){
 }
 
 void GameManager::display(){
-	glClearColor(0, 45/255, 128/255, 1);
-//	glClearColor(0,0,0,1);
+	if (_modo_dia) glClearColor(1,1,1, 1);
+	else glClearColor(0,0,0,1);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	camera_atual->computeProjectionMatrix();

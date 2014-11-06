@@ -15,7 +15,7 @@
 
 extern GameManager *gm;
 Frog::Frog(){
-	setSize(8,8,4);
+	setSize(4,5,5);
 	setSpeed(0, 0, 0);
 	speed_log.set(0, 0, 0);
 	speeder = NULL;
@@ -29,6 +29,15 @@ void Frog::draw(){
 	glPushMatrix();
 
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
+		
+
+
+		if (gm->getDebug()){
+			glPushMatrix();
+			glScalef(getSize().getX() * 2, getSize().getY() * 2, getSize().getZ() * 2);
+			glutWireCube(1);
+			glPopMatrix();
+		}
 		glTranslatef(0, 2.9, 0);
 		defineMaterial(	0.02, 0.22, 0.02, 1.00,	//Ambient
 						0.10, 0.90, 0.10, 1.00,	//Diffuse

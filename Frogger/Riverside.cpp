@@ -2,7 +2,7 @@
 #include "GL/glut.h"
 #include "Polygon.h"
 #include "GameManager.h"
-Riverside::Riverside(){ setSize(1000, 20, 20); }
+Riverside::Riverside(){ setSize(500, 10, 10); }
 Riverside::Riverside(double x, double y, double z):Riverside(){setPosition(x, y, z);}
 Riverside::~Riverside(){}
 void Riverside::draw(){
@@ -17,7 +17,7 @@ void Riverside::draw(){
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
 		glColor3f(0, 0.6, 0);
-		Polygon::execute(getSize().getX(), getSize().getY(), getSize().getX() / NR_POLYGONS, getSize().getY() / NR_POLYGONS);
+		Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
 		//glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 		//glutSolidCube(1);
 	glPopMatrix();
