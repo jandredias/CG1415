@@ -10,7 +10,7 @@ void Background::draw(){
 	glPushMatrix();
 		
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-		glPushMatrix();
+		/*glPushMatrix();
 			glTranslatef(0, -getSize().getY() / 2, -getSize().getZ());
 			glColor3f(0.7, 0.7, 0.7);
 			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
@@ -22,6 +22,18 @@ void Background::draw(){
 			glColor3f(0,0.8,0);
 			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glutSolidCube(1);
+		glPopMatrix();*/
+		defineMaterial(	0.10, 0.10, 0.00, 1.00,	//Ambient
+						0.10, 0.10, 0.00, 1.00,	//Diffuse
+						0.10, 0.10, 0.10, 1.00,	//Specular
+						0.80, 0.80, 0.00, 1.00,	//Emission
+						77);					//SHININESS
+		glColor3f(0.8, 0.8, 0);
+		glPushMatrix();
+			glColor3f(1,1,0);
+			glTranslatef(-200, 400, 200);
+			glutSolidSphere(100, 8, 8);
 		glPopMatrix();
+		
 	glPopMatrix();
 }
