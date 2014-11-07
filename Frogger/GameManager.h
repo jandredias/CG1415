@@ -12,7 +12,7 @@
 #include <map>
 #include <list>
 
-#define NR_POLYGONS					10	//Largura dos Poligonos
+#define NR_POLYGONS					5	//Largura dos Poligonos
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -23,7 +23,7 @@
 
 class GameManager
 {
-	bool _debug = true;
+	bool _debug = false;
 	Vector3 _size_map;
 	Vector3 _center_map;
 
@@ -41,6 +41,7 @@ class GameManager
 	double _speed_river[5];
 	bool _status = 0;
 	double _speed = 1;
+	
 	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<StaticObject *> _static_game_objects;
 	Frog *frog;

@@ -178,7 +178,6 @@ void GameManager::init(){
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
 			setStaticObject(new StreetLamp(Vector3(x, y, 0), Vector3((x > 0) ? 1 : -1,1,1)));
-	
 			aux = new LightSource(getlights().size());
 			aux->setPosition(x, y, 20, 1);
 			aux->setDirection((x < 0) ? 0.8 : -0.8, 0, -1);
@@ -186,6 +185,7 @@ void GameManager::init(){
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setCutOff(60);
+			aux->setExponent(2);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
