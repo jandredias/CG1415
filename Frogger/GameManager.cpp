@@ -162,7 +162,7 @@ void GameManager::init(){
 		break;
 	case 2:
 		setPlayer(new Player('s', 'w', 'a', 'd'));
-		setPlayer(new Player('g', 't', 'f', 'h'));
+		setPlayer(new Player('5', '8', '4', '6'));
 	}
 
 	LightSource *aux = new LightSource(getlights().size());
