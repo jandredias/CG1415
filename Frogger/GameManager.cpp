@@ -174,28 +174,22 @@ void GameManager::init(){
 		aux->setState(true);
 		//aux->draw();
 		setlights(aux);
-
+	
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
 			setStaticObject(new StreetLamp(Vector3(x, y, 0), Vector3((x > 0) ? 1 : -1,1,1)));
-
+	
 			aux = new LightSource(getlights().size());
 			aux->setPosition(x, y, 20, 1);
-			aux->setDirection((x < 0) ? 0.5 : -0.5, 0, -1);
+			aux->setDirection((x < 0) ? 0.8 : -0.8, 0, -1);
 			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+			aux->setCutOff(60);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
-//~ LightSource *aux = new LightSource(getlights().size());
-			//~ aux->setPosition(0,50, 20, 1);
-			//~ aux->setDirection(0,0, -1);
-			//~ aux->setSpecular(0.2, 0.2, 0.2, 1.0);
-			//~ aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-			//~ aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-			//~ aux->setState(_lights_on);
-			//~ setlights(aux);
+
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
 	
@@ -225,7 +219,8 @@ void GameManager::init(){
 
 	
 void GameManager::display(){
-	glClearColor(0,0,0, 1);
+	if (_modo_dia)	glClearColor(0.00, 0.64, 1.00, 1);
+	else			glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);

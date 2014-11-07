@@ -11,7 +11,7 @@ void River::draw(){
 		glTranslated(	getPosition().getX(),
 						getPosition().getY(),
 						0);
-			defineMaterial(	0.20, 0.20, 1.00, 1.00,	//Ambient
+			defineMaterial(	0.01, 0.01, 0.05, 1.00,	//Ambient
 							0.20, 0.20, 1.00, 1.00,	//Diffuse
 							1.00, 1.00, 1.00, 1.00,	//Specular
 							0.00, 0.00, 0.00, 1.00,	//Emission

@@ -3,7 +3,7 @@
 #include "GL/glut.h"
 #include <ctime>
 
-#define UPDATE_TIME 150
+#define UPDATE_TIME 10
 
 GameManager *gm;
 int y = 100;

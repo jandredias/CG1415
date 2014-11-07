@@ -2,7 +2,7 @@
 #include "LightSource.h"
 #include "GL/glut.h"
 #include <iostream>
-LightSource::LightSource(unsigned long number){ _num = number; _state = false; }
+LightSource::LightSource(unsigned long number){ _num = number; _state = false; _cut_off = 180; }
 LightSource::~LightSource(){ }
 bool LightSource::getState(){ return _state; }
 bool LightSource::setState(bool state){
@@ -36,10 +36,12 @@ void LightSource::draw(){
 
 	GLfloat specular[] = { (GLfloat)_specular.getX(), (GLfloat)_specular.getY(), (GLfloat)_specular.getZ(),(GLfloat) _specular.getW() };
 	glLightfv(GL_LIGHT0 + _num, GL_SPECULAR, specular);
+
+	glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, _cut_off);
+
 	if ( _direction.getX() != 0 || _direction.getY() != 0 || _direction.getZ() != 0){
 		GLfloat direction[] = { (GLfloat)_direction.getX(), (GLfloat)_direction.getY(), (GLfloat)_direction.getZ() };
 		glLightfv(GL_LIGHT0 + _num, GL_SPOT_DIRECTION, direction);
-		glLightf(GL_LIGHT0 + _num, GL_SPOT_CUTOFF, 60);
 	}
 	return;
 	/*GLfloat light_position[] = { (GLfloat)_position.getX(), (GLfloat)_position.getY(), (GLfloat)_position.getZ(), (GLfloat)_position.getW() };
