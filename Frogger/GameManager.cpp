@@ -125,7 +125,7 @@ void GameManager::init(){
 	_speed_river[3] = -_size_map.getX() / (rand() % 5 + 3);
 	_speed_river[4] = _size_map.getX() / (rand() % 5 + 3);
 
-	setStaticObject(new Background(0, 0, 0));
+	setStaticObject(new Background(0, 100, 0));
 
 	setStaticObject(new FrogTarget(-80, 190, 0));
 	setStaticObject(new FrogTarget(-40, 190, 0));
@@ -148,6 +148,14 @@ void GameManager::init(){
 	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
+	//~ for (int i = -1; i < 2; i++)
+		//~ 
+	//~ for (int i = -1; i < 2; i++)
+		//~ setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
+	
+	/*
+	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
+	*/
 	switch (_no_players){
 	case 1:
 		setPlayer(new Player('a', 'q', 'o', 'p'));
@@ -156,17 +164,14 @@ void GameManager::init(){
 		setPlayer(new Player('s', 'w', 'a', 'd'));
 		setPlayer(new Player('g', 't', 'f', 'h'));
 	}
-	
+
 	LightSource *aux = new LightSource(getlights().size());
-		aux->setPosition(-1,1,1, 0); //O SOL esta' a esquerda
+		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
 		aux->setDirection(0, 0, 0);
 		aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-		aux->setExponent(2);
-		aux->setCutOff(360);
 		aux->setState(true);
-		aux->setExponent(0);
 		//aux->draw();
 		setlights(aux);
 
@@ -180,13 +185,17 @@ void GameManager::init(){
 			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-			aux->setExponent(2);
-			aux->setCutOff(60);
-			aux->setExponent(0.9);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
-
+//~ LightSource *aux = new LightSource(getlights().size());
+			//~ aux->setPosition(0,50, 20, 1);
+			//~ aux->setDirection(0,0, -1);
+			//~ aux->setSpecular(0.2, 0.2, 0.2, 1.0);
+			//~ aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+			//~ aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+			//~ aux->setState(_lights_on);
+			//~ setlights(aux);
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
 	
@@ -214,10 +223,9 @@ void GameManager::init(){
 	NewTimberLog::execute(1);	
 }
 
-void GameManager::display(){
-	if (_modo_dia) glClearColor(1,1,1, 1);
-	else glClearColor(0,0,0,1);
 	
+void GameManager::display(){
+	glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
@@ -226,8 +234,7 @@ void GameManager::display(){
 	
 	for (GameObject *aux : getStaticObjects()) aux->draw();
 	for (GameObject *aux : getDynamicObjects()) aux->draw();
-	for (GameObject *aux : getFrogs()) aux->draw();
-
+	for (GameObject *aux : getFrogs()) aux->draw();	
 	glutSwapBuffers();
 	glFlush();
 }
@@ -245,14 +252,16 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual_id = key - '1';
 		camera_atual = getcameras()[camera_atual_id];
 		return;
-	case 27:
+	case 27: // Escape key
 		exit(0);
 		break;
 	case 'n':
 		getLight(0)->setState(_modo_dia = !_modo_dia);
+
+//		bool lights_on = false;
 		break;
 	case 'l':
-		if ((_lights_active =! _lights_active)) glEnable(GL_LIGHTING);
+		if (_lights_active = !_lights_active) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
 		break;
 	case 'c':
@@ -265,6 +274,7 @@ void GameManager::keyUp(unsigned char key){
 				(aux->getKeys()[key].getY()) ? 0 : aux->getFrog()->getSpeed().getY(),
 				(aux->getKeys()[key].getZ()) ? 0 : aux->getFrog()->getSpeed().getZ());
 	}
+		
 }
 void GameManager::keyPressed(unsigned char key){
 	for (Player *aux : getPlayers())
@@ -272,6 +282,7 @@ void GameManager::keyPressed(unsigned char key){
 			aux->getFrog()->setSpeed(	(aux->getKeys()[key].getX()) ? aux->getKeys()[key].getX() * SPEED_FROG : aux->getFrog()->getSpeed().getX(),
 										(aux->getKeys()[key].getY()) ? aux->getKeys()[key].getY() * SPEED_FROG : aux->getFrog()->getSpeed().getY(),
 										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : aux->getFrog()->getSpeed().getZ());
+
 }
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);

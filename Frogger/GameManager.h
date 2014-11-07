@@ -12,7 +12,7 @@
 #include <map>
 #include <list>
 
-#define NR_POLYGONS					10	//Largura dos Poligonos
+#define NR_POLYGONS					2	//Largura dos Poligonos
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12

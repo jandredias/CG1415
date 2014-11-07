@@ -134,7 +134,6 @@ void Car::draw(){
 			//				77);					//SHININESS
 			//glColor3f(0.7,0.7,0.7);
 			
-			
 			glBegin(GL_POLYGON); // Topo
 				glNormal3f(0,0,1);
 				glVertex3f(2*getSize().getX() - 6,-getSize().getY(),5);
@@ -181,67 +180,4 @@ void Car::draw(){
 				glVertex3f(2 * getSize().getX() - 2, -getSize().getY(), 3);
 			glEnd();
 		glPopMatrix();
-		return;
-		
-		//Cubo principal do corpo do carro
-		glPushMatrix();
-			defineMaterial(	_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Ambient
-							_color.getX(), _color.getY(), _color.getZ(), 1.00,	//Diffuse
-							1.00, 1.00, 1.00, 1.00,	//Specular
-							0.00, 0.00, 0.00, 1.00,	//Emission
-							77);					//SHININESS
-			glColor3f(_color.getX(), _color.getY(), _color.getZ());
-
-			glScalef(12, 8, 4);
-			glutSolidCube(1);
-		glPopMatrix();
-
-		//Cubo da frente, onde esta o motor
-		glPushMatrix();
-			glTranslated(-8.5, 0, 0);
-			glScalef(5, 4, 2);
-			glutSolidCube(1);
-		glPopMatrix();
-
-		//Eixo da roda direita da frente
-		glPushMatrix();
-			glTranslated(-10, 2.5, 0);
-			glScalef(2, 1, 0);
-			glutSolidCube(1);
-		glPopMatrix();
-
-		//Eixo da roda esquerda da frente
-		glPushMatrix();
-			glTranslated(-10, -2.5, 0);
-			glScalef(2, 1, 0);
-			glutSolidCube(1);
-		glPopMatrix();
-		
-		//Spoiler
-		defineMaterial(	1.00, 0.10, 0.10, 1.00,	//Ambient
-						1.00, 0.10, 0.10, 1.00,	//Diffuse
-						1.00, 1.00, 1.00, 1.00,	//Specular
-						0.00, 0.00, 0.00, 1.00,	//Emission
-						77);					//SHININESS
-		glColor3f(1, 0, 0);
-		glPushMatrix();
-			glTranslated(5.5, 0, 0);
-			glScalef(3, 6, 3);
-			glutSolidCube(1);
-		glPopMatrix();
-
-		//Cockpit		
-		defineMaterial(	1.00, 1.00, 1.00, 1.00,	//Ambient
-						1.00, 1.00, 1.00, 1.00,	//Diffuse
-						1.00, 1.00, 1.00, 1.00,	//Specular
-						0.00, 0.00, 0.00, 1.00,	//Emission
-						77);					//SHININESS
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-			glTranslated(-2.5, 0, 0);
-			glScalef(3, 4, 3);
-			glutSolidCube(1);
-		glPopMatrix();
-
-	glPopMatrix();
 }
