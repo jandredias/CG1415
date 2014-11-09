@@ -148,11 +148,6 @@ void GameManager::init(){
 	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
-	//~ for (int i = -1; i < 2; i++)
-		//~ 
-	//~ for (int i = -1; i < 2; i++)
-		//~ setStaticObject(new StreetLamp(Vector3(60 * i, 2, 0), Vector3(1, -1, 1)));
-	
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
 	*/
@@ -177,15 +172,20 @@ void GameManager::init(){
 	
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
-			setStaticObject(new StreetLamp(Vector3(x, y, 0), Vector3((x > 0) ? 1 : -1,1,1)));
+			setStaticObject(new StreetLamp(	Vector3(x, y, 0),
+											Vector3(	(x > 0) ? 1 : -1,
+														(y > 100) ? -1 : (y < 100) ? 1 : 0,
+														1)));
 			aux = new LightSource(getlights().size());
 			aux->setPosition(x, y, 20, 1);
-			aux->setDirection((x < 0) ? 0.8 : -0.8, 0, -1);
-			aux->setSpecular(0.2, 0.2, 0.2, 1.0);
+			aux->setDirection(	(x < 0) ? 1 : -1,
+								(y < 100) ? 0.8 : (y > 100) ? -0.8 : 0,
+								-1);
+			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 			aux->setCutOff(60);
-			aux->setExponent(2);
+			aux->setExponent(3);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
@@ -204,20 +204,18 @@ void GameManager::init(){
 			glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, improve_level, 1);
 		}
 	};
-	//class Night{
-	//public:
-	//	static void execute(int i){
-	//		gm->getLight(0)->setState(gm->_modo_dia = !gm->_modo_dia);
-	//		glutTimerFunc(50000, Night::execute, 1);
-	//	}
-	//};
+	class Night{
+	public:
+		static void execute(int i){
+			gm->getLight(0)->setState(gm->_modo_dia = !gm->_modo_dia);
+			glutTimerFunc(50000, Night::execute, 1);
+		}
+	};
 	//Night::execute(1);
 	Nivel::improve_level(1);
 	NewCar::execute(1);
 	NewTimberLog::execute(1);	
 }
-
-	
 void GameManager::display(){
 	if (_modo_dia)	glClearColor(0.00, 0.64, 1.00, 1);
 	else			glClearColor(0,0,0, 1);
@@ -247,21 +245,13 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual_id = key - '1';
 		camera_atual = getcameras()[camera_atual_id];
 		return;
-	case 27: // Escape key
-		exit(0);
-		break;
-	case 'n':
-		getLight(0)->setState(_modo_dia = !_modo_dia);
-
-//		bool lights_on = false;
-		break;
+	case 27: exit(0); break;// Escape key
+	case 'n': getLight(0)->setState(_modo_dia = !_modo_dia); break;
 	case 'l':
 		if (_lights_active = !_lights_active) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
 		break;
-	case 'c':
-		SetStreetLamps(_lights_on = !_lights_on);
-		break;
+	case 'c': SetStreetLamps(_lights_on = !_lights_on); break;
 	default:
 		for (Player *aux : getPlayers())
 			if (aux->getKeys().count(key))
@@ -282,13 +272,11 @@ void GameManager::keyPressed(unsigned char key){
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	gm->update(tempo_atual - tempo_anterior);
-	std::cout << tempo_atual - tempo_anterior << std::endl;
+	if (gm->getDebug())
+		std::cout << tempo_atual - tempo_anterior << std::endl;
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
-
-
-
 void GameManager::update(unsigned long delta){
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
@@ -305,5 +293,4 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setUp(0, 2, 5);
 	}
 	glutPostRedisplay();
-
 }

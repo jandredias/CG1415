@@ -13,12 +13,12 @@ void TimberLog::draw(){
 	glPushMatrix();
 	glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ()+0.01);
 
-		defineMaterial(	0.50, 0.35, 0.05, 1.00,	//Ambient
-						0.50, 0.35, 0.05, 1.00,	//Diffuse
-						1.00, 1.00, 1.00, 1.00,	//Specular
+		defineMaterial(	0.01, 0.01, 0.01, 1.00,	//Ambient
+						0.39, 0.25, 0.05, 1.00,	//Diffuse
+						0.00, 0.00, 0.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
-						77);					//SHININESS
-		glColor3f(0.5, 0.35, 0.05);
+						128);					//SHININESS
+		glColor3f(0.2275, 0.1490, 0.0314);
 		//glScalef(getSize().getX(), getSize().getY(), 1);
 		//glutSolidCube(1);
 		Polygon::execute(2*getSize().getX(), 10, 10, 4);

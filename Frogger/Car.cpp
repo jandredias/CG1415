@@ -4,7 +4,6 @@
 #include "math.h"
 #include "Car.h"
 #include "GameManager.h"
-#define PI		3.14159265358979323846
 extern GameManager *gm;
 Car::Car(){
 	setPosition(0, 0, 0);

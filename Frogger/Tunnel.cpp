@@ -11,12 +11,12 @@ void Tunnel::draw(){
 		//Position na colisao com a estrada, no plano Z = 0;
 		glPushMatrix();
 			glTranslated(-getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-			defineMaterial(	0.50, 0.50, 0.50, 1.00,	//Ambient
+			defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
 							0.50, 0.50, 0.50, 1.00,	//Diffuse
 							1.00, 1.00, 1.00, 1.00,	//Specular
 							0.00, 0.00, 0.00, 1.00,	//Emission
 							77);					//SHININESS
-			glColor3f(0.5, 0.5, 0.5);
+			glColor3f(0.4905, 0.4902, 0.4902);
 
 			glPushMatrix();
 				glTranslatef(-getSize().getX()/2, -getSize().getY() / 2,0);

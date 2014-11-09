@@ -39,12 +39,12 @@ void Frog::draw(){
 			glPopMatrix();
 		}
 		glTranslatef(0, 2.9, 0);
-		defineMaterial(	0.02, 0.22, 0.02, 1.00,	//Ambient
-						0.10, 0.90, 0.10, 1.00,	//Diffuse
-						1.00, 1.00, 1.00, 1.00,	//Specular
+		defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
+						0.00, 0.30, 0.00, 1.00,	//Diffuse
+						0.60, 0.70, 0.60, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
-		glColor3f(0.1, 0.9, 0.1);
+		glColor3f(0.00, 0.1725, 0.00);
 		//Cubo da cabeça
 		glPushMatrix();
 			glTranslated(0, -1, 1);

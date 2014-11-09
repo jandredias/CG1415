@@ -1,19 +1,22 @@
 #include "StreetLamp.h"
 #include "GL/glut.h"
 #include "GameManager.h"
-
+#include <iostream>
 extern GameManager *gm;
-StreetLamp::StreetLamp(Vector3 pos, Vector3 dir){ setPosition(pos.getX(), pos.getY(), pos.getZ());
-direction.set(dir.getX(), dir.getY(), dir.getZ());
-setSize(0.5,0.5,10);
+StreetLamp::StreetLamp(Vector3 pos, Vector3 dir){
+	setPosition(pos.getX(), pos.getY(), pos.getZ());
+	direction.set(dir.getX(), dir.getY(), dir.getZ());
+	setSize(0.5,0.5,10);
 }
 StreetLamp::~StreetLamp(){}
 
 void StreetLamp::draw(){
 	glPushMatrix();
-	glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-	glScalef(direction.getX(), direction.getY(), direction.getZ());
-
+		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		
+		glRotatef(atan(-direction.getY()/direction.getX()) * 180 / PI, 0, 0, 1);
+		if (getPosition().getX() < 0) glRotatef(180, 0, 0, 1);
+		
 		glPushMatrix();
 		glColor3f(0.6, 0.6, 0.6);
 		defineMaterial(	0.66, 0.66, 0.66, 1.00,	//Ambient

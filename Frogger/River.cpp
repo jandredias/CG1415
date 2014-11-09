@@ -16,7 +16,7 @@ void River::draw(){
 							1.00, 1.00, 1.00, 1.00,	//Specular
 							0.00, 0.00, 0.00, 1.00,	//Emission
 							77);					//SHININESS
-			glColor3f(0, 0, 1);
+			glColor3f(0.1176, 0.1176, 0.5961);
 			Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
 	glPopMatrix();
 }

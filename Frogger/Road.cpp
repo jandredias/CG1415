@@ -17,7 +17,7 @@ void Road::draw(){
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
-		glColor3f(1, 1, 1);
+		glColor3f(0.1137, 0.1137, 0.1137);
 		Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
 		for (int i = -3; i < 4; i+= 2)
 			for (int j = -5; j < 6; j++){
@@ -27,7 +27,7 @@ void Road::draw(){
 									1.00, 1.00, 1.00, 1.00,	//Specular
 									0.00, 0.00, 0.00, 1.00,	//Emission
 									77);					//SHININESS
-					glColor3f(1, 1, 1);
+					glColor3f(0.5764, 0.5764, 0.5764);
 					glTranslated(j * (40), i * 6,0.01);
 					Polygon::execute(20, 1, 2, 1);
 				glPopMatrix();

@@ -1,6 +1,8 @@
 #include "Polygon.h"
 #include "GL/glut.h"
 #include <iostream>
+#include "GameManager.h"
+extern GameManager *gm;
 Polygon::Polygon(){}
 Polygon::~Polygon(){}
 void Polygon::execute(GLfloat w, GLfloat h, GLfloat qt_w, GLfloat qt_h){
@@ -14,7 +16,7 @@ void Polygon::execute(GLfloat w, GLfloat h, GLfloat qt_w, GLfloat qt_h){
 		for (float y = 0; y < qt_h; y++){
 			glPushMatrix();
 			glTranslatef(step_w *x, step_h*y, 0);
-				glColor3f(rand() % 100 * 0.01, rand() % 100 * 0.01, rand() % 100 * 0.01);
+			if (gm->getDebug()) glColor3f(rand() % 100 * 0.01, rand() % 100 * 0.01, rand() % 100 * 0.01);
 				glBegin(GL_POLYGON);
 						glNormal3f(0, 0, 1);
 						glVertex3f(0, 0, 0);

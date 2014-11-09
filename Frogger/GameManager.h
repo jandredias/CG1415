@@ -12,7 +12,8 @@
 #include <map>
 #include <list>
 
-#define NR_POLYGONS					10	//Largura dos Poligonos
+#define PI		3.14159265358979323846
+#define NR_POLYGONS					5	//Largura dos Poligonos
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -21,17 +22,13 @@
 #define TL_POS_BEGIN0				-150
 #define	TL_POS_BEGIN1				150
 
-class GameManager
-{
+class GameManager{
 	bool _debug = false;
 	Vector3 _size_map;
 	Vector3 _center_map;
-
-	int _no_players = 2;
+	int _no_players = 1;
 	std::vector<Player *> _players;
-
 	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
-
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;

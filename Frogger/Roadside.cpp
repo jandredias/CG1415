@@ -15,12 +15,12 @@ void Roadside::draw(){
 		glTranslated(	getPosition().getX(),
 				getPosition().getY(),
 				getPosition().getZ());
-		defineMaterial(	0.70, 0.70, 0.70, 1.00,	//Ambient
+		defineMaterial(	0.07, 0.07, 0.07, 1.00,	//Ambient
 						0.70, 0.70, 0.70, 1.00,	//Diffuse
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
 						77);					//SHININESS
-		glColor3f(0.7, 0.7, 0.7);
+		glColor3f(0.4314, 0.4314, 0.4314);
 		Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
 	glPopMatrix();
 }
