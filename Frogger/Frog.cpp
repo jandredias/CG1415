@@ -26,11 +26,10 @@ Frog::Frog(double x, double y, double z) : Frog(){
 Frog::~Frog(){}
 void Frog::draw(){
 
+	
 	glPushMatrix();
-
+		//glRotated(90, 0, 0, 1);
 		glTranslatef(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		
-
 
 		if (gm->getDebug()){
 			glPushMatrix();
@@ -166,6 +165,7 @@ void Frog::update(double delta_t){
 				speeder = aux;
 			}
 			else if (dynamic_cast<Car*> (aux)) ColisionCar = true;
+		
 
 		for (StaticObject *aux : gm->getStaticObjects())
 			if (HasColision(aux))
@@ -189,6 +189,10 @@ void Frog::update(double delta_t){
 			if (ColisionCar || (ColisionRiver && !(ColisionRiverside || ColisionTimberLog))){
 				setSpeed(0, 0, 0);
 				setPosition(0, 10, -1);
+				gm->getPlayers()[0]->setLifes(gm->getPlayers()[0]->getLifes() - 1);
+				std::cout << "Lifes: " << std::endl;
+				std::cout << gm->getPlayers()[0]->getLifes() << std::endl;
+				
 			}
 			if (!ColisionTimberLog) speeder = NULL;
 }

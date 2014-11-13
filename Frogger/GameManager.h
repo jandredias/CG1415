@@ -38,6 +38,7 @@ class GameManager{
 	double _speed_river[5];
 	bool _status = 0;
 	double _speed = 1;
+	bool paused = false;
 	
 	std::list<DynamicObject *> _dynamic_game_objects;
 	std::list<StaticObject *> _static_game_objects;
@@ -54,6 +55,7 @@ class GameManager{
 		bool _modo_dia = true;
 		bool _lights_on = false;
 		bool _lights_active = true;
+		bool _frog_light = false;
 
 
 		bool getDebug(){ return _debug; }

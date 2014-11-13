@@ -16,6 +16,7 @@
 #include "Bus.h"
 #include <iostream>
 #include <cmath>
+#include <windows.h>
 
 //blah blah blah wiskas saketas
 
@@ -190,6 +191,17 @@ void GameManager::init(){
 			setlights(aux);
 		}
 
+	//Luz que acompanha o sapo
+	aux = new LightSource(getlights().size());
+	aux->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ()+6, 0); 
+	aux->setDirection(0, 1, -1); //Direcao do sapo
+	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
+	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+	aux->setState(true);
+	//aux->draw();
+	setlights(aux);
+
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
 	
@@ -246,7 +258,14 @@ void GameManager::keyUp(unsigned char key){
 		camera_atual = getcameras()[camera_atual_id];
 		return;
 	case 27: exit(0); break;// Escape key
+	case 'r': 
+		/*
+		!!!!!!!!!!!!!!!FALTA!!!!!!!!!!!!!!!!!!
+		Começar novo jogo*/
+		break;
+	case 's': paused = !paused; break;
 	case 'n': getLight(0)->setState(_modo_dia = !_modo_dia); break;
+	case 'h': getLight(7)->setState(_frog_light = !_frog_light); break;
 	case 'l':
 		if (_lights_active = !_lights_active) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
@@ -271,13 +290,17 @@ void GameManager::keyPressed(unsigned char key){
 }
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
-	gm->update(tempo_atual - tempo_anterior);
+	if (!paused) gm->update(tempo_atual - tempo_anterior);
+	//else MessageBox(NULL, L"Prima a tecla S para retomar", L"Jogo em Pausa", 0);
 	if (gm->getDebug())
 		std::cout << tempo_atual - tempo_anterior << std::endl;
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
 void GameManager::update(unsigned long delta){
+	if (_players[0]->getLifes() == 0){
+		MessageBox(NULL, L"Prima a tecla R para reíniciar o jogo", L"GAME OVER", 0);
+	}	
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
 		aux->update(delta);
@@ -292,5 +315,6 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setAt(getFrog()->getPosition().getX(), getFrog()->getPosition().getY() - 20, getFrog()->getPosition().getZ() + 20);
 		camera_atual->setUp(0, 2, 5);
 	}
+	getLight(7)->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ(), 0);
 	glutPostRedisplay();
 }
