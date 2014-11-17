@@ -14,8 +14,9 @@
 #include "Tunnel.h"
 #include "StreetLamp.h"
 #include "Bus.h"
-#include <iostream>
 #include <cmath>
+#include <iostream>
+#include <fstream>
 
 //#include <windows.h>
 //blah blah blah wiskas saketas
@@ -24,8 +25,10 @@ extern GameManager *gm;
 extern int y;
 extern int z;
 
-public class Texture{
+class Texture{
 	public: 
+		Texture(){}
+		~Texture(){}
 		GLuint loadBMP_custom(const char *imagepath){
 		unsigned char header[54];
 		unsigned int dataPos;
@@ -33,8 +36,10 @@ public class Texture{
 		unsigned int imageSize;
 
 		unsigned char *data;
-		File * file = fopen(imagepath, "rb");
-		if(!file){
+
+
+		std::ifstream file(imagepath, std::ios::out | std::ios::app | std::ios::binary);
+		if (!file.is_open()){
 			printf("Image could not be opened!\n");
 			return 0;
 		}
@@ -78,22 +83,8 @@ public class Texture{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 		return textureID;
-
 	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 GameManager::GameManager(){}
 GameManager::~GameManager(){
