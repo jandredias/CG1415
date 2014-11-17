@@ -9,7 +9,7 @@ class DynamicObject : public GameObject
 	Vector3 _speed;
 	public:
 		DynamicObject();
-		~DynamicObject();
+		virtual ~DynamicObject();
 		virtual void update(double delta_t);
 		void setSpeed(Vector3* speed);
 		void setSpeed(double x, double y, double z);

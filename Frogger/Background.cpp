@@ -1,4 +1,3 @@
-
 #include "Background.h"
 #include <GL/glut.h>
 #include "GameManager.h"
@@ -24,7 +23,7 @@ void Background::draw(){
 			glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 			glutSolidCube(1);
 		glPopMatrix();*/
-		if (gm->_modo_dia){
+		if (gm->getDayMode()){
 			defineMaterial(	0.10, 0.10, 0.00, 1.00,	//Ambient
 							0.10, 0.10, 0.00, 1.00,	//Diffuse
 							0.10, 0.10, 0.10, 1.00,	//Specular

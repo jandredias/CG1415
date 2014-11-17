@@ -19,7 +19,7 @@ extern int z;
 PerspectiveCamera::PerspectiveCamera() : Camera(0, 200){ frog = NULL; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar) : Camera(zNear, zFar){ _fovy = fovy; _aspect = aspect; }
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, Frog *a) : PerspectiveCamera(fovy, aspect, zNear, zFar){ frog = a; }
-
+PerspectiveCamera::~PerspectiveCamera(){}
 void PerspectiveCamera::computeVisualizationMatrix(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

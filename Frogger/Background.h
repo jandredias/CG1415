@@ -1,6 +1,4 @@
-#ifndef __BACKGROUND__
-#define __BACKGROUND__
-
+#pragma once
 #include "StaticObject.h"
 
 class Background : public StaticObject {
@@ -10,5 +8,3 @@ public:
 	Background(double x, double y, double z);
 	void draw();
 };
-
-#endif

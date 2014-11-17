@@ -18,6 +18,10 @@ Player::Player(char keydown, char keyup, char keyleft, char keyright) : Player()
 
 Player::~Player(){}
 
+void Player::setLight(LightSource *a) { _light = a; }
+LightSource* Player::getLight(){ return _light; }
+
+
 int Player::getID(){ return _id; }
 void Player::setID(int id){ _id = id; }
 

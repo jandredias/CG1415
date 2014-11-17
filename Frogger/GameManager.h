@@ -1,5 +1,4 @@
-#ifndef __GAMEMANAGER__
-#define __GAMEMANAGER__
+#pragma once
 
 #include "Camera.h"
 #include "Player.h"
@@ -13,7 +12,7 @@
 #include <list>
 
 #define PI		3.14159265358979323846
-#define NR_POLYGONS					5	//Largura dos Poligonos
+#define NR_POLYGONS					3	//Largura dos Poligonos
 #define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
@@ -24,8 +23,10 @@
 
 class GameManager{
 	bool _debug = false;
+	
 	Vector3 _size_map;
 	Vector3 _center_map;
+	
 	int _no_players = 1;
 	std::vector<Player *> _players;
 	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
@@ -38,6 +39,7 @@ class GameManager{
 	double _speed_river[5];
 	bool _status = 0;
 	double _speed = 1;
+	bool _dead = false;
 	bool paused = false;
 	
 	std::list<DynamicObject *> _dynamic_game_objects;
@@ -50,24 +52,38 @@ class GameManager{
 	
 	std::vector<LightSource *> _lights;
 
+	bool _modo_dia = true;
+	bool _lights_on = false;
+	bool _lights_active = true;
+	bool _frog_light = false;
+	
 	public:
 
-		bool _modo_dia = true;
-		bool _lights_on = false;
-		bool _lights_active = true;
-		bool _frog_light = false;
-
+		
+		bool getDayMode(){ return _modo_dia; }
+		bool getLightsOn(){ return _lights_on; }
+		bool getLightsActive(){ return _lights_active; }
+		bool getFrogLight(){ return _frog_light; }
+		
+		bool setDayMode(bool a){ return _modo_dia = a;}
+		bool setLightsOn(bool a){ return _lights_on = a; }
+		bool setLightsActive(bool a){ return _lights_active = a; }
+		bool setFrogLight(bool a){ return _frog_light = a; }
 
 		bool getDebug(){ return _debug; }
 		double getGameSpeed();
 		Frog* getFrog();
 		void setPlayer(Player *a);
 		std::vector<Player *> getPlayers();
+		Player * getPlayer(int id);
+		
 		GameManager();
 		~GameManager();
 		const double* getSpeedCar();
 		const double* getSpeedRiver();
-
+		
+		void drawLifes();
+		
 		void setNewFrog(Vector3 a);
 		std::list<Frog*> getFrogs();
 
@@ -95,6 +111,3 @@ class GameManager{
 		void update(unsigned long delta);
 		void init();
 };
-
-#endif
-

@@ -28,6 +28,9 @@ int main(int argc, char * argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	
+	glHint(GL_NICEST,GL_POLYGON_SMOOTH_HINT);
+	glEnable(GL_POLYGON_SMOOTH);
+	
 	glutTimerFunc(UPDATE_TIME, update_game, UPDATE_TIME);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

@@ -2,6 +2,7 @@
 #include "GL/glut.h"
 #include "Polygon.h"
 #include "GameManager.h"
+#include <cmath>
 FrogTarget::FrogTarget(){
 	setSize(7.5,7.5,5);
 }
@@ -24,7 +25,7 @@ void FrogTarget::draw(){
 			0.00, 0.00, 0.00, 1.00,	//Emission
 			77);					//SHININESS
 		glColor3f(0.1176, 0.1176, 0.5961);
-		glTranslatef(getPosition().getX(), getPosition().getY() - 2.5, getPosition().getZ()+0.001);
+		glTranslatef(getPosition().getX(), getPosition().getY() - 2.5, getPosition().getZ()+0.01);
 		//glScalef(getSize().getX(), getSize().getY(), getSize().getZ());
 		//glutSolidCube(1);
 		Polygon::execute(	2*getSize().getX(), 2*getSize().getY(),

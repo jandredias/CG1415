@@ -16,13 +16,83 @@
 #include "Bus.h"
 #include <iostream>
 #include <cmath>
-#include <windows.h>
 
+//#include <windows.h>
 //blah blah blah wiskas saketas
 
 extern GameManager *gm;
 extern int y;
 extern int z;
+
+public class Texture{
+	public: 
+		GLuint loadBMP_custom(const char *imagepath){
+		unsigned char header[54];
+		unsigned int dataPos;
+		unsigned int width, height;
+		unsigned int imageSize;
+
+		unsigned char *data;
+		File * file = fopen(imagepath, "rb");
+		if(!file){
+			printf("Image could not be opened!\n");
+			return 0;
+		}
+		if(fread(header,1,54,file)!=54){
+			printf("Not a correct BMP file!\n");
+			return false;
+		}
+		if(header[0] != 'B' || header[1] != 'M'){
+			printf("Not a correct BMP file\n");
+			return 0;
+		}
+		dataPos    = *(int*)&(header[0x0A]);
+		imageSize  = *(int*)&(header[0x22]);
+		width      = *(int*)&(header[0x12]);
+		height     = *(int*)&(header[0x16]);
+		
+		if (imageSize==0)    imageSize=width*height*3; // 3 : one byte for each Red, Green and Blue component
+		if (dataPos==0)      dataPos=54; // The BMP header is done that way
+		
+		// Create a buffer
+		data = new unsigned char [imageSize];
+		 
+		// Read the actual data from the file into the buffer
+		fread(data,1,imageSize,file);
+		 
+		//Everything is in memory now, the file can be closed
+		fclose(file);
+		
+		
+		// Create one OpenGL texture
+		GLuint textureID;
+		glGenTextures(1, &textureID);
+		 
+		// "Bind" the newly created texture : all future texture functions will modify this texture
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		 
+		// Give the image to OpenGL
+		glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+		 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		return textureID;
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 GameManager::GameManager(){}
@@ -53,10 +123,12 @@ std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
 std::vector<LightSource *> GameManager::getlights(void){ return _lights; }
 LightSource* GameManager::getLight(int i){	return _lights[i]; }
 std::vector<LightSource *> GameManager::setlights(LightSource* aux){ _lights.push_back(aux); return _lights; }
-void GameManager::SetStreetLamps(bool state){ for (int i = 1; i < getlights().size(); i++) getlights()[i]->setState(state); }
+void GameManager::SetStreetLamps(bool state){ for (int i = 2; i < getlights().size(); i++) getlights()[i]->setState(state); }
 
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
+Player* GameManager::getPlayer(int a){return _players[0]; }
+
 
 class NewCar{
 	public: static void execute(int i) {
@@ -149,17 +221,11 @@ void GameManager::init(){
 	
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 50, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
 	setStaticObject(new Tunnel(_size_map.getX() / 2, 150, 0)); //(largura da estrada, ponto medio Y da estrada, z = 0)
+	
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
 	*/
-	switch (_no_players){
-	case 1:
-		setPlayer(new Player('a', 'q', 'o', 'p'));
-		break;
-	case 2:
-		setPlayer(new Player('s', 'w', 'a', 'd'));
-		setPlayer(new Player('5', '8', '4', '6'));
-	}
+	setPlayer(new Player('a', 'q', 'o', 'p'));
 
 	LightSource *aux = new LightSource(getlights().size());
 		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
@@ -168,11 +234,27 @@ void GameManager::init(){
 		aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 		aux->setState(true);
-		//aux->draw();
 		setlights(aux);
 	
+	//Luz que acompanha o sapo
+	aux = new LightSource(getlights().size());
+	aux->setPosition(	getFrog()->getPosition().getX(),
+						getFrog()->getPosition().getY(),
+						getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1); 
+	aux->setDirection(0, 3, -1); //Direcao do sapo
+	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
+	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
+	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
+	aux->setCutOff(20);
+	aux->setExponent(5);
+	aux->setState(getFrogLight());
+	setlights(aux);
+	
+	getPlayer(0)->setLight(aux);
+	
+	
 	for(int y = 0; y <= 200; y+=100)
-		for(int x = -100; x <= 100; x += 200){//Vector3(1, (y == 0) ? 1 : -1 , 1)
+		for(int x = -100; x <= 100; x += 200){
 			setStaticObject(new StreetLamp(	Vector3(x, y, 0),
 											Vector3(	(x > 0) ? 1 : -1,
 														(y > 100) ? -1 : (y < 100) ? 1 : 0,
@@ -185,27 +267,18 @@ void GameManager::init(){
 			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-			aux->setCutOff(60);
+			aux->setCutOff(30);
 			aux->setExponent(3);
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
 
-	//Luz que acompanha o sapo
-	aux = new LightSource(getlights().size());
-	aux->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ()+6, 0); 
-	aux->setDirection(0, 1, -1); //Direcao do sapo
-	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
-	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	aux->setState(true);
-	//aux->draw();
-	setlights(aux);
+
 
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
 	
-	setcameras(new OrthogonalCamera(-100, 100, 0, 200, -100, 100));
+	setcameras(new OrthogonalCamera(-120, 120, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
 
@@ -223,7 +296,6 @@ void GameManager::init(){
 			glutTimerFunc(50000, Night::execute, 1);
 		}
 	};
-	//Night::execute(1);
 	Nivel::improve_level(1);
 	NewCar::execute(1);
 	NewTimberLog::execute(1);	
@@ -232,6 +304,17 @@ void GameManager::display(){
 	if (_modo_dia)	glClearColor(0.00, 0.64, 1.00, 1);
 	else			glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	
+	
+	glViewport(0, 0, _w, _h);
+	
+	getcameras()[0]->computeProjectionMatrix();
+	getcameras()[0]->update(_w, _h);
+	getcameras()[0]->computeVisualizationMatrix();
+	drawLifes();
+	
+	glViewport(0, 0, _w, _h);
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
 	camera_atual->computeVisualizationMatrix();
@@ -259,15 +342,17 @@ void GameManager::keyUp(unsigned char key){
 		return;
 	case 27: exit(0); break;// Escape key
 	case 'r': 
-		/*
-		!!!!!!!!!!!!!!!FALTA!!!!!!!!!!!!!!!!!!
-		Começar novo jogo*/
+		if(!_dead) return;
+		_players[0]->setLifes(5);
+		_players[0]->getFrog()->setPosition(0, 10, -1);
+		_players[0]->getFrog()->setSpeed(0, 0, 0);
+		_dead = false;
 		break;
-	case 's': paused = !paused; break;
-	case 'n': getLight(0)->setState(_modo_dia = !_modo_dia); break;
-	case 'h': getLight(7)->setState(_frog_light = !_frog_light); break;
+	case 's': if(!_dead) paused = !paused; break;
+	case 'n': getLight(0)->setState((_modo_dia = (!_modo_dia))); break;
+	case 'h': getLight(1)->setState((_frog_light = (!_frog_light))); break;
 	case 'l':
-		if (_lights_active = !_lights_active) glEnable(GL_LIGHTING);
+		if ((_lights_active = (!_lights_active))) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
 		break;
 	case 'c': SetStreetLamps(_lights_on = !_lights_on); break;
@@ -288,6 +373,17 @@ void GameManager::keyPressed(unsigned char key){
 										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : aux->getFrog()->getSpeed().getZ());
 
 }
+void GameManager::drawLifes(){
+	Frog *aux = new Frog();
+	glPushMatrix();
+	glScalef(0.5,0.5,0.5);
+	for(int i = 0; i < getPlayer(0)->getLifes(); i++){
+		aux->setPosition(240, 20 + i * 15,100);
+		aux->draw();
+	}
+	glPopMatrix();
+	delete(aux);
+}
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	if (!paused) gm->update(tempo_atual - tempo_anterior);
@@ -297,14 +393,13 @@ void GameManager::onTimer(){
 	tempo_anterior = tempo_atual;
 }
 void GameManager::idle(){}
+
 void GameManager::update(unsigned long delta){
-	if (_players[0]->getLifes() == 0){
-		MessageBox(NULL, L"Prima a tecla R para reíniciar o jogo", L"GAME OVER", 0);
-	}	
+	if (getPlayer(0)->getLifes() == 0)
+		_dead = true;
 	double initial = 0;
 	for (DynamicObject *aux : getDynamicObjects()){
 		aux->update(delta);
-		(aux > 0) ? 1 : -1;
 		if (((aux->getSpeed().getX() > 0) ? 1 : -1) * (aux->getPosition().getX()) > 400){
 			delete(aux);
 			_dynamic_game_objects.remove(aux);
@@ -315,6 +410,10 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setAt(getFrog()->getPosition().getX(), getFrog()->getPosition().getY() - 20, getFrog()->getPosition().getZ() + 20);
 		camera_atual->setUp(0, 2, 5);
 	}
-	getLight(7)->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ(), 0);
+	getLight(1)->setPosition(	getFrog()->getPosition().getX(),
+						getFrog()->getPosition().getY(),
+						getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);  
+	
+	//getLight(7)->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ(), 0);
 	glutPostRedisplay();
 }

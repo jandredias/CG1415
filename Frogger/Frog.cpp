@@ -139,7 +139,8 @@ void Frog::draw(){
 
 
 void Frog::update(double delta_t){
-	
+	if (gm->getPlayers()[0]->getLifes() == 0)
+		return;
 	Vector3 oldPosition(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 	if (speeder == NULL)
 		setPosition(getPosition().getX() + getSpeed().getX() * delta_t / 1000,

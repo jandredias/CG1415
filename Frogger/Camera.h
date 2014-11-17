@@ -12,7 +12,7 @@ class Camera : public Entity {
 	double _far;
 	public:
 		Camera(double near, double far);
-		~Camera();
+		virtual ~Camera();
 		double getNear();
 		double getFar();
 		void setUp(double x, double y, double z);

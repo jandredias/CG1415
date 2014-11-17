@@ -9,7 +9,7 @@ class GameObject : public Entity
 	Vector3 _size;
 	public:
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 		void defineMaterial(GLfloat Ka_r, GLfloat Ka_g, GLfloat Ka_b, GLfloat Ka_w,
 								GLfloat Kd_r, GLfloat Kd_g, GLfloat Kd_b, GLfloat Kd_w,
 								GLfloat Ks_r, GLfloat Ks_g, GLfloat Ks_b, GLfloat Ks_w,

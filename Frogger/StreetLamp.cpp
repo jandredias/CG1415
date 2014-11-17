@@ -2,6 +2,7 @@
 #include "GL/glut.h"
 #include "GameManager.h"
 #include <iostream>
+#include <cmath>
 extern GameManager *gm;
 StreetLamp::StreetLamp(Vector3 pos, Vector3 dir){
 	setPosition(pos.getX(), pos.getY(), pos.getZ());
@@ -38,7 +39,7 @@ void StreetLamp::draw(){
 		glPushMatrix();
 			glTranslatef(-4,0,2*getSize().getZ());
 			glColor3f(1.0, 1.0,0.0);
-			if (gm->_lights_on)
+			if (gm->getLightsOn())
 				defineMaterial(	1.00, 1.00, 0.00, 1.00,	//Ambient
 								1.00, 1.00, 0.00, 1.00,	//Diffuse
 								1.00, 1.00, 1.00, 1.00,	//Specular
