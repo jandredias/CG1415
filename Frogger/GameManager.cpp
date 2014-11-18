@@ -24,7 +24,7 @@
 extern GameManager *gm;
 extern int y;
 extern int z;
-
+/*
 class Texture{
 	public: 
 		Texture(){}
@@ -84,7 +84,7 @@ class Texture{
 
 		return textureID;
 	}
-};
+};*/
 
 GameManager::GameManager(){}
 GameManager::~GameManager(){
@@ -236,8 +236,8 @@ void GameManager::init(){
 	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	aux->setCutOff(20);
-	aux->setExponent(5);
+	aux->setCutOff(60);
+	aux->setExponent(3);
 	aux->setState(getFrogLight());
 	setlights(aux);
 	
@@ -377,7 +377,8 @@ void GameManager::drawLifes(){
 }
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
-	if (!paused) gm->update(tempo_atual - tempo_anterior);
+	gm->update((paused) ? 0 : tempo_atual - tempo_anterior);
+	
 	//else MessageBox(NULL, L"Prima a tecla S para retomar", L"Jogo em Pausa", 0);
 	if (gm->getDebug())
 		std::cout << tempo_atual - tempo_anterior << std::endl;
