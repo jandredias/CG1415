@@ -95,12 +95,8 @@ class NewTimberLog{
 	}
 };
 void GameManager::init(){
-
-	_TextureRoad = Texture::loadBMP_custom("Road2.bmp");
-	_TextureRoadside = Texture::loadBMP_custom("Roadside.bmp");
 	_TexturePause = Texture::loadBMP_custom("Pause.bmp");
 	_TextureGameOver = Texture::loadBMP_custom("GameOver.bmp");
-	_TextureRiver = Texture::loadBMP_custom("water.bmp");
 
 	std::string text;
 	text = "########### FROGGER###########\n";
@@ -338,7 +334,7 @@ void GameManager::drawInfo(){
 	if (paused)	glBindTexture(GL_TEXTURE_2D, gm->getTexturePause());
 	if (_dead)	glBindTexture(GL_TEXTURE_2D, gm->getTextureGameOver());
 		glBegin(GL_POLYGON);
-		glNormal3f(0, 0, 1);
+		//glNormal3f(0, 0, 1);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0, 0, 0);
 
