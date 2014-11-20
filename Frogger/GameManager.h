@@ -10,10 +10,9 @@
 #include <vector>
 #include <map>
 #include <list>
+#include <iostream>
 
 #define PI		3.14159265358979323846
-#define NR_POLYGONS					3	//Largura dos Poligonos
-#define LEVEL_TIME_IN_SECONDS		10
 #define CAR_LANE_1					26
 #define CAR_LANE_SIZE_Y				12
 #define CAR_LANE_NO					5
@@ -21,15 +20,43 @@
 #define TL_POS_BEGIN0				-150
 #define	TL_POS_BEGIN1				150
 
-class GameManager{
+class Settings {
+	double _nr_polygons = 5;
+	int _level_time = 10;
 	bool _debug = false;
+	int _lamp_exponent = 10;
+	int _lamp_cutoff = 60;
+
+	public:
+	int getNrPolygons(){ return _nr_polygons; }
+	int getLevelTime(){ return _level_time; }
+	int getDebug(){ return _debug; }
+	void changeDebug(){ _debug = (!_debug); }
+	void setNrPolygons(int a){ (a > 0) ? (_nr_polygons *= 1.1) : (_nr_polygons *= 0.9); if(_nr_polygons > 5) _nr_polygons = 5 ; }
+	int getLampExponent(){ return _lamp_exponent; }
+	int getLampCutOff(){ return _lamp_cutoff; }
+};
+
+class GameManager{
+	GLuint _TextureRoad;
+	GLuint _TextureRiver;
+	GLuint _TextureRiverside;
+	GLuint _TextureRoadside;
+	GLuint _TexturePause;
+	GLuint _TextureGameOver;
+
+	Settings _settings;
+
+	bool _debug = false;
+
 	
 	Vector3 _size_map;
 	Vector3 _center_map;
-	
 	int _no_players = 1;
 	std::vector<Player *> _players;
+
 	int l_times = 0; //indica o numero de vezes que a tecla 'l' foi primida
+
 	int tempo_atual;
 	int tempo_anterior;
 	int tempo_inicio = 0;
@@ -58,14 +85,24 @@ class GameManager{
 	bool _frog_light = false;
 	
 	public:
+		GameManager();
+		~GameManager();
+		const double* getSpeedCar();
+		const double* getSpeedRiver();
+		GLuint getTextureRoad(){ return _TextureRoad; }
+		GLuint getTextureRiver(){ return _TextureRiver; }
+		GLuint getTextureRiverside(){ return _TextureRiverside; }
+		GLuint getTextureRoadside(){ return _TextureRoadside; }
+		GLuint getTexturePause(){ return _TexturePause; }
+		GLuint getTextureGameOver(){ return _TextureGameOver; }
+		Settings getSettings(){ return _settings; }
 
-		
 		bool getDayMode(){ return _modo_dia; }
 		bool getLightsOn(){ return _lights_on; }
 		bool getLightsActive(){ return _lights_active; }
 		bool getFrogLight(){ return _frog_light; }
-		
-		bool setDayMode(bool a){ return _modo_dia = a;}
+
+		bool setDayMode(bool a){ return _modo_dia = a; }
 		bool setLightsOn(bool a){ return _lights_on = a; }
 		bool setLightsActive(bool a){ return _lights_active = a; }
 		bool setFrogLight(bool a){ return _frog_light = a; }
@@ -76,14 +113,8 @@ class GameManager{
 		void setPlayer(Player *a);
 		std::vector<Player *> getPlayers();
 		Player * getPlayer(int id);
-		
-		GameManager();
-		~GameManager();
-		const double* getSpeedCar();
-		const double* getSpeedRiver();
-		
 		void drawLifes();
-		
+		void drawInfo();
 		void setNewFrog(Vector3 a);
 		std::list<Frog*> getFrogs();
 

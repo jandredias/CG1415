@@ -5,27 +5,39 @@
 extern GameManager *gm;
 Polygon::Polygon(){}
 Polygon::~Polygon(){}
-void Polygon::execute(GLfloat w, GLfloat h, GLfloat qt_w, GLfloat qt_h){
-	float width;
-	float height;
-	float step_w = w / qt_w;
-	float step_h = h / qt_h;
+void Polygon::execute(GLfloat w, GLfloat h, GLfloat size_w, GLfloat size_h){
+	float aux_w = size_w / 50;
+	float aux_h = size_h / 50;
+
 	glPushMatrix();
 	glTranslatef(-w / 2, -h / 2, 0);
-	for (float x = 0; x < qt_w; x++){
-		for (float y = 0; y < qt_h; y++){
+	for (float x = 0; x < w; x += size_w){
+		for (float y = 0; y < h; y += size_h){
 			glPushMatrix();
-			glTranslatef(step_w *x, step_h*y, 0);
-			if (gm->getDebug()) glColor3f(rand() % 100 * 0.01, rand() % 100 * 0.01, rand() % 100 * 0.01);
-				glBegin(GL_POLYGON);
+			glTranslatef(x, y, 0);
+			if (gm->getSettings().getDebug()) glColor3f(rand() % 100 * 0.01, rand() % 100 * 0.01, rand() % 100 * 0.01);
+			glBegin(GL_POLYGON);
 						glNormal3f(0, 0, 1);
+
+						glTexCoord2f(0.0f, 0.0f);
 						glVertex3f(0, 0, 0);
-						glVertex3f(step_w, 0, 0);
-						glVertex3f(step_w, step_h, 0);
-						glVertex3f(0, step_h, 0);
+
+						//glTexCoord2f(aux_w, 0.0f);
+						glTexCoord2f((x + size_w > w) ? w - x : size_w, 0.0f);
+						glVertex3f((x + size_w > w) ? w - x: size_w, 0, 0);
+
+						//glTexCoord2f(aux_w, aux_h);
+						glTexCoord2f((x + size_w > w) ? w - x : size_w, (y + size_h > h) ? h - y : size_h);
+						glVertex3f((x + size_w > w) ? w - x : size_w, (y + size_h > h) ? h - y : size_h, 0);
+
+						//glTexCoord2f(0.0f, aux_h);
+						glTexCoord2f(0, (y + size_h > h) ? h - y : size_h);
+						glVertex3f(0, (y + size_h > h) ? h - y : size_h, 0);
 				glEnd();
-		glPopMatrix();
+
+			glPopMatrix();
 		}
 	}
 	glPopMatrix();
+	return; 
 }

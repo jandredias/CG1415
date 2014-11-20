@@ -14,77 +14,15 @@
 #include "Tunnel.h"
 #include "StreetLamp.h"
 #include "Bus.h"
+#include "Texture.h"
 #include <cmath>
 #include <iostream>
 #include <fstream>
-
-//#include <windows.h>
-//blah blah blah wiskas saketas
+#include <stdio.h>
 
 extern GameManager *gm;
 extern int y;
 extern int z;
-/*
-class Texture{
-	public: 
-		Texture(){}
-		~Texture(){}
-		GLuint loadBMP_custom(const char *imagepath){
-		unsigned char header[54];
-		unsigned int dataPos;
-		unsigned int width, height;
-		unsigned int imageSize;
-
-		unsigned char *data;
-
-
-		std::ifstream file(imagepath, std::ios::out | std::ios::app | std::ios::binary);
-		if (!file.is_open()){
-			printf("Image could not be opened!\n");
-			return 0;
-		}
-		if(fread(header,1,54,file)!=54){
-			printf("Not a correct BMP file!\n");
-			return false;
-		}
-		if(header[0] != 'B' || header[1] != 'M'){
-			printf("Not a correct BMP file\n");
-			return 0;
-		}
-		dataPos    = *(int*)&(header[0x0A]);
-		imageSize  = *(int*)&(header[0x22]);
-		width      = *(int*)&(header[0x12]);
-		height     = *(int*)&(header[0x16]);
-		
-		if (imageSize==0)    imageSize=width*height*3; // 3 : one byte for each Red, Green and Blue component
-		if (dataPos==0)      dataPos=54; // The BMP header is done that way
-		
-		// Create a buffer
-		data = new unsigned char [imageSize];
-		 
-		// Read the actual data from the file into the buffer
-		fread(data,1,imageSize,file);
-		 
-		//Everything is in memory now, the file can be closed
-		fclose(file);
-		
-		
-		// Create one OpenGL texture
-		GLuint textureID;
-		glGenTextures(1, &textureID);
-		 
-		// "Bind" the newly created texture : all future texture functions will modify this texture
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		 
-		// Give the image to OpenGL
-		glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-		 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-		return textureID;
-	}
-};*/
 
 GameManager::GameManager(){}
 GameManager::~GameManager(){
@@ -114,7 +52,7 @@ std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
 std::vector<LightSource *> GameManager::getlights(void){ return _lights; }
 LightSource* GameManager::getLight(int i){	return _lights[i]; }
 std::vector<LightSource *> GameManager::setlights(LightSource* aux){ _lights.push_back(aux); return _lights; }
-void GameManager::SetStreetLamps(bool state){ for (int i = 2; i < getlights().size(); i++) getlights()[i]->setState(state); }
+void GameManager::SetStreetLamps(bool state){ for (size_t i = 2; i < getlights().size(); i++) getlights()[i]->setState(state); }
 
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
@@ -157,6 +95,13 @@ class NewTimberLog{
 	}
 };
 void GameManager::init(){
+
+	_TextureRoad = Texture::loadBMP_custom("Road2.bmp");
+	_TextureRoadside = Texture::loadBMP_custom("Roadside.bmp");
+	_TexturePause = Texture::loadBMP_custom("Pause.bmp");
+	_TextureGameOver = Texture::loadBMP_custom("GameOver.bmp");
+	_TextureRiver = Texture::loadBMP_custom("water.bmp");
+
 	std::string text;
 	text = "########### FROGGER###########\n";
 	text += "1 Jogador\n";
@@ -170,6 +115,10 @@ void GameManager::init(){
 	text += "Alterar Modo Dia e Noite: N\n";
 	text += "Ligar e Desligar Candeeiros de Rua: C\n";
 	text += "Ativar/Desativar Luzes: L\n";
+	text += "\n";
+	text += "Aumentar Resolução: +\n";
+	text += "Diminuir Resolução: -\n";
+	text += "Ativar Modo de Teste: d\n";
 	std::cout << text.c_str() << std::endl;
 
 	_size_map.set(200, 200, 0);
@@ -190,7 +139,7 @@ void GameManager::init(){
 	_speed_river[4] = _size_map.getX() / (rand() % 5 + 3);
 
 	setStaticObject(new Background(0, 100, 0));
-
+	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new FrogTarget(-80, 190, 0));
 	setStaticObject(new FrogTarget(-40, 190, 0));
 	setStaticObject(new FrogTarget(0, 190, 0));
@@ -202,7 +151,7 @@ void GameManager::init(){
 	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, 250, 0))); //Limite Top
 	setStaticObject(new LimitMap(Vector3(400, 100, 100), Vector3(0, -50, 0))); //Limite Bottom
 	
-	setStaticObject(new River(0, 150, 0)); //Centro da face que esta em Z = 0
+	
 	setStaticObject(new Road(0, 50, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Riverside(0, 110, 0)); //Centro da face que esta em Z = 0
 	setStaticObject(new Riverside(0, 190, 0)); //Centro da face que esta em Z = 0
@@ -232,12 +181,12 @@ void GameManager::init(){
 	aux->setPosition(	getFrog()->getPosition().getX(),
 						getFrog()->getPosition().getY(),
 						getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1); 
-	aux->setDirection(0, 3, -1); //Direcao do sapo
+	aux->setDirection(0, 4, -1); //Direcao do sapo
 	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	aux->setCutOff(60);
-	aux->setExponent(3);
+	aux->setCutOff(getSettings().getLampCutOff());
+	aux->setExponent(getSettings().getLampExponent());
 	aux->setState(getFrogLight());
 	setlights(aux);
 	
@@ -247,9 +196,9 @@ void GameManager::init(){
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){
 			setStaticObject(new StreetLamp(	Vector3(x, y, 0),
-											Vector3(	(x > 0) ? 1 : -1,
-														(y > 100) ? -1 : (y < 100) ? 1 : 0,
-														1)));
+											Vector3((x > 0) ? 1 : -1,
+													(y > 100) ? -1 : (y < 100) ? 1 : 0,
+													1)));
 			aux = new LightSource(getlights().size());
 			aux->setPosition(x, y, 20, 1);
 			aux->setDirection(	(x < 0) ? 1 : -1,
@@ -258,8 +207,8 @@ void GameManager::init(){
 			aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 			aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 			aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-			aux->setCutOff(30);
-			aux->setExponent(3);
+			aux->setCutOff(getSettings().getLampCutOff());
+			aux->setExponent(getSettings().getLampExponent());
 			aux->setState(_lights_on);
 			setlights(aux);
 		}
@@ -268,7 +217,8 @@ void GameManager::init(){
 
 	if (_lights_active)	glEnable(GL_LIGHTING);
 	else glDisable(GL_LIGHTING);
-	
+
+
 	setcameras(new OrthogonalCamera(-120, 120, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
@@ -277,7 +227,7 @@ void GameManager::init(){
 	public:
 		static void improve_level(int i){
 			gm->_speed *= 1.1;
-			glutTimerFunc(LEVEL_TIME_IN_SECONDS * 1000, improve_level, 1);
+			glutTimerFunc(gm->getSettings().getLevelTime() * 1000, improve_level, 1);
 		}
 	};
 	class Night{
@@ -296,14 +246,13 @@ void GameManager::display(){
 	else			glClearColor(0,0,0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	
-	
 	glViewport(0, 0, _w, _h);
 	
 	getcameras()[0]->computeProjectionMatrix();
 	getcameras()[0]->update(_w, _h);
 	getcameras()[0]->computeVisualizationMatrix();
 	drawLifes();
+	drawInfo();
 	
 	glViewport(0, 0, _w, _h);
 	camera_atual->computeProjectionMatrix();
@@ -325,6 +274,9 @@ void GameManager::reshape(GLsizei w, GLsizei h){
 
 void GameManager::keyUp(unsigned char key){
 	switch (key){
+	case '+': _settings.setNrPolygons(-1); break; //Mais Poligonos
+	case '-': _settings.setNrPolygons(1); break; // Menos poligonos
+	case 'd': _settings.changeDebug(); break;
 	case '1':
 	case '2':
 	case '3':
@@ -375,12 +327,36 @@ void GameManager::drawLifes(){
 	glPopMatrix();
 	delete(aux);
 }
+void GameManager::drawInfo(){
+	if (!paused && !_dead) return;
+	glTranslatef(-50, 50, 20);
+	glScalef(100, 100, 1);
+	glColor4f(1, 1, 1, 0);
+
+	glEnable(GL_TEXTURE_2D);
+
+	if (paused)	glBindTexture(GL_TEXTURE_2D, gm->getTexturePause());
+	if (_dead)	glBindTexture(GL_TEXTURE_2D, gm->getTextureGameOver());
+		glBegin(GL_POLYGON);
+		glNormal3f(0, 0, 1);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(0, 0, 0);
+
+		glTexCoord2f(0.0f, 1.0);
+		glVertex3f(0, 1, 0);
+
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(1, 1, 0);
+
+		glTexCoord2f(1.0, 0.0f);
+		glVertex3f(1, 0, 0);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+}
 void GameManager::onTimer(){
 	tempo_atual = glutGet(GLUT_ELAPSED_TIME);
 	gm->update((paused) ? 0 : tempo_atual - tempo_anterior);
-	
-	//else MessageBox(NULL, L"Prima a tecla S para retomar", L"Jogo em Pausa", 0);
-	if (gm->getDebug())
+	if (gm->getSettings().getDebug())
 		std::cout << tempo_atual - tempo_anterior << std::endl;
 	tempo_anterior = tempo_atual;
 }
@@ -403,9 +379,7 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setUp(0, 2, 5);
 	}
 	getLight(1)->setPosition(	getFrog()->getPosition().getX(),
-						getFrog()->getPosition().getY(),
-						getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);  
-	
-	//getLight(7)->setPosition(getFrog()->getPosition().getX(), getFrog()->getPosition().getY(), getFrog()->getPosition().getZ(), 0);
+								getFrog()->getPosition().getY(),
+								getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);  
 	glutPostRedisplay();
 }

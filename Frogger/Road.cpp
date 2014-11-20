@@ -4,6 +4,8 @@
 #include "Polygon.h"
 
 #include "GameManager.h"
+#include "Texture.h"
+extern GameManager  *gm;
 Road::Road(){ setSize(500,30,10); }
 Road::~Road(){}
 Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}
@@ -13,12 +15,12 @@ void Road::draw(){
 						getPosition().getY(),
 						0);
 		defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
-						0.20, 0.20, 0.20, 1.00,	//Diffuse
+						1.00, 1.00, 1.00, 1.00,	//Diffuse
 						1.00, 1.00, 1.00, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
-						77);					//SHININESS
+						77, gm->getTextureRoad());					//SHININESS
 		glColor3f(0.1137, 0.1137, 0.1137);
-		Polygon::execute(2*getSize().getX(), 2*getSize().getY(), 2*getSize().getX() / NR_POLYGONS, 2*getSize().getY() / NR_POLYGONS);
+		Polygon::execute(2 * getSize().getX(), 2 * getSize().getY(), gm->getSettings().getNrPolygons(), gm->getSettings().getNrPolygons());
 		for (int i = -3; i < 4; i+= 2)
 			for (int j = -5; j < 6; j++){
 				glPushMatrix();

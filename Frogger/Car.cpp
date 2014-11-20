@@ -47,7 +47,7 @@ void Car::draw(){
 
 	glPushMatrix();
 		glTranslated(getPosition().getX(), getPosition().getY(), getPosition().getZ() + getSize().getZ() / 2);
-		if (gm->getDebug()){
+		if (gm->getSettings().getDebug()){
 			glPushMatrix();
 			glScalef(getSize().getX() * 2, getSize().getY() * 2, getSize().getZ() * 2);
 			glutWireCube(1);
