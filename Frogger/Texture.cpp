@@ -44,26 +44,31 @@ GLuint Texture::loadBMP_custom(const char *imagepath){
 	data = new unsigned char[imageSize];
 
 	// Read the actual data from the file into the buffer
-	fread(data, 1, imageSize, file);
-
+	
+	if(fread(data, 1, imageSize, file) != imageSize){
+		std::cout << "The Image could not be loaded" << std::endl;
+		return -1;
+	}
 	//Everything is in memory now, the file can be closed
 	fclose(file);
 
 
 	// Create one OpenGL texture
 	GLuint textureID;
+	
 	glGenTextures(1, &textureID);
 
 	// "Bind" the newly created texture : all future texture functions will modify this texture
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	// Give the image to OpenGL
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	
 	std::cout << "LOAD SUCCESS" << std::endl;
 	return textureID;
 }

@@ -334,7 +334,7 @@ void GameManager::drawInfo(){
 	if (paused)	glBindTexture(GL_TEXTURE_2D, gm->getTexturePause());
 	if (_dead)	glBindTexture(GL_TEXTURE_2D, gm->getTextureGameOver());
 		glBegin(GL_POLYGON);
-		//glNormal3f(0, 0, 1);
+		
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0, 0, 0);
 

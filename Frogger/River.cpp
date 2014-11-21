@@ -6,7 +6,7 @@
 #include "GameManager.h"
 #include "Texture.h"
 extern GameManager *gm;
-River::River(){ setSize(200, 30, 10); setTexture(Texture::loadBMP_custom("WaterPlain.bmp")); }
+River::River(){ setSize(200, 30, 10);std::cout << "TEXT RIVER" << std::endl;  setTexture(Texture::loadBMP_custom("WaterPlain.bmp")); }
 River::River(double x, double y, double z): River(){setPosition(x, y, z);}
 River::~River(){}
 void River::draw(){

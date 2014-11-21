@@ -6,7 +6,7 @@
 #include "GameManager.h"
 #include "Texture.h"
 extern GameManager  *gm;
-Road::Road(){ setSize(500, 30, 10); setTexture(Texture::loadBMP_custom("Asphalt.bmp")); }
+Road::Road(){ setSize(500, 30, 10); std::cout << "TEXT ROAD" << std::endl; setTexture(Texture::loadBMP_custom("Asphalt.bmp")); }
 Road::~Road(){}
 Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}
 void Road::draw(){
@@ -18,7 +18,7 @@ void Road::draw(){
 						0.20, 0.20, 0.20, 1.00,	//Diffuse
 						0.20, 0.20, 0.20, 1.00,	//Specular
 						0.00, 0.00, 0.00, 1.00,	//Emission
-						77, getTexture());					//SHININESS
+						77, getTexture());		//SHININESS
 		glColor3f(0.1137, 0.1137, 0.1137);
 		Polygon::execute(2 * getSize().getX(), 2 * getSize().getY(), gm->getSettings().getNrPolygons(), gm->getSettings().getNrPolygons());
 		for (int i = -3; i < 4; i+= 2)

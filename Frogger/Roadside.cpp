@@ -10,7 +10,7 @@ extern GameManager *gm;
 
 Roadside::Roadside(){
 	setSize(500, 10, 10);
-	setTexture(Texture::loadBMP_custom("Roadside.bmp"));
+	//setTexture(Texture::loadBMP_custom("Roadside.bmp"));
 }
 Roadside::Roadside(double x, double y, double z) : Roadside() { setPosition(x, y, z); }
 Roadside::~Roadside(){}
