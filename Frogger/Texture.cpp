@@ -44,11 +44,9 @@ GLuint Texture::loadBMP_custom(const char *imagepath){
 	data = new unsigned char[imageSize];
 
 	// Read the actual data from the file into the buffer
-	
-	if(fread(data, 1, imageSize, file) != imageSize){
-		std::cout << "The Image could not be loaded" << std::endl;
-		return -1;
-	}
+	size_t a;
+	if((a = fread(data, 1, imageSize, file)) != imageSize)
+		std::cout << a << " " << imageSize << " The Image could not be loaded" << std::endl;
 	//Everything is in memory now, the file can be closed
 	fclose(file);
 
@@ -62,7 +60,11 @@ GLuint Texture::loadBMP_custom(const char *imagepath){
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	// Give the image to OpenGL
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	#ifdef __linux__
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	#else
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, data);
+	#endif
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
