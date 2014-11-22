@@ -24,7 +24,7 @@ class Settings {
 	double _nr_polygons = 5;
 	int _level_time = 10;
 	bool _debug = false;
-	int _lamp_exponent = 10;
+	int _lamp_exponent = 5;
 	int _lamp_cutoff = 60;
 
 	public:
@@ -32,16 +32,12 @@ class Settings {
 	int getLevelTime(){ return _level_time; }
 	int getDebug(){ return _debug; }
 	void changeDebug(){ _debug = (!_debug); }
-	void setNrPolygons(int a){ (a > 0) ? (_nr_polygons *= 1.1) : (_nr_polygons *= 0.9); if(_nr_polygons > 5) _nr_polygons = 5 ; }
+	void setNrPolygons(int a){ (a > 0) ? (_nr_polygons *= 1.1) : (_nr_polygons *= 0.9); if(0 && _nr_polygons > 5) _nr_polygons = 5 ; }
 	int getLampExponent(){ return _lamp_exponent; }
 	int getLampCutOff(){ return _lamp_cutoff; }
 };
 
 class GameManager{
-	GLuint _TextureRoad;
-	GLuint _TextureRiver;
-	GLuint _TextureRiverside;
-	GLuint _TextureRoadside;
 	GLuint _TexturePause;
 	GLuint _TextureGameOver;
 
@@ -89,10 +85,6 @@ class GameManager{
 		~GameManager();
 		const double* getSpeedCar();
 		const double* getSpeedRiver();
-		GLuint getTextureRoad(){ return _TextureRoad; }
-		GLuint getTextureRiver(){ return _TextureRiver; }
-		GLuint getTextureRiverside(){ return _TextureRiverside; }
-		GLuint getTextureRoadside(){ return _TextureRoadside; }
 		GLuint getTexturePause(){ return _TexturePause; }
 		GLuint getTextureGameOver(){ return _TextureGameOver; }
 		Settings getSettings(){ return _settings; }
@@ -107,6 +99,7 @@ class GameManager{
 		bool setLightsActive(bool a){ return _lights_active = a; }
 		bool setFrogLight(bool a){ return _frog_light = a; }
 
+		bool getPause(){ return paused;  }
 		bool getDebug(){ return _debug; }
 		double getGameSpeed();
 		Frog* getFrog();

@@ -62,7 +62,10 @@ Player* GameManager::getPlayer(int a){return _players[0]; }
 class NewCar{
 	public: static void execute(int i) {
 		DynamicObject *a = NULL;
-
+		if (gm->getPause()){
+			glutTimerFunc(rand() % 5000 + 500, NewCar::execute, 1);
+			return;
+		}
 		bool test_car = true;
 		do{
 			delete(a);
@@ -81,6 +84,10 @@ class NewTimberLog{
 	public: static void execute(int i) {
 		DynamicObject *a = NULL;
 		bool test = true;
+		if (gm->getPause()){
+			glutTimerFunc(rand() % 5000 + 500, NewCar::execute, 1);
+			return;
+		}
 		do{
 			delete(a);
 			int i = rand() % 5;
@@ -181,8 +188,8 @@ void GameManager::init(){
 	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
 	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
 	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	aux->setCutOff(getSettings().getLampCutOff());
-	aux->setExponent(getSettings().getLampExponent());
+	aux->setCutOff(90);
+	aux->setExponent(2);
 	aux->setState(getFrogLight());
 	setlights(aux);
 	
@@ -222,17 +229,23 @@ void GameManager::init(){
 	class Nivel{
 	public:
 		static void improve_level(int i){
-			gm->_speed *= 1.1;
+			if (!gm->getPause())
+				gm->_speed *= 1.1;
 			glutTimerFunc(gm->getSettings().getLevelTime() * 1000, improve_level, 1);
 		}
 	};
 	class Night{
 	public:
 		static void execute(int i){
-			gm->getLight(0)->setState(gm->_modo_dia = !gm->_modo_dia);
-			glutTimerFunc(50000, Night::execute, 1);
+			glutTimerFunc(10000, Night::execute, 0);
+			if(i) return;
+			gm->getLight(0)->setState(gm->_modo_dia = (!gm->_modo_dia));
+			gm->SetStreetLamps(gm->_lights_on = !gm->_lights_on);
+			gm->getLight(0)->setState((gm->_modo_dia = (!gm->_modo_dia)));
+			gm->getLight(1)->setState((gm->_frog_light = (!gm->_frog_light)));
 		}
 	};
+	//Night::execute(1);
 	Nivel::improve_level(1);
 	NewCar::execute(1);
 	NewTimberLog::execute(1);	
@@ -247,9 +260,12 @@ void GameManager::display(){
 	getcameras()[0]->computeProjectionMatrix();
 	getcameras()[0]->update(_w, _h);
 	getcameras()[0]->computeVisualizationMatrix();
+
+	glDisable(GL_LIGHTING);
 	drawLifes();
 	drawInfo();
-	
+	if (_lights_active)	glEnable(GL_LIGHTING);
+
 	glViewport(0, 0, _w, _h);
 	camera_atual->computeProjectionMatrix();
 	camera_atual->update(_w, _h);
@@ -282,6 +298,8 @@ void GameManager::keyUp(unsigned char key){
 	case 27: exit(0); break;// Escape key
 	case 'r': 
 		if(!_dead) return;
+		for (GameObject *aux : getFrogs()){ delete(aux); }
+		list_frogs.erase(list_frogs.begin(), list_frogs.end());
 		_players[0]->setLifes(5);
 		_players[0]->getFrog()->setPosition(0, 10, -1);
 		_players[0]->getFrog()->setSpeed(0, 0, 0);
@@ -307,9 +325,9 @@ void GameManager::keyUp(unsigned char key){
 void GameManager::keyPressed(unsigned char key){
 	for (Player *aux : getPlayers())
 		if (aux->getKeys().count(key)) 
-			aux->getFrog()->setSpeed(	(aux->getKeys()[key].getX()) ? aux->getKeys()[key].getX() * SPEED_FROG : aux->getFrog()->getSpeed().getX(),
-										(aux->getKeys()[key].getY()) ? aux->getKeys()[key].getY() * SPEED_FROG : aux->getFrog()->getSpeed().getY(),
-										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : aux->getFrog()->getSpeed().getZ());
+			aux->getFrog()->setSpeed(	(aux->getKeys()[key].getX()) ? aux->getKeys()[key].getX() * SPEED_FROG : 0,
+										(aux->getKeys()[key].getY()) ? aux->getKeys()[key].getY() * SPEED_FROG : 0,
+										(aux->getKeys()[key].getZ()) ? aux->getKeys()[key].getZ() * SPEED_FROG : 0);
 
 }
 void GameManager::drawLifes(){
@@ -362,12 +380,14 @@ void GameManager::update(unsigned long delta){
 	if (getPlayer(0)->getLifes() == 0)
 		_dead = true;
 	double initial = 0;
-	for (DynamicObject *aux : getDynamicObjects()){
-		aux->update(delta);
-		if (((aux->getSpeed().getX() > 0) ? 1 : -1) * (aux->getPosition().getX()) > 400){
-			delete(aux);
-			_dynamic_game_objects.remove(aux);
-			continue;
+	if (delta){
+		for (DynamicObject *aux : getDynamicObjects()){
+			aux->update(delta);
+			if (((aux->getSpeed().getX() > 0) ? 1 : -1) * (aux->getPosition().getX()) > 400){
+				delete(aux);
+				_dynamic_game_objects.remove(aux);
+				continue;
+			}
 		}
 	}
 	if (camera_atual_id == 2){
@@ -376,6 +396,15 @@ void GameManager::update(unsigned long delta){
 	}
 	getLight(1)->setPosition(	getFrog()->getPosition().getX(),
 								getFrog()->getPosition().getY(),
-								getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);  
+								getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);
+	Vector3 direction;
+	direction.set(0, 4, -1);
+	if (getFrog()->getSpeed().getX() > 0)
+		direction.set(4, 0, -1);
+	else if (getFrog()->getSpeed().getX() < 0)
+		direction.set(-4, 0, -1);
+	else if (getFrog()->getSpeed().getY() < 0)
+		direction.set(0, -4, -1);
+	getLight(1)->setDirection(direction.getX(), direction.getY(), direction.getZ()); //Direcao do sapo
 	glutPostRedisplay();
 }

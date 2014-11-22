@@ -3,8 +3,12 @@
 #include "Polygon.h"
 #include "GameManager.h"
 #include <cmath>
+#include "Texture.h"
 extern GameManager *gm;
-FrogTarget::FrogTarget(){ setSize(7.5, 7.5, 5); }
+FrogTarget::FrogTarget(){
+	setSize(7.5, 7.5, 5);
+	setTexture(Texture::loadBMP_custom("Water.bmp"), 512);
+}
 FrogTarget::FrogTarget(double x, double y, double z) :FrogTarget(){ setPosition(x, y, z); }
 FrogTarget::~FrogTarget(){}
 void FrogTarget::draw(){
@@ -14,7 +18,7 @@ void FrogTarget::draw(){
 			0.20, 0.20, 1.00, 1.00,	//Diffuse
 			1.00, 1.00, 1.00, 1.00,	//Specular
 			0.00, 0.00, 0.00, 1.00,	//Emission
-			77);					//SHININESS
+			77, getTexture());					//SHININESS
 		glColor3f(0.1176, 0.1176, 0.5961);
 		glTranslatef(getPosition().getX(), getPosition().getY() - 2.5, getPosition().getZ()+0.01);
 		Polygon::execute(	2*getSize().getX(), 2*getSize().getY(),

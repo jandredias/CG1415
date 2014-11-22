@@ -6,7 +6,10 @@
 #include "GameManager.h"
 #include "Texture.h"
 extern GameManager  *gm;
-Road::Road(){ setSize(500, 30, 10); std::cout << "TEXT ROAD" << std::endl; setTexture(Texture::loadBMP_custom("Asphalt.bmp")); }
+Road::Road(){
+	setSize(300, 30, 10);
+	if(gm->getDebug()) std::cout << "TEXT ROAD" << std::endl;
+	setTexture(Texture::loadBMP_custom("Asphalt.bmp"), 512); }
 Road::~Road(){}
 Road::Road(double x, double y, double z): Road() {setPosition(x, y, z);}
 void Road::draw(){

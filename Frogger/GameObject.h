@@ -8,6 +8,7 @@ class GameObject : public Entity
 {
 	Vector3 _size;
 	GLuint _texture;
+	int		_textureSize;
 	public:
 		GameObject();
 		virtual ~GameObject();
@@ -24,8 +25,9 @@ class GameObject : public Entity
 		virtual void draw() = 0;
 		void setSize(double x, double y, double z);
 		Vector3 getSize();
-		void setTexture(GLuint a){ _texture = a; }
+		void setTexture(GLuint a, int b){ _texture = a; _textureSize = b; }
 		GLuint getTexture(){ return _texture; }
+		int getTextureSize(){ return _textureSize; }
 };
 
 

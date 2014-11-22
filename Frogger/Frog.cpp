@@ -37,7 +37,9 @@ void Frog::draw(){
 			glutWireCube(1);
 			glPopMatrix();
 		}
+		glRotatef((getSpeed().getX() > 0) ? -90 : (getSpeed().getX() < 0) ? 90 : (getSpeed().getY() < 0) ? 180 : 0, 0, 0, 1);
 		glTranslatef(0, 2.9, 0);
+		
 		defineMaterial(	0.00, 0.00, 0.00, 1.00,	//Ambient
 						0.00, 0.30, 0.00, 1.00,	//Diffuse
 						0.60, 0.70, 0.60, 1.00,	//Specular
@@ -118,13 +120,13 @@ void Frog::draw(){
 		glColor3f(0.90, 0.00, 0.00);
 		//Olho esquerdo do sapo
 		glPushMatrix();
-			glTranslated(-2, 1, 0);
+			glTranslated(-2, 1, 3);
 			glutSolidSphere(1, 8, 8);
 		glPopMatrix();
 
 		//Olho direito do sapo
 		glPushMatrix();
-			glTranslated(2, 1, 0);
+			glTranslated(2, 1, 3);
 			glutSolidSphere(1, 8, 8);
 		glPopMatrix();
 	glPopMatrix();
