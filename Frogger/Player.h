@@ -12,6 +12,7 @@ class Player
 	int _points = 0;
 	int _time_points = 1000;
 	LightSource *_light;
+	bool _lightState = true;
 	std::map<char, Vector3> _keys;
 
 	Frog *_frog;
@@ -25,12 +26,13 @@ class Player
 		int getID();
 		void setID(int id);
 		void setLifes(int x);
+		bool changeLightState();
 		int getLifes();
 		void setPoints(int points);
 		int getPoints();
 		Frog* getFrog();
 		void setFrog(Frog* a);
-
+		void updateLight();
 		void newRound();
 
 };

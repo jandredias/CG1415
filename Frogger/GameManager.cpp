@@ -52,7 +52,7 @@ std::list<Frog*> GameManager::getFrogs(){ return list_frogs; }
 std::vector<LightSource *> GameManager::getlights(void){ return _lights; }
 LightSource* GameManager::getLight(int i){	return _lights[i]; }
 std::vector<LightSource *> GameManager::setlights(LightSource* aux){ _lights.push_back(aux); return _lights; }
-void GameManager::SetStreetLamps(bool state){ for (size_t i = 2; i < getlights().size(); i++) getlights()[i]->setState(state); }
+void GameManager::SetStreetLamps(bool state){ for (size_t i = 1; i < 7; i++) getlights()[i]->setState(state); }
 
 void GameManager::setPlayer(Player *a){ _players.push_back(a); }
 std::vector<Player *> GameManager::getPlayers(){ return _players; }
@@ -119,8 +119,8 @@ void GameManager::init(){
 	text += "Ligar e Desligar Candeeiros de Rua: C\n";
 	text += "Ativar/Desativar Luzes: L\n";
 	text += "\n";
-	text += "Aumentar Resolução: +\n";
-	text += "Diminuir Resolução: -\n";
+	text += "Increase Resolution: +\n";
+	text += "Decrease Resolution: -\n";
 	text += "Ativar Modo de Teste: d\n";
 	std::cout << text.c_str() << std::endl;
 
@@ -168,8 +168,7 @@ void GameManager::init(){
 	/*
 	Cada fonte de luz tem de ser criada em separado, isto e cada candeeiro tem de ser uma fonte de luz
 	*/
-	setPlayer(new Player('a', 'q', 'o', 'p'));
-
+	
 	LightSource *aux = new LightSource(getlights().size());
 		aux->setPosition(-1,-1,1, 0); //O SOL esta' a esquerda
 		aux->setDirection(0, 0, 0);
@@ -178,23 +177,6 @@ void GameManager::init(){
 		aux->setAmbient(0.2, 0.2, 0.2, 1.0);
 		aux->setState(true);
 		setlights(aux);
-	
-	//Luz que acompanha o sapo
-	aux = new LightSource(getlights().size());
-	aux->setPosition(	getFrog()->getPosition().getX(),
-						getFrog()->getPosition().getY(),
-						getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1); 
-	aux->setDirection(0, 4, -1); //Direcao do sapo
-	aux->setSpecular(1.0, 1.0, 1.0, 1.0);
-	aux->setDiffuse(1.0, 1.0, 1.0, 1.0);
-	aux->setAmbient(0.2, 0.2, 0.2, 1.0);
-	aux->setCutOff(90);
-	aux->setExponent(2);
-	aux->setState(getFrogLight());
-	setlights(aux);
-	
-	getPlayer(0)->setLight(aux);
-	
 	
 	for(int y = 0; y <= 200; y+=100)
 		for(int x = -100; x <= 100; x += 200){
@@ -225,6 +207,8 @@ void GameManager::init(){
 	setcameras(new OrthogonalCamera(-120, 120, 0, 200, -100, 100));
 	setcameras(camera_atual = new PerspectiveCamera(90, 1, 1, 400));
 	setcameras(new PerspectiveCamera(90, 1, 1, 400));
+	
+	setPlayer(new Player('a', 'q', 'o', 'p'));
 
 	class Nivel{
 	public:
@@ -307,7 +291,10 @@ void GameManager::keyUp(unsigned char key){
 		break;
 	case 's': if(!_dead) paused = !paused; break;
 	case 'n': getLight(0)->setState((_modo_dia = (!_modo_dia))); break;
-	case 'h': getLight(1)->setState((_frog_light = (!_frog_light))); break;
+	case 'h':
+		for(Player *player : getPlayers())
+			player->changeLightState();
+		break;
 	case 'l':
 		if ((_lights_active = (!_lights_active))) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
@@ -394,17 +381,9 @@ void GameManager::update(unsigned long delta){
 		camera_atual->setAt(getFrog()->getPosition().getX(), getFrog()->getPosition().getY() - 20, getFrog()->getPosition().getZ() + 20);
 		camera_atual->setUp(0, 2, 5);
 	}
-	getLight(1)->setPosition(	getFrog()->getPosition().getX(),
-								getFrog()->getPosition().getY(),
-								getFrog()->getPosition().getZ()+getFrog()->getSize().getX(), 1);
-	Vector3 direction;
-	direction.set(0, 4, -1);
-	if (getFrog()->getSpeed().getX() > 0)
-		direction.set(4, 0, -1);
-	else if (getFrog()->getSpeed().getX() < 0)
-		direction.set(-4, 0, -1);
-	else if (getFrog()->getSpeed().getY() < 0)
-		direction.set(0, -4, -1);
-	getLight(1)->setDirection(direction.getX(), direction.getY(), direction.getZ()); //Direcao do sapo
+	
+	for(Player *player : getPlayers())
+		player->updateLight();
+		
 	glutPostRedisplay();
 }

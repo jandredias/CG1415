@@ -1,6 +1,7 @@
 
 #include "Player.h"
 #include "GameManager.h"
+#include "LightSource.h"
 extern GameManager *gm;
 
 Player::Player(){
@@ -14,10 +15,28 @@ Player::Player(char keydown, char keyup, char keyleft, char keyright) : Player()
 	_keys.insert(std::pair<char, Vector3>(keydown, Vector3(0, -1, 0)));
 	_keys.insert(std::pair<char, Vector3>(keyleft, Vector3(-1, 0, 0)));
 	_keys.insert(std::pair<char, Vector3>(keyright, Vector3(1, 0, 0)));
+	
+	_light = new LightSource(gm->getlights().size());
+	_light->setPosition(_frog->getPosition().getX(),
+						_frog->getPosition().getY(),
+						_frog->getPosition().getZ()+_frog->getSize().getX(), 1); 
+	_light->setDirection(0, 4, -1); //Direcao do sapo
+	_light->setSpecular(1.0, 1.0, 1.0, 1.0);
+	_light->setDiffuse(1.0, 1.0, 1.0, 1.0);
+	_light->setAmbient(0.2, 0.2, 0.2, 1.0);
+	_light->setCutOff(90);
+	_light->setExponent(2);
+	_light->setState(_lightState);
+	gm->setlights(_light);
+	
 }
 
 Player::~Player(){}
-
+bool Player::changeLightState(){ 
+	_lightState = (!_lightState);
+	_light->setState(_lightState);
+	return _lightState;
+}
 void Player::setLight(LightSource *a) { _light = a; }
 LightSource* Player::getLight(){ return _light; }
 
@@ -42,5 +61,21 @@ void Player::newRound(){
 	_frog->setPosition(0, 10, -1);
 	_frog->setSpeed(0, 0, 0);
 	return;
+}
+
+void Player::updateLight(){
+	Vector3 direction;
+	direction.set(0, 4, -1);
+	if (_frog->getSpeed().getX() > 0)
+		direction.set(4, 0, -1);
+	else if (_frog->getSpeed().getX() < 0)
+		direction.set(-4, 0, -1);
+	else if (_frog->getSpeed().getY() < 0)
+		direction.set(0, -4, -1);
+	_light->setDirection(direction.getX(), direction.getY(), direction.getZ());
+	_light->setPosition(_frog->getPosition().getX(),
+						_frog->getPosition().getY(),
+						_frog->getPosition().getZ()+_frog->getSize().getX(), 1);
+	
 }
 

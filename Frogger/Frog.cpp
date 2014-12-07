@@ -130,13 +130,6 @@ void Frog::draw(){
 			glutSolidSphere(1, 8, 8);
 		glPopMatrix();
 	glPopMatrix();
-
-/*	material_Ka[] = { 0.00, 0.00, 0.00, 1.00 };
-	material_Kd[] = { 1.00, 1.00, 1.00, 1.00 };
-	material_Ks[] = { 0.00, 0.00, 0.00, 1.00 };
-	material_Ke[] = { 0.00, 0.00, 0.00, 0.00 };
-	material_Se = 13;
-	defineMaterial(material_Ka, material_Kd, material_Ks, material_Ke, material_Se);*/
 }
 
 
@@ -162,16 +155,16 @@ void Frog::update(double delta_t){
 	Vector3 speedLog;
 	//Verify Map Limit
 	for (DynamicObject *aux : gm->getDynamicObjects())
-		if (HasColision(aux))
+		if (HasColision(aux)){
 			if (dynamic_cast<TimberLog *> (aux)){
 				ColisionTimberLog = true;
 				speeder = aux;
 			}
 			else if (dynamic_cast<Car*> (aux)) ColisionCar = true;
-		
+		}
 
 		for (StaticObject *aux : gm->getStaticObjects())
-			if (HasColision(aux))
+			if (HasColision(aux)){
 				if (dynamic_cast<FrogTarget*> (aux)){
 					gm->setNewFrog(Vector3(aux->getPosition().getX(), aux->getPosition().getY() - 2.5, aux->getPosition().getZ()));
 					gm->getPlayers()[0]->newRound();
@@ -188,7 +181,7 @@ void Frog::update(double delta_t){
 				else if (dynamic_cast<StreetLamp *> (aux)) setPosition(oldPosition.getX(), oldPosition.getY(), oldPosition.getZ());
 				else if (dynamic_cast<River *> (aux)) ColisionRiver = true;
 				else if (dynamic_cast<Riverside *> (aux)) ColisionRiverside = true;
-
+			}
 			if (ColisionCar || (ColisionRiver && !(ColisionRiverside || ColisionTimberLog))){
 				setSpeed(0, 0, 0);
 				setPosition(0, 10, -1);
